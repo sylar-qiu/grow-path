@@ -12,6 +12,8 @@ theme:
 
 nav:
   - 首页: index.md
+  - 浏览器扩展:
+    - browser-extension/index.md
   - 架构师之路:
     - architecture/index.md
   - 机器人之路:

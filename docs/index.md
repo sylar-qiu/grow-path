@@ -2,17 +2,15 @@
 
 双轨学习记录。
 
-## 架构师之路
+## 正在推进
 
-系统设计、架构决策、分布式系统、可扩展性。
+[**浏览器扩展**](browser-extension/index.md) — 知识体系整理中。
 
-[进入 →](architecture/index.md)
+## 双轨
 
-## 机器人之路
+[**架构师之路** →](architecture/index.md)
 
-感知、规划、控制、AI、应用落地。
-
-[进入 →](robotics/index.md)
+[**机器人之路** →](robotics/index.md)
 
 ---
 
