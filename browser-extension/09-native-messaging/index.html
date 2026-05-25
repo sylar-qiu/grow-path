@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://sylar-qiu.github.io/grow-path/browser-extension/09-native-messaging/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>09 - 原生通信 - 成长笔记</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "09 - \u539f\u751f\u901a\u4fe1";
+        var mkdocs_page_input_path = "browser-extension/09-native-messaging.md";
+        var mkdocs_page_url = "/grow-path/browser-extension/09-native-messaging/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 成长笔记
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">浏览器扩展</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../">总览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../01-core-architecture/">01 - 核心架构层</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../02-content-scripts/">02 - 内容脚本层</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../03-service-worker/">03 - Service Worker 层</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../04-storage/">04 - 存储层</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../05-ui-layer/">05 - UI 层</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../06-network/">06 - 网络层</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../07-api-panorama/">07 - 浏览器 API 全景</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../08-devtools/">08 - DevTools 扩展</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">09 - 原生通信</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#native-messaging">Native Messaging 协议</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_2">工作流程</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#native-host">Native Host 注册</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">通信协议</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">安全性</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">扩展侧代码</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">适合场景</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_7">不适合场景</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_8">参考</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../10-build-tooling/">10 - 构建与工程化</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../11-debugging-testing/">11 - 调试与测试</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../12-publishing/">12 - 发布与运维</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../13-cross-browser/">13 - 多浏览器兼容</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">架构师之路</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../architecture/">架构师之路</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">机器人之路</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../robotics/">机器人之路</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">成长笔记</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">浏览器扩展</li>
+      <li class="breadcrumb-item active">09 - 原生通信</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/sylar-qiu/grow-path/edit/master/docs/browser-extension/09-native-messaging.md">Edit on sylar-qiu/grow-path</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">原生通信<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>扩展与本地进程（可执行文件、shell 脚本）交互的唯一通道。场景相对小众，但需要时它是无可替代的。</p>
+<h2 id="native-messaging">Native Messaging 协议<a class="headerlink" href="#native-messaging" title="Permanent link">&para;</a></h2>
+<h3 id="_2">工作流程<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code>扩展                  Native Host (可执行文件)
+  │                          │
+  ├── chrome.runtime.connect →│  建立连接
+  │                          │
+  ├── port.postMessage ──────►│  发送 JSON 消息
+  │                          │
+  ◄────── port.onMessage ────┤  接收回复
+  │                          │
+  ├── port.disconnect ───────►│  断开连接
+</code></pre>
+
+<h3 id="native-host">Native Host 注册<a class="headerlink" href="#native-host" title="Permanent link">&para;</a></h3>
+<p>本机需要安装一个 JSON 配置文件告诉浏览器"这个 Native Host 存在"。</p>
+<p><strong>macOS</strong> 路径：<code>~/Library/Application Support/Google/Chrome/NativeMessagingHosts/com.myapp.json</code></p>
+<pre class="codehilite"><code class="language-json">{
+  &quot;name&quot;: &quot;com.myapp&quot;,
+  &quot;description&quot;: &quot;与我扩展通信的本地进程&quot;,
+  &quot;path&quot;: &quot;/usr/local/bin/my-native-app&quot;,
+  &quot;type&quot;: &quot;stdio&quot;,
+  &quot;allowed_origins&quot;: [&quot;chrome-extension://&lt;你的扩展ID&gt;/&quot;]
+}
+</code></pre>
+
+<p><strong>Windows</strong> 路径：注册表 <code>HKEY_CURRENT_USER\Software\Google\Chrome\NativeMessagingHosts\com.myapp</code></p>
+<h3 id="_3">通信协议<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>消息格式：<strong>4 字节长度（小端序）+ UTF-8 JSON</strong></p>
+<pre class="codehilite"><code>[4字节长度][JSON数据]
+</code></pre>
+
+<p>每一条消息都是独立的 JSON 对象。Native Host 从 stdin 读入消息，输出到 stdout。</p>
+<pre class="codehilite"><code class="language-javascript">// C 示例：读取消息
+uint32_t len;
+fread(&amp;len, 4, 1, stdin);
+char* buf = malloc(len + 1);
+fread(buf, 1, len, stdin);
+buf[len] = '\0';
+// buf 就是 JSON 字符串
+
+// 发送回复
+char* response = &quot;{\&quot;status\&quot;:\&quot;ok\&quot;}&quot;;
+uint32_t resp_len = strlen(response);
+fwrite(&amp;resp_len, 4, 1, stdout);
+fwrite(response, 1, resp_len, stdout);
+fflush(stdout);
+</code></pre>
+
+<h3 id="_4">安全性<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>allowed_origins</code> 限制了哪个扩展可以连接这个 Host</li>
+<li>Native Host 的运行身份是当前用户</li>
+<li>扩展不能指定任意路径——必须通过已注册的 Host 名称连接</li>
+</ul>
+<h2 id="_5">扩展侧代码<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<pre class="codehilite"><code class="language-javascript">// SW 中
+const port = chrome.runtime.connectNative('com.myapp');
+
+port.onMessage.addListener((msg) =&gt; {
+  console.log('收到本地回复:', msg);
+});
+
+port.onDisconnect.addListener(() =&gt; {
+  if (chrome.runtime.lastError) {
+    console.error('连接断开:', chrome.runtime.lastError.message);
+  }
+});
+
+// 发送消息
+port.postMessage({ action: 'readFile', path: '/tmp/data.json' });
+</code></pre>
+
+<h2 id="_6">适合场景<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>文件系统操作</td>
+<td>扩展无法直接读写的路径</td>
+</tr>
+<tr>
+<td>执行本机命令</td>
+<td>调用本机 CLI 工具</td>
+</tr>
+<tr>
+<td>硬件交互</td>
+<td>USB、串口、蓝牙</td>
+</tr>
+<tr>
+<td>本地数据库</td>
+<td>SQLite、RocksDB</td>
+</tr>
+<tr>
+<td>本地 HTTP 服务</td>
+<td>启动 nginx 或 mock server</td>
+</tr>
+<tr>
+<td>与本机应用互操作</td>
+<td>从你的电脑应用读取数据</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_7">不适合场景<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<ul>
+<li>简单网络请求（直接 fetch 就行）</li>
+<li>定时任务（用 chrome.alarms）</li>
+<li>少量文件操作（<code>File API</code> 配合 <code>activeTab</code> 足够）</li>
+</ul>
+<hr />
+<h2 id="_8">参考<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://developer.chrome.com/docs/extensions/mv3/nativeMessaging/">Native Messaging | Chrome Developers</a></li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../08-devtools/" class="btn btn-neutral float-left" title="08 - DevTools 扩展"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../10-build-tooling/" class="btn btn-neutral float-right" title="10 - 构建与工程化">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>CC0 1.0 Universal</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/sylar-qiu/grow-path" class="fa fa-code-fork" style="color: #fcfcfc"> sylar-qiu/grow-path</a>
+        </span>
+    
+    
+      <span><a href="../08-devtools/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../10-build-tooling/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
