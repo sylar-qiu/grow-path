@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://sylar-qiu.github.io/grow-path/browser-extension/case-03-service-worker/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>03 - Service Worker 实战 - 成长笔记</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "03 - Service Worker \u5b9e\u6218";
+        var mkdocs_page_input_path = "browser-extension/case-03-service-worker.md";
+        var mkdocs_page_url = "/grow-path/browser-extension/case-03-service-worker/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 成长笔记
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">浏览器扩展</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../">总览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >知识体系</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../01-core-architecture/">01 - 核心架构层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../02-content-scripts/">02 - 内容脚本层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../03-service-worker/">03 - Service Worker 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../04-storage/">04 - 存储层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../05-ui-layer/">05 - UI 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../06-network/">06 - 网络层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../07-api-panorama/">07 - 浏览器 API 全景</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../08-devtools/">08 - DevTools 扩展</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../09-native-messaging/">09 - 原生通信</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../10-build-tooling/">10 - 构建与工程化</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../11-debugging-testing/">11 - 调试与测试</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../12-publishing/">12 - 发布与运维</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../13-cross-browser/">13 - 多浏览器兼容</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" >实战案例（淘宝插件）</a>
+    <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../case-01-architecture/">01 - 架构与 Manifest</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-02-content-scripts/">02 - 内容脚本实战</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">03 - Service Worker 实战</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#_1">概述</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_2">事件驱动</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">中转模式</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sw">为什么 SW 不做数据采集逻辑？</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">导出操作</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">休眠与唤醒分析</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sw_1">潜在的 SW 缺陷</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_6">参考</a>
+    </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-04-storage/">04 - 存储层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-05-ui-layer/">05 - UI 层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-06-engineering/">06 - 工程化与数据流</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">架构师之路</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../architecture/">架构师之路</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">机器人之路</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../robotics/">机器人之路</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">成长笔记</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">浏览器扩展</li>
+          <li class="breadcrumb-item">实战案例（淘宝插件）</li>
+      <li class="breadcrumb-item active">03 - Service Worker 实战</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/sylar-qiu/grow-path/edit/master/docs/browser-extension/case-03-service-worker.md">Edit on sylar-qiu/grow-path</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="03service-worker">案例 03：Service Worker — 淘宝插件后台<a class="headerlink" href="#03service-worker" title="Permanent link">&para;</a></h1>
+<h2 id="_1">概述<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p><code>background.js</code>（239 行）是淘宝插件的 Service Worker。相比 Side Panel（3048 行），它非常精炼——这是 MV3 的正确设计模式。</p>
+<h2 id="_2">事件驱动<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<pre class="codehilite"><code class="language-javascript">// 安装事件
+chrome.runtime.onInstalled.addListener(() =&gt; {
+  // 初始化存储
+  // 设置 sidePanel 行为
+  chrome.sidePanel.setPanelBehavior({ openPanelOnActionClick: true });
+});
+
+// 点击图标（无 Popup）
+chrome.action.onClicked.addListener(function(tab) {
+  chrome.sidePanel.open({ tabId: tab.id });
+});
+
+// 消息处理——最主要的工作
+chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
+  // 处理 7 个 action
+});
+</code></pre>
+
+<p>三个事件覆盖了整个 SW 的工作。没有 <code>alarms</code>，没有周期性任务——它只在需要时被唤醒。</p>
+<h2 id="_3">中转模式<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>SW 最核心的作用不是执行逻辑，而是<strong>中转</strong>。Content Script 和 Side Panel 不能直接通信（Side Panel 没有 <code>tabs</code> API）：</p>
+<pre class="codehilite"><code class="language-javascript">// Content Script 需要发消息给 Side Panel
+// → 必须先发给 SW，SW 再转发
+
+// background.js
+if (msg.action === 'forwardToTab') {
+  chrome.tabs.sendMessage(msg.tabId, msg.msg, function (response) {
+    sendResponse(response);
+  });
+  return true;  // 保持通道开放等异步响应
+}
+</code></pre>
+
+<p>对应的发送端（Side Panel 中）：</p>
+<pre class="codehilite"><code class="language-javascript">// sidepanel.js
+chrome.runtime.sendMessage({
+  action: 'forwardToTab',
+  tabId: targetTabId,
+  msg: { action: 'switchCategory', category: name }
+}, function(response) { ... });
+</code></pre>
+
+<h2 id="sw">为什么 SW 不做数据采集逻辑？<a class="headerlink" href="#sw" title="Permanent link">&para;</a></h2>
+<p>SW 只有 239 行，而 Side Panel 有 3048 行，搜索页 CS 有 1117 行。这是设计选择：</p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>放在哪</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数据采集、DOM 操作</td>
+<td>Content Script</td>
+<td>需要页面 DOM</td>
+</tr>
+<tr>
+<td>品类展示、AI 分析、报表</td>
+<td>Side Panel</td>
+<td>需要持续 UI，空间大</td>
+</tr>
+<tr>
+<td>中转、导出文件</td>
+<td>Service Worker</td>
+<td>不需要 UI，事件驱动即可</td>
+</tr>
+</tbody>
+</table>
+<p>如果 SW 休眠了也不会影响——用户在 Side Panel 中操作时，会发送消息唤醒 SW，SW 处理完立即空闲。SW 不持有任何持久状态，所有数据都通过 <code>chrome.storage.local</code> 存取。</p>
+<h2 id="_4">导出操作<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>SW 处理 CSV/XLS 导出：</p>
+<pre class="codehilite"><code class="language-javascript">async function handleExport() {
+  // 从 storage 读数据
+  const { collected } = await chrome.storage.local.get('collected');
+  // 生成 CSV
+  const csv = itemsToCSV(collected);
+  // 创建 Blob URL
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  // 触发下载
+  await chrome.downloads.download({ url: url, filename: 'export.csv' });
+}
+</code></pre>
+
+<p>这个操作利用了 SW 能调用的 API 限制内恰好能做的工作——不涉及 DOM，不依赖页面，纯数据转换 + 下载 API。</p>
+<h2 id="_5">休眠与唤醒分析<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>在实际使用中，这个扩展的场景是：</p>
+<ol>
+<li>用户在淘宝搜索 → SW 不参与</li>
+<li>CS 采集数据 → 存 <code>chrome.storage.local</code> → 发消息给 SW → SW 唤醒</li>
+<li>SW 执行 <code>forwardToTab</code> → Side Panel 收到数据 → SW 空闲 → 5 分钟后休眠</li>
+<li>用户操作 Side Panel → 发消息给 SW → SW 再次唤醒</li>
+</ol>
+<p>SW 每次活跃时间不超过几毫秒（只是消息转发），所以<strong>不会触发 30 秒超时限制</strong>。这是设计贴合系统的典型案例。</p>
+<h2 id="sw_1">潜在的 SW 缺陷<a class="headerlink" href="#sw_1" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>无持久状态</strong>：SW 中没有缓存变量（除了 <code>console.log</code> 没有副作用损失），这其实是正确的</li>
+<li><strong>无 Offscreen Document</strong>：如果需要生成带样式的 HTML 导出文件，SW 做不了——需要 Offscreen Document。目前导出的是纯文本 CSV，不需要 DOM</li>
+<li><strong>无错误恢复</strong>：如果 <code>forwardToTab</code> 的目标标签已关闭，<code>chrome.tabs.sendMessage</code> 会静默失败</li>
+</ol>
+<hr />
+<h2 id="_6">参考<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<ul>
+<li>源码：<code>Projects/taobao-plugin/extension/src/background/background.js</code></li>
+<li>知识体系：<a href="../03-service-worker/">Service Worker 层</a></li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../case-02-content-scripts/" class="btn btn-neutral float-left" title="02 - 内容脚本实战"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../case-04-storage/" class="btn btn-neutral float-right" title="04 - 存储层实战">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>CC0 1.0 Universal</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/sylar-qiu/grow-path" class="fa fa-code-fork" style="color: #fcfcfc"> sylar-qiu/grow-path</a>
+        </span>
+    
+    
+      <span><a href="../case-02-content-scripts/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../case-04-storage/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

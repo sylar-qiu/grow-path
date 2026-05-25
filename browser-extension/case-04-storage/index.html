@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://sylar-qiu.github.io/grow-path/browser-extension/case-04-storage/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>04 - 存储层实战 - 成长笔记</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "04 - \u5b58\u50a8\u5c42\u5b9e\u6218";
+        var mkdocs_page_input_path = "browser-extension/case-04-storage.md";
+        var mkdocs_page_url = "/grow-path/browser-extension/case-04-storage/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 成长笔记
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">浏览器扩展</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../">总览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >知识体系</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../01-core-architecture/">01 - 核心架构层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../02-content-scripts/">02 - 内容脚本层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../03-service-worker/">03 - Service Worker 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../04-storage/">04 - 存储层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../05-ui-layer/">05 - UI 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../06-network/">06 - 网络层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../07-api-panorama/">07 - 浏览器 API 全景</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../08-devtools/">08 - DevTools 扩展</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../09-native-messaging/">09 - 原生通信</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../10-build-tooling/">10 - 构建与工程化</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../11-debugging-testing/">11 - 调试与测试</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../12-publishing/">12 - 发布与运维</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../13-cross-browser/">13 - 多浏览器兼容</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" >实战案例（淘宝插件）</a>
+    <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../case-01-architecture/">01 - 架构与 Manifest</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-02-content-scripts/">02 - 内容脚本实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-03-service-worker/">03 - Service Worker 实战</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">04 - 存储层实战</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#_1">概述</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_2">存储选型</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">数据结构</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">数据写入策略：即时入库</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#api">存储 API 设计</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_6">运行时缓存</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#cs">与搜索页 CS 的协同</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_7">参考</a>
+    </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-05-ui-layer/">05 - UI 层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-06-engineering/">06 - 工程化与数据流</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">架构师之路</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../architecture/">架构师之路</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">机器人之路</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../robotics/">机器人之路</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">成长笔记</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">浏览器扩展</li>
+          <li class="breadcrumb-item">实战案例（淘宝插件）</li>
+      <li class="breadcrumb-item active">04 - 存储层实战</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/sylar-qiu/grow-path/edit/master/docs/browser-extension/case-04-storage.md">Edit on sylar-qiu/grow-path</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="04">案例 04：存储层 — 淘宝品类数据模型<a class="headerlink" href="#04" title="Permanent link">&para;</a></h1>
+<h2 id="_1">概述<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p><code>storage.js</code>（679 行）是淘宝插件的统一数据存储层。它是全插件最重要的代码——定义数据结构的文件。</p>
+<h2 id="_2">存储选型<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>选型：<strong><code>chrome.storage.local</code> 做持久化，<code>chrome.storage.session</code> 做运行时缓存</strong></p>
+<p>为什么不是 IndexedDB？</p>
+<ul>
+<li>IndexedDB 在 SW 中可用，但 API 更复杂</li>
+<li>数据量预估：一个用户可能有 20-50 个品类，每个品类 500 个 SPU，总数据量 1-5MB——<code>chrome.storage.local</code> 完全够用</li>
+<li><code>chrome.storage.local</code> 是键值对，序列化/反序列化简单</li>
+</ul>
+<p>为什么不是 <code>chrome.storage.sync</code>？</p>
+<ul>
+<li>品类/SPU 数据不需要跨设备同步</li>
+<li>sync 有 102KB/项的配额限制——一个品类数据就可能超限</li>
+</ul>
+<h2 id="_3">数据结构<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<pre class="codehilite"><code class="language-javascript">{
+  &quot;storage_version&quot;: 1,
+  &quot;keywords&quot;: [
+    { id: 1, name: &quot;蓝牙耳机&quot;, created_at: &quot;...&quot;, updated_at: &quot;...&quot; }
+  ],
+  &quot;spu_1&quot;: [  // spu_{keywordId}
+    { num_iid: &quot;12345&quot;, title: &quot;...&quot;, shop: &quot;...&quot;,
+      price: 99, sales: 5000, sales_rank: 3,
+      detail_collected_at: &quot;...&quot;, comments_collected_at: &quot;...&quot; }
+  ],
+  &quot;_kw_counter&quot;: 2,
+  &quot;detail_body_12345&quot;: { /* 完整的详情快照 JSON */ },
+  &quot;item_detail_archive&quot;: { /* SPU 删除时保留的元数据归档 */ }
+}
+</code></pre>
+
+<h3 id="_4">设计亮点<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>SPU 列表与详情体解耦</strong></li>
+</ol>
+<p><code>spu_1</code> 存的是 SPU 的<strong>元数据</strong>（标题、价格、销量），<code>detail_body_12345</code> 存的是<strong>完整详情</strong>（SKU 列表、参数、评论概要）。这样在品类列表中切换时只用加载轻量的元数据列表，详情是按需加载。</p>
+<ol>
+<li><strong>前缀 + ID 的 key 设计</strong></li>
+</ol>
+<p><code>spu_</code>、<code>detail_body_</code>、<code>_kw_</code> 前缀避免 key 冲突，同时可以用 <code>chrome.storage.local.get(null)</code> 一次读出所有数据再筛选。</p>
+<ol>
+<li><strong>归档机制</strong></li>
+</ol>
+<p><code>javascript
+   // 删除品类时，不直接删 detail 数据
+   // SPU 元数据从 spu_* 移除，但详情体保留
+   // 以后相同商品再次加入时，从 archive 恢复时间戳
+   function removePreservingDetailArchive(name) { ... }</code></p>
+<p>这解决了实际使用场景中的问题：用户在清洗数据时会删掉旧品类，但后续可能又把同一商品加回来。归档让"被删 SPU 的详情时间戳"能复用。</p>
+<h2 id="_5">数据写入策略：即时入库<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>项目在 <code>AGENTS.md</code> 中定义了一条核心规则——<strong>即时入库</strong>：</p>
+<pre class="codehilite"><code>凡改变业务数据的操作（品类、SPU 列表与字段、详情/评论元数据等），
+须在当次操作流程内写入 chrome.storage.local。
+不得以仅靠内存或延迟同步作为常态。
+</code></pre>
+
+<p>对应代码：</p>
+<pre class="codehilite"><code class="language-javascript">// storage.js 的 saveBatch 方法
+function saveBatch(keywordName, rows) {
+  // 1. 确保品类存在
+  // 2. 写入 spu_{id}
+  // 3. 更新品类更新时间和统计数据
+}
+</code></pre>
+
+<p>"不延迟同步"意味着不依赖内存缓存等显式 flush——这是扩展存储和普通数据库使用习惯的一个重要差异。</p>
+<h2 id="api">存储 API 设计<a class="headerlink" href="#api" title="Permanent link">&para;</a></h2>
+<pre class="codehilite"><code class="language-javascript">// 对外暴露的 API
+storage.list()                         // 所有品类
+storage.getByName(name)               // 按名称查品类
+storage.getById(id)                    // 按 ID 查品类
+storage.create(name)                   // 创建品类
+storage.remove(name)                   // 删除品类
+storage.removePreservingDetailArchive  // 删除但保留详情归档
+storage.saveBatch(name, rows)          // 批量写入 SPU
+storage.mergeDetailMeta(numIid, meta)  // 合并详情元数据
+storage.get(numIid)                    // 按 SPU ID 读取
+storage.patchSpuSales(numIid, sales)   // 更新销量
+</code></pre>
+
+<h2 id="_6">运行时缓存<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>Side Panel 在 JS 内存中维护了一套热数据缓存：</p>
+<pre class="codehilite"><code class="language-javascript">var cachedCategories = [];    // 品类列表
+var cachedSpuItems = [];      // 当前品类的 SPU
+var detailCache = {};         // 详情快照内存缓存
+</code></pre>
+
+<p>但注意——<strong>这些缓存不是数据源</strong>。每次用户切换品类时，Side Panel 会重新从 storage 加载。缓存的目的是在同一个品类内快速切换视图（比如本地速览 → AI 分析），避免反复读盘。</p>
+<h2 id="cs">与搜索页 CS 的协同<a class="headerlink" href="#cs" title="Permanent link">&para;</a></h2>
+<p>搜索页的 Content Script 有自己的内存状态：</p>
+<pre class="codehilite"><code class="language-javascript">var storageKeywordMap = {};     // name → keyword row
+var storageCategoryItems = {};  // category → [num_iid]
+var storageItemDataMap = {};    // num_iid → item data
+</code></pre>
+
+<p>搜索页 CS 启动时通过 <code>hydrateStorageCache</code> 从 <code>chrome.storage</code> 加载到内存。<strong>这里有一个典型的问题</strong>：Side Panel 修改了数据后，搜索页 CS 不会自动知道。解决方案是通过消息同步：</p>
+<pre class="codehilite"><code>Side Panel 添加 SPU → 发给 SW → forwardToTab → CS 收到 switchCategory
+→ CS 从 storage 重新加载数据 → 重新显示浮层状态
+</code></pre>
+
+<hr />
+<h2 id="_7">参考<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<ul>
+<li>源码：<code>Projects/taobao-plugin/extension/src/lib/storage.js</code></li>
+<li>知识体系：<a href="../04-storage/">存储层</a></li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../case-03-service-worker/" class="btn btn-neutral float-left" title="03 - Service Worker 实战"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../case-05-ui-layer/" class="btn btn-neutral float-right" title="05 - UI 层实战">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>CC0 1.0 Universal</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/sylar-qiu/grow-path" class="fa fa-code-fork" style="color: #fcfcfc"> sylar-qiu/grow-path</a>
+        </span>
+    
+    
+      <span><a href="../case-03-service-worker/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../case-05-ui-layer/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

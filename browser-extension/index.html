@@ -49,33 +49,55 @@
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#_2">完整知识体系</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">实战案例</a>
+    </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="01-core-architecture/">01 - 核心架构层</a>
+                  <li class="toctree-l1"><a class="reference internal" >知识体系</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="01-core-architecture/">01 - 核心架构层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="02-content-scripts/">02 - 内容脚本层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="03-service-worker/">03 - Service Worker 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="04-storage/">04 - 存储层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="05-ui-layer/">05 - UI 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="06-network/">06 - 网络层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="07-api-panorama/">07 - 浏览器 API 全景</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="08-devtools/">08 - DevTools 扩展</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="09-native-messaging/">09 - 原生通信</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="10-build-tooling/">10 - 构建与工程化</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="11-debugging-testing/">11 - 调试与测试</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="12-publishing/">12 - 发布与运维</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="13-cross-browser/">13 - 多浏览器兼容</a>
+                </li>
+    </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="02-content-scripts/">02 - 内容脚本层</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="03-service-worker/">03 - Service Worker 层</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="04-storage/">04 - 存储层</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="05-ui-layer/">05 - UI 层</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="06-network/">06 - 网络层</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="07-api-panorama/">07 - 浏览器 API 全景</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="08-devtools/">08 - DevTools 扩展</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="09-native-messaging/">09 - 原生通信</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="10-build-tooling/">10 - 构建与工程化</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="11-debugging-testing/">11 - 调试与测试</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="12-publishing/">12 - 发布与运维</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="13-cross-browser/">13 - 多浏览器兼容</a>
+                  <li class="toctree-l1"><a class="reference internal" >实战案例（淘宝插件）</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="case-01-architecture/">01 - 架构与 Manifest</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="case-02-content-scripts/">02 - 内容脚本实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="case-03-service-worker/">03 - Service Worker 实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="case-04-storage/">04 - 存储层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="case-05-ui-layer/">05 - UI 层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="case-06-engineering/">06 - 工程化与数据流</a>
+                </li>
+    </ul>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">架构师之路</span></p>
@@ -209,6 +231,49 @@
 </table>
 <hr />
 <p><em>浏览器扩展内容已完成。下一方向：架构师之路。</em></p>
+<h2 id="_3">实战案例<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>结合 <code>~/Projects/taobao-plugin/</code> 实际项目的代码讲解：</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>案例</th>
+<th>对应模块</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>01</td>
+<td><a href="case-01-architecture/">架构与 Manifest</a></td>
+<td>核心架构层</td>
+</tr>
+<tr>
+<td>02</td>
+<td><a href="case-02-content-scripts/">内容脚本实战</a></td>
+<td>内容脚本层</td>
+</tr>
+<tr>
+<td>03</td>
+<td><a href="case-03-service-worker/">Service Worker 实战</a></td>
+<td>Service Worker 层</td>
+</tr>
+<tr>
+<td>04</td>
+<td><a href="case-04-storage/">存储层实战</a></td>
+<td>存储层</td>
+</tr>
+<tr>
+<td>05</td>
+<td><a href="case-05-ui-layer/">UI 层实战</a></td>
+<td>UI 层</td>
+</tr>
+<tr>
+<td>06</td>
+<td><a href="case-06-engineering/">工程化与数据流</a></td>
+<td>构建与工程化 / 数据流</td>
+</tr>
+</tbody>
+</table>
               
             </div>
           </div><footer>

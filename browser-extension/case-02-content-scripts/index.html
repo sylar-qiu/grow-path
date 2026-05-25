@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://sylar-qiu.github.io/grow-path/browser-extension/case-02-content-scripts/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>02 - 内容脚本实战 - 成长笔记</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "02 - \u5185\u5bb9\u811a\u672c\u5b9e\u6218";
+        var mkdocs_page_input_path = "browser-extension/case-02-content-scripts.md";
+        var mkdocs_page_url = "/grow-path/browser-extension/case-02-content-scripts/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 成长笔记
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">浏览器扩展</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../">总览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >知识体系</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../01-core-architecture/">01 - 核心架构层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../02-content-scripts/">02 - 内容脚本层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../03-service-worker/">03 - Service Worker 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../04-storage/">04 - 存储层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../05-ui-layer/">05 - UI 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../06-network/">06 - 网络层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../07-api-panorama/">07 - 浏览器 API 全景</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../08-devtools/">08 - DevTools 扩展</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../09-native-messaging/">09 - 原生通信</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../10-build-tooling/">10 - 构建与工程化</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../11-debugging-testing/">11 - 调试与测试</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../12-publishing/">12 - 发布与运维</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../13-cross-browser/">13 - 多浏览器兼容</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" >实战案例（淘宝插件）</a>
+    <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../case-01-architecture/">01 - 架构与 Manifest</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">02 - 内容脚本实战</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#_1">概述</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_2">注入方式</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">状态管理</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">核心功能模块</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#main-world">Main World 通信</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">边界处理</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_8">参考</a>
+    </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-03-service-worker/">03 - Service Worker 实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-04-storage/">04 - 存储层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-05-ui-layer/">05 - UI 层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-06-engineering/">06 - 工程化与数据流</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">架构师之路</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../architecture/">架构师之路</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">机器人之路</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../robotics/">机器人之路</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">成长笔记</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">浏览器扩展</li>
+          <li class="breadcrumb-item">实战案例（淘宝插件）</li>
+      <li class="breadcrumb-item active">02 - 内容脚本实战</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/sylar-qiu/grow-path/edit/master/docs/browser-extension/case-02-content-scripts.md">Edit on sylar-qiu/grow-path</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="02">案例 02：内容脚本 — 淘宝搜索页数据采集<a class="headerlink" href="#02" title="Permanent link">&para;</a></h1>
+<h2 id="_1">概述<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p><code>search-page.js</code>（1117 行）是淘宝搜索页面（<code>s.taobao.com</code>）的 Content Script。除了它还运行 <code>detail-page.js</code>（详情页）、<code>shop-search-page.js</code>（店铺页）和 <code>sycm-page.js</code>（生意参谋）。</p>
+<h2 id="_2">注入方式<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<pre class="codehilite"><code class="language-json">// manifest.json
+{
+  &quot;matches&quot;: [
+    &quot;https://s.taobao.com/*&quot;,
+    &quot;https://*.taobao.com/search*&quot;,
+    &quot;https://list.tmall.com/*&quot;,
+    ...
+  ],
+  &quot;js&quot;: [&quot;lib/parser-utils.js&quot;, &quot;lib/shared-utils.js&quot;,
+         &quot;src/lib/storage.js&quot;, &quot;src/content/search-page.js&quot;],
+  &quot;run_at&quot;: &quot;document_end&quot;
+}
+</code></pre>
+
+<p>注意 <code>js</code> 数组的顺序——依赖在前（<code>parser-utils.js</code> -&gt; <code>shared-utils.js</code> -&gt; <code>storage.js</code>），业务脚本在最后。这是在 manifest 中声明式注入。</p>
+<h3 id="document_end">为什么用 document_end？<a class="headerlink" href="#document_end" title="Permanent link">&para;</a></h3>
+<p>淘宝页面用 SSR 渲染，<code>document_end</code> 时 DOM 已经就绪，但图片/广告等资源还在加载。商品卡片数据此时已在 HTML 中，可以直接采集。</p>
+<h2 id="_3">状态管理<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>CS 在页面内维持一套内存缓存：</p>
+<pre class="codehilite"><code class="language-javascript">var currentCategory = '';
+var floatBar = null;
+var pinnedBars = new Map();
+var storageKeywordMap = {};
+var storageCategoryItems = {};
+var salesRankSnapshotByQuery = {};
+</code></pre>
+
+<p>所有状态都是页面级别的——页面刷新就丢失。<strong>这导致了搜索页与侧栏之间的核心同步模式</strong>：CS 和 Side Panel 不共享内存状态，每次数据变更都必须通过消息同步。</p>
+<h2 id="_4">核心功能模块<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="1">1. 浮动横条<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<p>CS 直接在页面中注入 UI（<code>injectStyles</code> 函数）：</p>
+<pre class="codehilite"><code class="language-javascript">(function injectStyles() {
+  var style = document.createElement('style');
+  style.textContent = [/* 全部 CSS */].join('\n');
+  document.head.appendChild(style);
+})();
+</code></pre>
+
+<p>这对应知识体系中"Content Script 注入自定义 UI"的模式——直接在页面 DOM 中插入元素。</p>
+<h3 id="2">2. 品类操作（数据层）<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<p>约有 40 个函数专门管理品类/SPU 的增删改查。典型链路：</p>
+<pre class="codehilite"><code>toggleItemInCategory → saveItemData / removeItemFromCategory
+                     → save → chrome.storage.local.set
+                     → sendToSidepanel({ action: 'syncSearchState' })
+</code></pre>
+
+<h3 id="3-dom">3. 页面 DOM 监听<a class="headerlink" href="#3-dom" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-javascript">var domObserver = new MutationObserver(function(mutations) {
+  // 页面 AJAX 加载新商品时重新采集
+  observeDomChanges();
+});
+
+function watchUrlChange() {
+  // SPA 页面 URL 变化时重新初始化
+  var lastUrl = location.href;
+  setInterval(function() {
+    if (location.href !== lastUrl) {
+      lastUrl = location.href;
+      reinitialize();
+    }
+  }, 500);
+}
+</code></pre>
+
+<p>两种监听方式配合：MutationObserver 监听 DOM 变化，轮询监听 URL 变化（淘宝用 history.pushState，没有 popstate 事件）。</p>
+<h2 id="main-world">Main World 通信<a class="headerlink" href="#main-world" title="Permanent link">&para;</a></h2>
+<p>这个 CS 用了 <code>Isolated World</code> 模式——它不试图访问页面 JS 变量，而是通过 DOM 直接提取数据。商品名称、价格、销量都在 DOM 中，所以不需要 Main World 注入。</p>
+<p><code>detail-page.js</code> 稍微不同——它需要从页面内嵌的 JavaScript 变量（<code>window.__INIT_DATA__</code>）中提取参数和 SKU 数据：</p>
+<pre class="codehilite"><code class="language-javascript">// detail-page.js 中
+function extractParams() {
+  // 读取淘宝 SSR 页面内嵌的初始化数据
+  var script = document.querySelector('#__INIT_DATA__');
+  if (script) {
+    var data = JSON.parse(script.textContent);
+    // 解析参数
+  }
+}
+</code></pre>
+
+<h2 id="_5">边界处理<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="_6">扩展重新加载检测<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-javascript">var extensionContextInvalidated = false;
+function markExtensionContextInvalidatedIfSo(e) {
+  // 当扩展在 chrome://extensions 重新加载后，旧 CS 仍在页面运行
+  // 但 chrome.storage / runtime 已经断开了
+  if (isExtensionContextInvalidatedError(e)) {
+    extensionContextInvalidated = true;
+    // 显示提示，引导用户刷新页面
+  }
+}
+</code></pre>
+
+<h3 id="_7">存储写入失败的处理<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-javascript">function handleStorageRejection(err) {
+  if (extensionContextInvalidated) return;
+  // 重试或优雅降级
+}
+</code></pre>
+
+<hr />
+<h2 id="_8">参考<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<ul>
+<li>源码：<code>Projects/taobao-plugin/extension/src/content/search-page.js</code></li>
+<li>知识体系：<a href="../02-content-scripts/">内容脚本层</a></li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../case-01-architecture/" class="btn btn-neutral float-left" title="01 - 架构与 Manifest"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../case-03-service-worker/" class="btn btn-neutral float-right" title="03 - Service Worker 实战">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>CC0 1.0 Universal</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/sylar-qiu/grow-path" class="fa fa-code-fork" style="color: #fcfcfc"> sylar-qiu/grow-path</a>
+        </span>
+    
+    
+      <span><a href="../case-01-architecture/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../case-03-service-worker/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

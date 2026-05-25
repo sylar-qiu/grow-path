@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://sylar-qiu.github.io/grow-path/browser-extension/case-06-engineering/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>06 - 工程化与数据流 - 成长笔记</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "06 - \u5de5\u7a0b\u5316\u4e0e\u6570\u636e\u6d41";
+        var mkdocs_page_input_path = "browser-extension/case-06-engineering.md";
+        var mkdocs_page_url = "/grow-path/browser-extension/case-06-engineering/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 成长笔记
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">浏览器扩展</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../">总览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >知识体系</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../01-core-architecture/">01 - 核心架构层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../02-content-scripts/">02 - 内容脚本层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../03-service-worker/">03 - Service Worker 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../04-storage/">04 - 存储层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../05-ui-layer/">05 - UI 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../06-network/">06 - 网络层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../07-api-panorama/">07 - 浏览器 API 全景</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../08-devtools/">08 - DevTools 扩展</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../09-native-messaging/">09 - 原生通信</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../10-build-tooling/">10 - 构建与工程化</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../11-debugging-testing/">11 - 调试与测试</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../12-publishing/">12 - 发布与运维</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../13-cross-browser/">13 - 多浏览器兼容</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" >实战案例（淘宝插件）</a>
+    <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../case-01-architecture/">01 - 架构与 Manifest</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-02-content-scripts/">02 - 内容脚本实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-03-service-worker/">03 - Service Worker 实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-04-storage/">04 - 存储层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-05-ui-layer/">05 - UI 层实战</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">06 - 工程化与数据流</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#_1">构建与工程化</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_6">完整数据流</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_7">分层架构</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_8">与知识体系的对应</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_9">参考</a>
+    </li>
+    </ul>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">架构师之路</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../architecture/">架构师之路</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">机器人之路</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../robotics/">机器人之路</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">成长笔记</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">浏览器扩展</li>
+          <li class="breadcrumb-item">实战案例（淘宝插件）</li>
+      <li class="breadcrumb-item active">06 - 工程化与数据流</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/sylar-qiu/grow-path/edit/master/docs/browser-extension/case-06-engineering.md">Edit on sylar-qiu/grow-path</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="06">案例 06：工程化、数据流与架构总览<a class="headerlink" href="#06" title="Permanent link">&para;</a></h1>
+<h2 id="_1">构建与工程化<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>项目使用 <strong>no-build</strong> 模式——所有 JS 文件是纯手写 ES5 兼容代码，通过 <code>IIFE</code>（立即执行函数）组织作用域。</p>
+<pre class="codehilite"><code class="language-javascript">// 所有文件都是这种模式
+(function () {
+  'use strict';
+  // ...
+
+  // 不 export，通过 window 对象暴露给其他文件
+  window.storage = storage;
+})();
+</code></pre>
+
+<h3 id="_2">为什么不打包？<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>这个项目的特点是：
+- Content Script 通过 manifest 的 <code>js</code> 数组加载多个文件
+- 浏览器下载每个独立 JS 文件，IIFE 之间通过 <code>window.*</code> 共享
+- 没有 Webpack、Vite 的构建过程</p>
+<pre class="codehilite"><code class="language-json">// manifest.json
+&quot;js&quot;: [&quot;lib/parser-utils.js&quot;, &quot;lib/shared-utils.js&quot;,
+       &quot;src/lib/storage.js&quot;, &quot;src/content/search-page.js&quot;]
+</code></pre>
+
+<p>加载顺序就是依赖顺序：<code>parser-utils</code> → <code>shared-utils</code> → <code>storage</code> → <code>search-page</code>。</p>
+<h3 id="_3">开发工具链<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-json">// package.json
+&quot;scripts&quot;: {
+  &quot;lint&quot;: &quot;eslint src/ lib/&quot;,
+  &quot;lint:fix&quot;: &quot;eslint src/ lib/ --fix&quot;,
+  &quot;format&quot;: &quot;prettier --write \&quot;src/**/*.js\&quot;&quot;,
+  &quot;test&quot;: &quot;vitest run&quot;,
+  &quot;check&quot;: &quot;node scripts/check-syntax.js&quot;
+}
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ESLint + @eslint/js</td>
+<td>JS 代码规范</td>
+</tr>
+<tr>
+<td>Prettier</td>
+<td>格式化</td>
+</tr>
+<tr>
+<td>Stylelint</td>
+<td>CSS 规范</td>
+</tr>
+<tr>
+<td>Vitest</td>
+<td>单元测试</td>
+</tr>
+<tr>
+<td>@types/chrome</td>
+<td>Chrome API 类型提示（在 VS Code 中）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_4">函数调用图生成<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>项目有一个自定义脚本 <code>scripts/generate-fn-map.js</code>，扫描 <code>src/</code> 下所有 .js 文件，自动生成 <code>FUNCTIONS.md</code>，包含：</p>
+<ul>
+<li>每个文件的函数列表（含行号）</li>
+<li>消息 action 的发送/接收关系</li>
+<li>文件内函数调用</li>
+</ul>
+<p>这对理解项目数据结构特别有用。<strong>但它的局限</strong>：只分析文件内调用，不支持跨文件追踪和 import/export。</p>
+<h3 id="_5">测试<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-javascript">// __tests__/detail-page.test.js — 使用 vitest + jsdom
+import { describe, it, expect } from 'vitest';
+import { JSDOM } from 'jsdom';
+
+describe('detail-page', () =&gt; {
+  it('should extract basic info from DOM', () =&gt; {
+    const dom = new JSDOM(`&lt;div id=&quot;J_ItemInfo&quot;&gt;...&lt;/div&gt;`);
+    // 测试数据提取函数
+  });
+});
+</code></pre>
+
+<p>测试覆盖了数据提取的核心逻辑，但 UI 交互（Side Panel 的 DOM 操作）没有测试。这是扩展测试的通病——UI 部分难以自动化。</p>
+<hr />
+<h2 id="_6">完整数据流<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<pre class="codehilite"><code>┌─────────────────────────────────────────────────────────────────────┐
+│ 淘宝服务器                                                          │
+│  SSR HTML → 搜索结果页、详情页、店铺页                              │
+└──────────┬──────────────────────────────────────────────┬──────────┘
+           │ 加载页面                                       │ AJAX 数据
+           ▼                                               ▼
+┌────────────────────────┐                ┌──────────────────────────┐
+│ Content Script         │                │ Content Script           │
+│ search-page.js         │◄───────────────│ shop-search-page.js      │
+│ detail-page.js         │  消息中转       │ sycm-page.js             │
+│                        │                │                          │
+│ 功能：                 │                │ 功能：                   │
+│ 解析搜索列表 DOM        │                │ 解析店铺/分析页面 DOM     │
+│ 管理浮动横条           │                │ 数据采集                 │
+│ 维护品类内存状态       │                │                          │
+└──────────┬────────────┘                └──────────┬───────────────┘
+           │ sendMessage                              │ sendMessage
+           ▼                                          ▼
+┌─────────────────────────────────────────────────────────────────────┐
+│ Service Worker (background.js)                                     │
+│                                                                    │
+│ 功能：                                                             │
+│ 消息路由 forwardToTab: CS ↔ Side Panel                            │
+│ 触发下载 exportData / downloadXlsFile                              │
+│ 初始化存储 onInstalled                                             │
+└─────────────────────────────────────────────────────────────────────┘
+           │ chrome.sidePanel.open / chrome.runtime.sendMessage
+           ▼
+┌─────────────────────────────────────────────────────────────────────┐
+│ Side Panel (sidebar 主界面)                                        │
+│                                                                    │
+│ 文件：                                                             │
+│ sidepanel.js (3048行) — 主交互面板                                 │
+│ shop-panel.js (1043行) — 店铺采集面板                              │
+│ category-analytics.js (1092行) — 品类 AI 分析                      │
+│                                                                    │
+│ 功能：                                                             │
+│ 品类管理（创建/删除/切换）                                         │
+│ SPU 列表展示与操作                                                 │
+│ 本地数据分析（SKU 词频、价格分布）                                 │
+│ DeepSeek AI 分析                                                   │
+│ CSV/XLS 导出                                                       │
+└─────────────────────────────────────────────────────────────────────┘
+           │ chrome.storage.local
+           ▼
+┌─────────────────────────────────────────────────────────────────────┐
+│ Storage Layer (storage.js / shop-storage.js)                       │
+│                                                                    │
+│ 两种存储：                                                         │
+│ 1. 品类存储 (storage.js) — 按品类维度                              │
+│    关键词(品类) → SPU 列表 → 详情元数据 → 详情体                   │
+│ 2. 店铺存储 (shop-storage.js) — 按店铺维度                          │
+│    shop → item → page → changes                                     │
+└─────────────────────────────────────────────────────────────────────┘
+</code></pre>
+
+<h2 id="_7">分层架构<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<pre class="codehilite"><code>┌─────────────────────────────────────────┐
+│ UI 层（Side Panel / Popup）              │
+│ sidepanel.js + shop-panel.js            │
+├─────────────────────────────────────────┤
+│ 消息层                                   │
+│ runtime.sendMessage / forwardToTab      │
+├─────────────────────────────────────────┤
+│ 业务逻辑层                                │
+│ search-page.js / detail-page.js          │
+│ category-analytics.js                    │
+├─────────────────────────────────────────┤
+│ 数据层                                   │
+│ storage.js / shop-storage.js             │
+├─────────────────────────────────────────┤
+│ 基础设施                                  │
+│ chrome.storage.local / chrome.storage    │
+└─────────────────────────────────────────┘
+</code></pre>
+
+<p>这是典型的 MV3 扩展分层——层之间通过<strong>消息传递</strong>通信，不跨层直接调用函数。</p>
+<h2 id="_8">与知识体系的对应<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>知识模块</th>
+<th>项目中</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Manifest V3 架构</td>
+<td>✅ 完整实现</td>
+<td>实践中</td>
+</tr>
+<tr>
+<td>Content Script</td>
+<td>✅ 4 个 CS 文件</td>
+<td>实践中</td>
+</tr>
+<tr>
+<td>Service Worker</td>
+<td>✅ background.js</td>
+<td>实践中</td>
+</tr>
+<tr>
+<td>存储层</td>
+<td>✅ storage.js, shop-storage.js</td>
+<td>实践中</td>
+</tr>
+<tr>
+<td>UI 层</td>
+<td>✅ Side Panel 为主</td>
+<td>实践中</td>
+</tr>
+<tr>
+<td>网络层</td>
+<td>⚠️ 只用 host_permissions，未用 DNR</td>
+<td>待补充</td>
+</tr>
+<tr>
+<td>构建与工程化</td>
+<td>⚠️ 未用打包工具</td>
+<td>待优化</td>
+</tr>
+<tr>
+<td>调试与测试</td>
+<td>✅ Vitest + generate-fn-map</td>
+<td>实践中</td>
+</tr>
+<tr>
+<td>DevTools 扩展</td>
+<td>❌ 未使用</td>
+<td>可扩展</td>
+</tr>
+<tr>
+<td>Native Messaging</td>
+<td>❌ 未使用</td>
+<td>无需求</td>
+</tr>
+<tr>
+<td>多浏览器兼容</td>
+<td>❌ 仅 Chrome</td>
+<td>可扩展</td>
+</tr>
+<tr>
+<td>发布</td>
+<td>❌ 未上架</td>
+<td>待决策</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_9">参考<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<ul>
+<li>源码：<code>Projects/taobao-plugin/extension/package.json</code></li>
+<li>源码：<code>Projects/taobao-plugin/extension/scripts/generate-fn-map.js</code></li>
+<li>知识体系：<a href="../10-build-tooling/">构建与工程化</a></li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../case-05-ui-layer/" class="btn btn-neutral float-left" title="05 - UI 层实战"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../architecture/" class="btn btn-neutral float-right" title="架构师之路">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>CC0 1.0 Universal</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/sylar-qiu/grow-path" class="fa fa-code-fork" style="color: #fcfcfc"> sylar-qiu/grow-path</a>
+        </span>
+    
+    
+      <span><a href="../case-05-ui-layer/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../architecture/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
