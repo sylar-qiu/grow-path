@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://sylar-qiu.github.io/grow-path/browser-extension/07-api-panorama/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>07 - 浏览器 API 全景 - 成长笔记</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "07 - \u6d4f\u89c8\u5668 API \u5168\u666f";
+        var mkdocs_page_input_path = "browser-extension/07-api-panorama.md";
+        var mkdocs_page_url = "/grow-path/browser-extension/07-api-panorama/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 成长笔记
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">浏览器扩展</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../">总览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../01-core-architecture/">01 - 核心架构层</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../02-content-scripts/">02 - 内容脚本层</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../03-service-worker/">03 - Service Worker 层</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../04-storage/">04 - 存储层</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../05-ui-layer/">05 - UI 层</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../06-network/">06 - 网络层</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">07 - 浏览器 API 全景</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_1">标签页与窗口</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">下载</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">剪贴板</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">屏幕捕获</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">空闲检测</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#api_1">系统 API</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#api_2">其他值得注意的 API</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">权限声明</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_7">参考</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../08-devtools/">08 - DevTools 扩展</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../09-native-messaging/">09 - 原生通信</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../10-build-tooling/">10 - 构建与工程化</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../11-debugging-testing/">11 - 调试与测试</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../12-publishing/">12 - 发布与运维</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../13-cross-browser/">13 - 多浏览器兼容</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">架构师之路</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../architecture/">架构师之路</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">机器人之路</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../robotics/">机器人之路</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">成长笔记</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">浏览器扩展</li>
+      <li class="breadcrumb-item active">07 - 浏览器 API 全景</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/sylar-qiu/grow-path/edit/master/docs/browser-extension/07-api-panorama.md">Edit on sylar-qiu/grow-path</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="api">浏览器 API 全景<a class="headerlink" href="#api" title="Permanent link">&para;</a></h1>
+<p>所有 <code>chrome.*</code> API 按功能分类。这里只列常用和值得注意的，完整的去 Chrome Developers 参考文档。</p>
+<h2 id="_1">标签页与窗口<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<pre class="codehilite"><code class="language-javascript">// Tabs
+chrome.tabs.query({ active: true, currentWindow: true })
+chrome.tabs.create({ url: 'https://example.com' })
+chrome.tabs.update(tabId, { url: newUrl })
+chrome.tabs.remove(tabId)
+chrome.tabs.reload(tabId)
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) =&gt; {})
+chrome.tabs.onRemoved.addListener((tabId, removeInfo) =&gt; {})
+
+// Tab Groups (MV3)
+chrome.tabGroups.group({ tabIds: [1, 2, 3], groupId: groupId })
+chrome.tabGroups.update(groupId, { color: 'blue', title: '工作' })
+
+// Windows
+chrome.windows.create({ url: 'popup.html', type: 'popup', width: 400, height: 300 })
+</code></pre>
+
+<p>Tab Groups 在 MV3 中正式可用。适合做标签分类管理类扩展。</p>
+<h2 id="_2">下载<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<pre class="codehilite"><code class="language-javascript">chrome.downloads.download({
+  url: 'https://example.com/file.pdf',
+  filename: 'downloads/file.pdf',
+  conflictAction: 'uniquify'
+});
+
+chrome.downloads.onCreated.addListener((downloadItem) =&gt; {});
+chrome.downloads.onChanged.addListener((downloadDelta) =&gt; {});
+</code></pre>
+
+<p>可以监听所有下载，适合做下载管理类扩展。</p>
+<h2 id="_3">剪贴板<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>需要在 manifest 中声明 <code>clipboardRead</code> / <code>clipboardWrite</code> 权限：</p>
+<pre class="codehilite"><code class="language-javascript">// CS 中直接操作（通过 document.execCommand 或 Clipboard API）
+// SW 中需要 Offscreen Document
+await navigator.clipboard.writeText('text');
+</code></pre>
+
+<h2 id="_4">屏幕捕获<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<pre class="codehilite"><code class="language-javascript">// 捕获当前标签页
+chrome.tabCapture.capture({
+  audio: false,
+  video: true,
+  videoConstraints: { mandatory: { maxWidth: 1280, maxHeight: 720 } }
+}, (stream) =&gt; {
+  // stream 是 MediaStream 对象
+});
+
+// 捕获桌面（需要 desktopCapture 权限）
+chrome.desktopCapture.chooseDesktopMedia(['screen', 'window'], (streamId) =&gt; {});
+</code></pre>
+
+<p>注意 <code>tabCapture</code> 只能捕获当前标签页，<code>desktopCapture</code> 可以让用户选择捕获目标。</p>
+<h2 id="_5">空闲检测<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<pre class="codehilite"><code class="language-javascript">chrome.idle.onStateChanged.addListener((newState) =&gt; {
+  // 'active' | 'idle' | 'locked'
+  if (newState === 'idle') {
+    // 用户不在电脑前
+  }
+});
+
+chrome.idle.queryState(60, (state) =&gt; { /* 60秒无操作视为 idle */ });
+</code></pre>
+
+<p>适合做提醒类、计时类的扩展。</p>
+<h2 id="api_1">系统 API<a class="headerlink" href="#api_1" title="Permanent link">&para;</a></h2>
+<pre class="codehilite"><code class="language-javascript">// 系统信息
+chrome.system.cpu.getInfo((info) =&gt; {});
+chrome.system.memory.getInfo((info) =&gt; {});
+chrome.system.storage.getInfo((info) =&gt; {});
+chrome.system.display.getInfo((info) =&gt; {});
+
+// 语言
+chrome.i18n.getMessage('messageName'); // 国际化
+</code></pre>
+
+<h2 id="api_2">其他值得注意的 API<a class="headerlink" href="#api_2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>API</th>
+<th>说明</th>
+<th>权限</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>chrome.browsingData</code></td>
+<td>清除浏览数据</td>
+<td><code>browsingData</code></td>
+</tr>
+<tr>
+<td><code>chrome.bookmarks</code></td>
+<td>书签管理</td>
+<td><code>bookmarks</code></td>
+</tr>
+<tr>
+<td><code>chrome.history</code></td>
+<td>历史记录</td>
+<td><code>history</code></td>
+</tr>
+<tr>
+<td><code>chrome.privacy</code></td>
+<td>隐私设置</td>
+<td><code>privacy</code></td>
+</tr>
+<tr>
+<td><code>chrome.topsites</code></td>
+<td>常用网站</td>
+<td><code>topSites</code></td>
+</tr>
+<tr>
+<td><code>chrome.fontSettings</code></td>
+<td>字体设置</td>
+<td><code>fontSettings</code></td>
+</tr>
+<tr>
+<td><code>chrome.identity</code></td>
+<td>OAuth 认证</td>
+<td><code>identity</code></td>
+</tr>
+<tr>
+<td><code>chrome.certificateProvider</code></td>
+<td>证书管理</td>
+<td><code>certificateProvider</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="_6">权限声明<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<pre class="codehilite"><code class="language-json">// 按需声明，不要申请不必要的权限
+&quot;permissions&quot;: [&quot;storage&quot;, &quot;tabs&quot;, &quot;activeTab&quot;, &quot;scripting&quot;, &quot;downloads&quot;],
+&quot;optional_permissions&quot;: [&quot;clipboardRead&quot;, &quot;bookmarks&quot;]
+</code></pre>
+
+<p>用户审查权限时，少一个权限就多一分信任。能用 <code>activeTab</code> 就别用 <code>&lt;all_urls&gt;</code>。</p>
+<hr />
+<h2 id="_7">参考<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://developer.chrome.com/docs/extensions/reference/">Chrome Extensions API Reference</a></li>
+<li><a href="https://developer.chrome.com/docs/extensions/mv3/permission_warnings/">Permissions Guide</a></li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../06-network/" class="btn btn-neutral float-left" title="06 - 网络层"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../08-devtools/" class="btn btn-neutral float-right" title="08 - DevTools 扩展">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>CC0 1.0 Universal</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/sylar-qiu/grow-path" class="fa fa-code-fork" style="color: #fcfcfc"> sylar-qiu/grow-path</a>
+        </span>
+    
+    
+      <span><a href="../06-network/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../08-devtools/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
