@@ -1,0 +1,26 @@
+site_name: 成长笔记
+site_description: 架构师之路 · 机器人之路
+site_url: https://sylar-qiu.github.io/grow-path/
+repo_url: https://github.com/sylar-qiu/grow-path
+repo_name: sylar-qiu/grow-path
+edit_uri: edit/main/docs/
+
+theme:
+  name: readthedocs
+  highlightjs: true
+  prev_next_buttons: true
+
+nav:
+  - 首页: index.md
+  - 架构师之路:
+    - architecture/index.md
+  - 机器人之路:
+    - robotics/index.md
+
+markdown_extensions:
+  - codehilite
+  - admonition
+  - toc:
+      permalink: true
+
+copyright: CC0 1.0 Universal
