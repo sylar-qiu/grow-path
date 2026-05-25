@@ -3,17 +3,30 @@ site_description: 架构师之路 · 机器人之路
 site_url: https://sylar-qiu.github.io/grow-path/
 repo_url: https://github.com/sylar-qiu/grow-path
 repo_name: sylar-qiu/grow-path
-edit_uri: edit/main/docs/
 
 theme:
   name: readthedocs
   highlightjs: true
   prev_next_buttons: true
+  navigation_depth: 3
 
 nav:
   - 首页: index.md
   - 浏览器扩展:
-    - browser-extension/index.md
+    - 总览: browser-extension/index.md
+    - 01 - 核心架构层: browser-extension/01-core-architecture.md
+    - 02 - 内容脚本层: browser-extension/02-content-scripts.md
+    - 03 - Service Worker 层: browser-extension/03-service-worker.md
+    - 04 - 存储层: browser-extension/04-storage.md
+    - 05 - UI 层: browser-extension/05-ui-layer.md
+    - 06 - 网络层: browser-extension/06-network.md
+    - 07 - 浏览器 API 全景: browser-extension/07-api-panorama.md
+    - 08 - DevTools 扩展: browser-extension/08-devtools.md
+    - 09 - 原生通信: browser-extension/09-native-messaging.md
+    - 10 - 构建与工程化: browser-extension/10-build-tooling.md
+    - 11 - 调试与测试: browser-extension/11-debugging-testing.md
+    - 12 - 发布与运维: browser-extension/12-publishing.md
+    - 13 - 多浏览器兼容: browser-extension/13-cross-browser.md
   - 架构师之路:
     - architecture/index.md
   - 机器人之路:
@@ -21,8 +34,9 @@ nav:
 
 markdown_extensions:
   - codehilite
-  - admonition
   - toc:
       permalink: true
+  - tables
+  - fenced_code
 
 copyright: CC0 1.0 Universal
