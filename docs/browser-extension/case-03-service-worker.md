@@ -109,4 +109,4 @@ SW 每次活跃时间不超过几毫秒（只是消息转发），所以**不会
 ## 参考
 
 - 源码：`Projects/taobao-plugin/extension/src/background/background.js`
-- 知识体系：[Service Worker 层](03-service-worker.md)
+- 知识体系：[Service Worker 层](04-service-worker.md)

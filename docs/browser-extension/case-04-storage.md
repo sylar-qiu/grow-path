@@ -132,4 +132,4 @@ Side Panel 添加 SPU → 发给 SW → forwardToTab → CS 收到 switchCategor
 ## 参考
 
 - 源码：`Projects/taobao-plugin/extension/src/lib/storage.js`
-- 知识体系：[存储层](04-storage.md)
+- 知识体系：[存储层](05-storage.md)

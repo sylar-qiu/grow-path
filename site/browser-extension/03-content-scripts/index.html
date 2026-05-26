@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://sylar-qiu.github.io/grow-path/browser-extension/03-content-scripts/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>03 - 内容脚本层 - 成长笔记</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "03 - \u5185\u5bb9\u811a\u672c\u5c42";
+        var mkdocs_page_input_path = "browser-extension/03-content-scripts.md";
+        var mkdocs_page_url = "/grow-path/browser-extension/03-content-scripts/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 成长笔记
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">浏览器扩展</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../">总览</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" >知识体系</a>
+    <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../01-manifest-reference/">01 - Manifest 字段详解</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../02-core-architecture/">02 - 核心架构层</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">03 - 内容脚本层</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#_2">注入机制</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#run_at">三种 run_at 时机</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">与页面交互</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#main-world">Main World 通信</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">权限与限制</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">参考</a>
+    </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../04-service-worker/">04 - Service Worker 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../05-storage/">05 - 存储层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../06-ui-layer/">06 - UI 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../07-network/">07 - 网络层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../08-api-panorama/">08 - 浏览器 API 全景</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../09-devtools/">09 - DevTools 扩展</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../10-native-messaging/">10 - 原生通信</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../11-build-tooling/">11 - 构建与工程化</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../12-debugging-testing/">12 - 调试与测试</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../13-publishing/">13 - 发布与运维</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../14-cross-browser/">14 - 多浏览器兼容</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >实战案例（淘宝插件）</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../case-01-architecture/">01 - 架构与 Manifest</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-02-content-scripts/">02 - 内容脚本实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-03-service-worker/">03 - Service Worker 实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-04-storage/">04 - 存储层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-05-ui-layer/">05 - UI 层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-06-engineering/">06 - 工程化与数据流</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">架构师之路</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../architecture/">架构师之路</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">机器人之路</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../robotics/">机器人之路</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">成长笔记</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">浏览器扩展</li>
+          <li class="breadcrumb-item">知识体系</li>
+      <li class="breadcrumb-item active">03 - 内容脚本层</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/sylar-qiu/grow-path/edit/master/docs/browser-extension/03-content-scripts.md">Edit on sylar-qiu/grow-path</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">内容脚本层<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="_2">注入机制<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>三种注入方式，各自适用的场景不同：</p>
+<h3 id="manifest">声明式注入（manifest）<a class="headerlink" href="#manifest" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-json">{
+  &quot;content_scripts&quot;: [{
+    &quot;matches&quot;: [&quot;https://*.taobao.com/*&quot;],
+    &quot;js&quot;: [&quot;content.bundle.js&quot;],
+    &quot;css&quot;: [&quot;content.css&quot;],
+    &quot;run_at&quot;: &quot;document_idle&quot;
+  }]
+}
+</code></pre>
+
+<ul>
+<li>浏览器自动管理注入时机</li>
+<li>不能动态修改匹配规则</li>
+<li>适合功能固定的场景</li>
+</ul>
+<h3 id="dynamic">程序化注入（dynamic）<a class="headerlink" href="#dynamic" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-javascript">// MV3
+chrome.scripting.executeScript({
+  target: { tabId: tab.id },
+  files: ['content.bundle.js']
+})
+
+// 或注入代码（注意：不能是远程代码）
+chrome.scripting.executeScript({
+  target: { tabId: tab.id },
+  func: () =&gt; { /* 你的行内代码 */ },
+  args: ['arg1', 'arg2']
+})
+</code></pre>
+
+<ul>
+<li>灵活，可按需注入</li>
+<li>需要 <code>scripting</code> 权限</li>
+<li>func 方式在 MV3 中可行——函数被序列化后执行</li>
+</ul>
+<h3 id="registercontentscripts">动态注册（registerContentScripts）<a class="headerlink" href="#registercontentscripts" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-javascript">chrome.scripting.registerContentScripts([{
+  id: 'dynamic-cs',
+  matches: ['https://*.example.com/*'],
+  js: ['content.bundle.js'],
+  persistAcrossSessions: false
+}])
+</code></pre>
+
+<ul>
+<li>运行时注册，可持久化</li>
+<li>适合用户自定义注入规则的场景</li>
+</ul>
+<hr />
+<h2 id="run_at">三种 run_at 时机<a class="headerlink" href="#run_at" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>触发时间</th>
+<th>适合</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>document_start</code></td>
+<td>DOM 刚构建，外部资源未加载</td>
+<td>需要最早拦截页面行为</td>
+</tr>
+<tr>
+<td><code>document_end</code></td>
+<td>DOM 加载完成，图片等资源未加载</td>
+<td>常见选择</td>
+</tr>
+<tr>
+<td><code>document_idle</code></td>
+<td>页面完成渲染（默认）</td>
+<td>不依赖页面加载的内容</td>
+</tr>
+</tbody>
+</table>
+<p>注意：如果你的扩展需要在页面完全渲染前修改 DOM 结构，用 <code>document_start</code>。但此时 DOM 可能还不完整。</p>
+<hr />
+<h2 id="_3">与页面交互<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="shadow-dom">Shadow DOM 隔离<a class="headerlink" href="#shadow-dom" title="Permanent link">&para;</a></h3>
+<p>一种有效但不完美的隔离方案，通常不需要。</p>
+<h3 id="dom">注入自定义 DOM<a class="headerlink" href="#dom" title="Permanent link">&para;</a></h3>
+<p>直接在页面中插入元素，缺点是样式可能被页面 CSS 覆盖。如果你需要可靠样式隔离：</p>
+<pre class="codehilite"><code class="language-javascript">const host = document.createElement('div');
+document.body.appendChild(host);
+const shadow = host.attachShadow({ mode: 'closed' });
+shadow.innerHTML = `&lt;style&gt;/* 你的样式 */&lt;/style&gt;&lt;div&gt;你的 UI&lt;/div&gt;`;
+</code></pre>
+
+<p><code>mode: 'closed'</code> 防止页面通过 <code>host.shadowRoot</code> 访问你的内容。</p>
+<hr />
+<h2 id="main-world">Main World 通信<a class="headerlink" href="#main-world" title="Permanent link">&para;</a></h2>
+<p>当你的 inject script 需要和 Content Script 通信时：</p>
+<pre class="codehilite"><code>Content Script              Main World (injected script)
+     │                              │
+     ├── window.postMessage ────────►
+     │                              │
+     ◄──── window 'message' event ──┤
+</code></pre>
+
+<p>Content Script 监听：</p>
+<pre class="codehilite"><code class="language-javascript">window.addEventListener('message', (event) =&gt; {
+  if (event.source !== window) return; // 只接受同源消息
+  if (event.data?.source !== 'my-inject') return; // 你的标识
+  // 处理页面数据
+});
+</code></pre>
+
+<p>Main World 脚本发送：</p>
+<pre class="codehilite"><code class="language-javascript">window.postMessage({ source: 'my-inject', type: 'DATA', payload: { ... } }, '*');
+</code></pre>
+
+<hr />
+<h2 id="_4">权限与限制<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Content Script 默认无权访问大部分 <code>chrome.*</code> API</li>
+<li>能直接用的：<code>runtime</code>、<code>storage</code>、<code>i18n</code></li>
+<li>其他需要 API 需要发消息给 SW 代执行</li>
+<li>跨域请求受目标页面 CSP 限制，但扩展自身发 fetch 不受限</li>
+</ul>
+<hr />
+<h2 id="_5">参考<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://developer.chrome.com/docs/extensions/mv3/content_scripts/">Content Scripts | Chrome Developers</a></li>
+<li><a href="https://developer.chrome.com/docs/extensions/reference/scripting/">Chrome scripting API</a></li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../02-core-architecture/" class="btn btn-neutral float-left" title="02 - 核心架构层"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../04-service-worker/" class="btn btn-neutral float-right" title="04 - Service Worker 层">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>CC0 1.0 Universal</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/sylar-qiu/grow-path" class="fa fa-code-fork" style="color: #fcfcfc"> sylar-qiu/grow-path</a>
+        </span>
+    
+    
+      <span><a href="../02-core-architecture/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../04-service-worker/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

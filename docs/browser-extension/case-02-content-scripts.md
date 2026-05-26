@@ -138,4 +138,4 @@ function handleStorageRejection(err) {
 ## 参考
 
 - 源码：`Projects/taobao-plugin/extension/src/content/search-page.js`
-- 知识体系：[内容脚本层](02-content-scripts.md)
+- 知识体系：[内容脚本层](03-content-scripts.md)

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://sylar-qiu.github.io/grow-path/browser-extension/12-debugging-testing/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>12 - 调试与测试 - 成长笔记</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "12 - \u8c03\u8bd5\u4e0e\u6d4b\u8bd5";
+        var mkdocs_page_input_path = "browser-extension/12-debugging-testing.md";
+        var mkdocs_page_url = "/grow-path/browser-extension/12-debugging-testing/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 成长笔记
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">浏览器扩展</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../">总览</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" >知识体系</a>
+    <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../01-manifest-reference/">01 - Manifest 字段详解</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../02-core-architecture/">02 - 核心架构层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../03-content-scripts/">03 - 内容脚本层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../04-service-worker/">04 - Service Worker 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../05-storage/">05 - 存储层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../06-ui-layer/">06 - UI 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../07-network/">07 - 网络层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../08-api-panorama/">08 - 浏览器 API 全景</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../09-devtools/">09 - DevTools 扩展</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../10-native-messaging/">10 - 原生通信</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../11-build-tooling/">11 - 构建与工程化</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">12 - 调试与测试</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#service-worker">Service Worker 调试</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">日志策略</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">错误追踪</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">自动化测试</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_7">参考</a>
+    </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../13-publishing/">13 - 发布与运维</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../14-cross-browser/">14 - 多浏览器兼容</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >实战案例（淘宝插件）</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../case-01-architecture/">01 - 架构与 Manifest</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-02-content-scripts/">02 - 内容脚本实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-03-service-worker/">03 - Service Worker 实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-04-storage/">04 - 存储层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-05-ui-layer/">05 - UI 层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-06-engineering/">06 - 工程化与数据流</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">架构师之路</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../architecture/">架构师之路</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">机器人之路</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../robotics/">机器人之路</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">成长笔记</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">浏览器扩展</li>
+          <li class="breadcrumb-item">知识体系</li>
+      <li class="breadcrumb-item active">12 - 调试与测试</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/sylar-qiu/grow-path/edit/master/docs/browser-extension/12-debugging-testing.md">Edit on sylar-qiu/grow-path</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">调试与测试<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="service-worker">Service Worker 调试<a class="headerlink" href="#service-worker" title="Permanent link">&para;</a></h2>
+<h3 id="devtools">方法一：DevTools<a class="headerlink" href="#devtools" title="Permanent link">&para;</a></h3>
+<ol>
+<li>扩展管理页（<code>chrome://extensions</code>）</li>
+<li>找到你的扩展，点击 <strong>Service Worker</strong> 链接</li>
+<li>弹出独立的 DevTools 窗口</li>
+</ol>
+<p>在这个 DevTools 中：
+- Console 可以看到 SW 所有日志
+- Sources 可以打断点
+- Application → Storage 可以查看 <code>chrome.storage</code> 内容</p>
+<h3 id="chromeserviceworker-internals">方法二：chrome://serviceworker-internals<a class="headerlink" href="#chromeserviceworker-internals" title="Permanent link">&para;</a></h3>
+<p>列出浏览器所有 SW，可以强制 push、停止、查看状态。</p>
+<h3 id="_2">常见调试痛点<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p><strong>SW 已经休眠了怎么 Debug？</strong>
+在 DevTools 打开状态下保持日志面板，直到 SW 启动时的事件被捕捉。</p>
+<p><strong>Popup 一点就消失怎么 Debug？</strong>
+保持 DevTools 在 Popup 上打开：</p>
+<ol>
+<li>关闭 Popup</li>
+<li>右键扩展图标 → 审查弹出内容</li>
+<li>DevTools 打开后再操作 Popup</li>
+</ol>
+<p>或者更好：在 Popup 中加 <code>window.onbeforeunload</code> 日志。</p>
+<p><strong>Content Script 怎么 Debug？</strong>
+直接在目标页面的 DevTools Console 里找。
+默认有多个 Content Script 时，需要从 Console 面板的下拉菜单选择对应的执行上下文。</p>
+<hr />
+<h2 id="_3">日志策略<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>MV3 中 SW 没有持久控制台，建议建立日志系统：</p>
+<pre class="codehilite"><code class="language-javascript">// shared/logger.ts
+const LOG_PREFIX = '[MyExt]';
+
+export function log(level: 'debug' | 'info' | 'warn' | 'error', ...args: any[]) {
+  // 1. 始终输出到控制台
+  console[level](LOG_PREFIX, ...args);
+
+  // 2. 开发模式写 storage，生产环境可关掉
+  if (__DEV__) {
+    chrome.storage.session.get('logs').then(({ logs = [] }) =&gt; {
+      logs.push({ level, time: Date.now(), msg: args.join(' ') });
+      // 只保留最近的 200 条
+      if (logs.length &gt; 200) logs = logs.slice(-200);
+      chrome.storage.session.set({ logs });
+    });
+  }
+}
+</code></pre>
+
+<p>然后在 Popup 或 Side Panel 中展示历史日志。</p>
+<hr />
+<h2 id="_4">错误追踪<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="chromeruntimelasterror">chrome.runtime.lastError<a class="headerlink" href="#chromeruntimelasterror" title="Permanent link">&para;</a></h3>
+<p>所有回调风格 API 都需要检查：</p>
+<pre class="codehilite"><code class="language-javascript">chrome.storage.local.set({ key: value }, () =&gt; {
+  if (chrome.runtime.lastError) {
+    console.error('存储失败:', chrome.runtime.lastError.message);
+  }
+});
+</code></pre>
+
+<p>Promise 风格 API 会自动 throw，但也要 catch：</p>
+<pre class="codehilite"><code class="language-javascript">try {
+  await chrome.storage.local.set({ key: value });
+} catch (e) {
+  console.error('存储失败:', e);
+}
+</code></pre>
+
+<h3 id="chrome">Chrome 扩展错误页面<a class="headerlink" href="#chrome" title="Permanent link">&para;</a></h3>
+<p><code>chrome://extensions</code> → 点击你的扩展 → <strong>Errors</strong> 按钮。
+这里会列出扩展运行时所有未捕获的异常。</p>
+<hr />
+<h2 id="_5">自动化测试<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="puppeteer-playwright">Puppeteer / Playwright<a class="headerlink" href="#puppeteer-playwright" title="Permanent link">&para;</a></h3>
+<p>两者都支持加载解包扩展：</p>
+<pre class="codehilite"><code class="language-javascript">// Puppeteer
+const browser = await puppeteer.launch({
+  headless: false,
+  args: [
+    `--disable-extensions-except=${pathToExt}`,
+    `--load-extension=${pathToExt}`,
+  ]
+});
+
+// Playwright
+const browser = await chromium.launch({
+  headless: false,
+  args: [
+    `--disable-extensions-except=${pathToExt}`,
+    `--load-extension=${pathToExt}`,
+  ]
+});
+const context = await browser.newContext();
+const page = await context.newPage();
+</code></pre>
+
+<h3 id="_6">测试重点<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>扩展测试比普通 Web 测试多了几层：</p>
+<ol>
+<li><strong>SW 逻辑</strong>：消息处理、状态管理、Alarms</li>
+<li><strong>CS 逻辑</strong>：页面注入、DOM 操作</li>
+<li><strong>跨组件通信</strong>：SW ↔ CS ↔ Popup</li>
+<li><strong>UI</strong>：Popup / Side Panel 渲染</li>
+</ol>
+<p>建议分离逻辑测试和集成测试：</p>
+<pre class="codehilite"><code class="language-javascript">// 单元测试（vitest / jest）——测试 SW 状态管理
+import { processData } from '../background/processor';
+test('processData handles empty input', () =&gt; {
+  expect(processData([])).toEqual({ count: 0 });
+});
+
+// 集成测试（Puppeteer）——测试 CS 注入
+test('content script adds button to page', async () =&gt; {
+  await page.goto('https://example.com');
+  await page.waitForSelector('my-ext-button');
+  expect(await page.textContent('my-ext-button')).toBe('Click me');
+});
+</code></pre>
+
+<hr />
+<h2 id="_7">参考<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://developer.chrome.com/docs/extensions/mv3/debugging/">Debugging Extensions</a></li>
+<li><a href="https://developer.chrome.com/docs/extensions/mv3/puppeteer/">Testing Chrome Extensions with Puppeteer</a></li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../11-build-tooling/" class="btn btn-neutral float-left" title="11 - 构建与工程化"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../13-publishing/" class="btn btn-neutral float-right" title="13 - 发布与运维">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>CC0 1.0 Universal</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/sylar-qiu/grow-path" class="fa fa-code-fork" style="color: #fcfcfc"> sylar-qiu/grow-path</a>
+        </span>
+    
+    
+      <span><a href="../11-build-tooling/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../13-publishing/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

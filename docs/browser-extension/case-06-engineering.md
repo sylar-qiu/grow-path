@@ -186,4 +186,4 @@ describe('detail-page', () => {
 
 - 源码：`Projects/taobao-plugin/extension/package.json`
 - 源码：`Projects/taobao-plugin/extension/scripts/generate-fn-map.js`
-- 知识体系：[构建与工程化](10-build-tooling.md)
+- 知识体系：[构建与工程化](11-build-tooling.md)

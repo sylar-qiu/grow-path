@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://sylar-qiu.github.io/grow-path/browser-extension/09-devtools/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>09 - DevTools 扩展 - 成长笔记</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "09 - DevTools \u6269\u5c55";
+        var mkdocs_page_input_path = "browser-extension/09-devtools.md";
+        var mkdocs_page_url = "/grow-path/browser-extension/09-devtools/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 成长笔记
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">浏览器扩展</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../">总览</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" >知识体系</a>
+    <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../01-manifest-reference/">01 - Manifest 字段详解</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../02-core-architecture/">02 - 核心架构层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../03-content-scripts/">03 - 内容脚本层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../04-service-worker/">04 - Service Worker 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../05-storage/">05 - 存储层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../06-ui-layer/">06 - UI 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../07-network/">07 - 网络层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../08-api-panorama/">08 - 浏览器 API 全景</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">09 - DevTools 扩展</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#_1">基本结构</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#devtools_1">DevTools 页面的特殊性</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#api">可用 API</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_2">与主扩展通信</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">应用场景</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">参考</a>
+    </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../10-native-messaging/">10 - 原生通信</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../11-build-tooling/">11 - 构建与工程化</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../12-debugging-testing/">12 - 调试与测试</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../13-publishing/">13 - 发布与运维</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../14-cross-browser/">14 - 多浏览器兼容</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >实战案例（淘宝插件）</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../case-01-architecture/">01 - 架构与 Manifest</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-02-content-scripts/">02 - 内容脚本实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-03-service-worker/">03 - Service Worker 实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-04-storage/">04 - 存储层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-05-ui-layer/">05 - UI 层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-06-engineering/">06 - 工程化与数据流</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">架构师之路</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../architecture/">架构师之路</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">机器人之路</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../robotics/">机器人之路</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">成长笔记</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">浏览器扩展</li>
+          <li class="breadcrumb-item">知识体系</li>
+      <li class="breadcrumb-item active">09 - DevTools 扩展</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/sylar-qiu/grow-path/edit/master/docs/browser-extension/09-devtools.md">Edit on sylar-qiu/grow-path</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="devtools">DevTools 扩展<a class="headerlink" href="#devtools" title="Permanent link">&para;</a></h1>
+<p>让你自己的面板出现在浏览器的 F12 中。</p>
+<h2 id="_1">基本结构<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<pre class="codehilite"><code class="language-json">// manifest.json
+&quot;devtools_page&quot;: &quot;devtools/devtools.html&quot;
+</code></pre>
+
+<p><code>devtools.html</code> 本身是个空页面（实际不显示），它的作用是初始化各类面板：</p>
+<pre class="codehilite"><code class="language-html">&lt;!-- devtools/devtools.html --&gt;
+&lt;script src=&quot;devtools.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+
+<pre class="codehilite"><code class="language-javascript">// devtools.js
+chrome.devtools.panels.create(
+  '我的扩展',        // 面板名称
+  'icon.png',       // 图标
+  'panel.html',     // 面板内容
+  (panel) =&gt; {
+    console.log('面板已创建');
+  }
+);
+</code></pre>
+
+<h2 id="devtools_1">DevTools 页面的特殊性<a class="headerlink" href="#devtools_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>独立作用域</strong>：DevTools 页面有自己独立的 window，与主扩展的 SW 不共享</li>
+<li><strong>不能直接调用</strong>大部分 extension API——只能通过消息与 SW 通信</li>
+<li><strong>只能调用的 API</strong>：</li>
+<li><code>chrome.devtools.*</code></li>
+<li><code>chrome.runtime.sendMessage</code></li>
+<li><code>chrome.runtime.connect</code></li>
+</ul>
+<h2 id="api">可用 API<a class="headerlink" href="#api" title="Permanent link">&para;</a></h2>
+<pre class="codehilite"><code class="language-javascript">// 检查当前选中的元素
+chrome.devtools.inspectedWindow.eval(
+  'document.querySelector(&quot;div&quot;).innerHTML',
+  (result, exceptionInfo) =&gt; {}
+);
+
+// 获取选中元素的 DOM 信息
+chrome.devtools.panels.elements.onSelectionChanged.addListener(() =&gt; {
+  chrome.devtools.inspectedWindow.eval(
+    '[$0.tagName, $0.id, $0.className]',
+    (result) =&gt; console.log(result)
+  );
+});
+
+// 监听网络请求
+chrome.devtools.network.onRequestFinished.addListener((request) =&gt; {
+  console.log(request.request.url, request.response.status);
+});
+
+// 监听控制台日志
+chrome.devtools.panels.sources.onSelectionChanged.addListener(...);
+</code></pre>
+
+<h2 id="_2">与主扩展通信<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<pre class="codehilite"><code class="language-javascript">// DevTools 页面
+const port = chrome.runtime.connect({ name: 'devtools' });
+port.postMessage({ type: 'FROM_DEVTOOLS', data: { ... } });
+port.onMessage.addListener((msg) =&gt; {
+  // 收到 SW 的回复
+});
+
+// SW 中
+chrome.runtime.onConnect.addListener((port) =&gt; {
+  if (port.name === 'devtools') {
+    port.onMessage.addListener((msg) =&gt; {
+      // 处理 DevTools 发出的消息
+    });
+  }
+});
+</code></pre>
+
+<p>DevTools 页面<strong>也有</strong> content script 一样的跨域限制，不能直接发跨域请求。</p>
+<h2 id="_3">应用场景<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>页面分析</td>
+<td>读取页面 DOM、JS 变量、网络请求</td>
+</tr>
+<tr>
+<td>抓包工具</td>
+<td>监听并展示所有请求</td>
+</tr>
+<tr>
+<td>CSS 调试辅助</td>
+<td>批量修改样式，导出修改记录</td>
+</tr>
+<tr>
+<td>性能监控</td>
+<td>展示页面性能指标</td>
+</tr>
+<tr>
+<td>爬虫辅助</td>
+<td>分析页面结构、数据结构</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_4">参考<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://developer.chrome.com/docs/extensions/mv3/devtools/">DevTools Extension API</a></li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../08-api-panorama/" class="btn btn-neutral float-left" title="08 - 浏览器 API 全景"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../10-native-messaging/" class="btn btn-neutral float-right" title="10 - 原生通信">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>CC0 1.0 Universal</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/sylar-qiu/grow-path" class="fa fa-code-fork" style="color: #fcfcfc"> sylar-qiu/grow-path</a>
+        </span>
+    
+    
+      <span><a href="../08-api-panorama/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../10-native-messaging/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

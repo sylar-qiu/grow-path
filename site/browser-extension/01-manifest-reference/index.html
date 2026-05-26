@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://sylar-qiu.github.io/grow-path/browser-extension/01-manifest-reference/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>01 - Manifest 字段详解 - 成长笔记</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "01 - Manifest \u5b57\u6bb5\u8be6\u89e3";
+        var mkdocs_page_input_path = "browser-extension/01-manifest-reference.md";
+        var mkdocs_page_url = "/grow-path/browser-extension/01-manifest-reference/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 成长笔记
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">浏览器扩展</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../">总览</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" >知识体系</a>
+    <ul class="current">
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">01 - Manifest 字段详解</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#manifestjson_1">开篇：manifest.json 是什么</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_1">一、基础元数据</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_2">二、权限体系</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#content_scripts">三、内容脚本（content_scripts）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#background">四、后台入口（background）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">五、用户界面</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">六、网络与安全</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">七、扩展通信</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_6">八、高级功能 &amp; 冷门字段</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_7">附录：字段快速索引</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_8">参考</a>
+    </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../02-core-architecture/">02 - 核心架构层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../03-content-scripts/">03 - 内容脚本层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../04-service-worker/">04 - Service Worker 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../05-storage/">05 - 存储层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../06-ui-layer/">06 - UI 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../07-network/">07 - 网络层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../08-api-panorama/">08 - 浏览器 API 全景</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../09-devtools/">09 - DevTools 扩展</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../10-native-messaging/">10 - 原生通信</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../11-build-tooling/">11 - 构建与工程化</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../12-debugging-testing/">12 - 调试与测试</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../13-publishing/">13 - 发布与运维</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../14-cross-browser/">14 - 多浏览器兼容</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >实战案例（淘宝插件）</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../case-01-architecture/">01 - 架构与 Manifest</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-02-content-scripts/">02 - 内容脚本实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-03-service-worker/">03 - Service Worker 实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-04-storage/">04 - 存储层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-05-ui-layer/">05 - UI 层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-06-engineering/">06 - 工程化与数据流</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">架构师之路</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../architecture/">架构师之路</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">机器人之路</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../robotics/">机器人之路</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">成长笔记</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">浏览器扩展</li>
+          <li class="breadcrumb-item">知识体系</li>
+      <li class="breadcrumb-item active">01 - Manifest 字段详解</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/sylar-qiu/grow-path/edit/master/docs/browser-extension/01-manifest-reference.md">Edit on sylar-qiu/grow-path</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="manifestjson">Manifest.json 字段详解<a class="headerlink" href="#manifestjson" title="Permanent link">&para;</a></h1>
+<h2 id="manifestjson_1">开篇：manifest.json 是什么<a class="headerlink" href="#manifestjson_1" title="Permanent link">&para;</a></h2>
+<p>manifest.json 不是普通的配置文件，它在 Chrome 扩展体系中承担三个角色：</p>
+<p><strong>身份证明</strong> — 告诉浏览器你是谁（扩展名/版本/ID）。没有 manifest，一个文件夹只是文件夹。有了它，浏览器才识别出"这是一个扩展"。</p>
+<p><strong>权限声明</strong> — 你声明要访问哪些数据、哪些网站、哪些浏览器 API。Chrome 在安装时把这些声明展示给用户看，用户同意后才能使用。</p>
+<p><strong>入口清单</strong> — 告诉浏览器你的扩展有哪些组件（Service Worker / Content Script / Popup / Side Panel 等），各自对应什么文件、在什么条件下激活。</p>
+<p>这三个角色决定了 manifest.json 的设计哲学：<strong>声明式，而非命令式</strong>。你只声明"我要什么"和"我有什么"，浏览器自己决定怎么加载、怎么运行、怎么销毁。</p>
+<hr />
+<h2 id="_1">一、基础元数据<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="manifest_version">manifest_version<a class="headerlink" href="#manifest_version" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-json">&quot;manifest_version&quot;: 3
+</code></pre>
+
+<p>当前只有两个有效值：</p>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>状态</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>已弃用</td>
+<td>2023 年起 Chrome 停止接受新 MV2 扩展，2024 年起逐步禁用现有 MV2</td>
+</tr>
+<tr>
+<td>3</td>
+<td>当前版本</td>
+<td>2019 年推出，2022 年强制新提交使用 MV3</td>
+</tr>
+</tbody>
+</table>
+<p>MV2 和 MV3 本质上是两套不同的扩展运行时。MV3 的核心变化：Service Worker 替代后台页面、远程代码全面禁止、webRequest blocking 模式废除。这三个变化影响了几乎所有扩展的架构设计。</p>
+<p><strong>实践中</strong>：2026 年的今天，直接写 <code>3</code>。不需要纠结兼容性。</p>
+<hr />
+<h3 id="name-short_name">name / short_name<a class="headerlink" href="#name-short_name" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-json">&quot;name&quot;: &quot;淘宝数据采集助手&quot;,
+&quot;short_name&quot;: &quot;采集助手&quot;
+</code></pre>
+
+<ul>
+<li><code>name</code>：在扩展管理页面（<code>chrome://extensions</code>）、商店列表、权限提示中展示的名称。最长 45 字符。</li>
+<li><code>short_name</code>：可选字段。工具栏图标上空间不够时的备选名（最多 12 字符，推荐英文）。大部分情况下不需要设置。</li>
+</ul>
+<p>两者都不支持本地化——如果要根据用户语言显示不同名称，需要用 <code>default_locale</code> + <code>_locales/</code> 目录下的 <code>messages.json</code>。</p>
+<hr />
+<h3 id="version-version_name">version / version_name<a class="headerlink" href="#version-version_name" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-json">&quot;version&quot;: &quot;0.4.0&quot;,
+&quot;version_name&quot;: &quot;0.4.0-beta&quot;
+</code></pre>
+
+<ul>
+<li><code>version</code>：<strong>必填</strong>。由 1-4 个以点分隔的整数组成（如 <code>"1"</code>、<code>"1.2"</code>、<code>"1.2.3"</code>、<code>"1.2.3.4"</code>）。每个整数最大 65535。Chrome 自动更新时，比较 <code>version</code> 字段判断是否需要更新。</li>
+<li><code>version_name</code>：可选。给用户看的版本名称，可以是任意字符串。不影响自动更新判断，仅用于展示。</li>
+</ul>
+<p><strong>实践中</strong>：建议使用语义化版本（semver）格式 <code>major.minor.patch</code>。Chrome Web Store 不允许降版本号，发布前确认版本号已递增。</p>
+<hr />
+<h3 id="description">description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-json">&quot;description&quot;: &quot;淘宝搜索结果页品类分析工具——采集商品数据、按品类管理分析&quot;
+</code></pre>
+
+<p>最长 132 字符。这行文字会出现在 Chrome Web Store 的搜索结果和扩展管理页面。用户看到 permissions 警告时也会看到这个描述。</p>
+<p><strong>实践中</strong>：不要在 description 里堆砌关键词做 SEO。Chrome Web Store 会拒绝夸大或不实的描述。</p>
+<hr />
+<h3 id="icons">icons<a class="headerlink" href="#icons" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-json">&quot;icons&quot;: {
+  &quot;16&quot;: &quot;icons/icon16.png&quot;,
+  &quot;48&quot;: &quot;icons/icon48.png&quot;,
+  &quot;128&quot;: &quot;icons/icon128.png&quot;
+}
+</code></pre>
+
+<p>不同尺寸用于不同场景：</p>
+<table>
+<thead>
+<tr>
+<th>尺寸</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>16x16</td>
+<td>扩展管理页面、favicon 位置</td>
+</tr>
+<tr>
+<td>32x32</td>
+<td>Windows 任务栏（可选，但推荐）</td>
+</tr>
+<tr>
+<td>48x48</td>
+<td>扩展管理页面</td>
+</tr>
+<tr>
+<td>128x128</td>
+<td>Chrome Web Store 列表、安装时展示</td>
+</tr>
+</tbody>
+</table>
+<p>至少需要 48px 和 128px。PNG 格式，支持透明背景。</p>
+<p><strong>一个常见陷阱</strong>：许多开发者只设置 <code>icons</code> 但忘记给 <code>action.default_icon</code> 设置相同图标。结果是工具栏图标在某些场景下显示空白方块。</p>
+<hr />
+<h3 id="default_locale">default_locale<a class="headerlink" href="#default_locale" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-json">&quot;default_locale&quot;: &quot;zh_CN&quot;
+</code></pre>
+
+<p>只有当你需要国际化（i18n）时才需要这个字段。声明后，Chrome 要求你提供 <code>_locales/</code> 目录下的翻译文件。<code>default_locale</code> 对应的语言文件作为兜底——当用户的语言没有对应翻译时显示这个。</p>
+<p><strong>即使你只做一个语言，只要用了 <code>chrome.i18n.getMessage()</code>，就必须声明 <code>default_locale</code>。</strong></p>
+<hr />
+<h3 id="minimum_chrome_version">minimum_chrome_version<a class="headerlink" href="#minimum_chrome_version" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-json">&quot;minimum_chrome_version&quot;: &quot;116&quot;
+</code></pre>
+
+<p>如果你的扩展依赖某个 Chrome 版本才有的 API（如 MV3 的 <code>sidePanel</code> 在 Chrome 114 才稳定），用这个字段阻止用户在旧版本上安装。</p>
+<p><strong>不要滥用</strong>。设置过高的版本号会剔除大量用户。只有当你确定用到了某个版本专属的 API 时才设置。</p>
+<hr />
+<h2 id="_2">二、权限体系<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>Chrome 扩展的权限系统是安全模型的核心。每一行权限声明都在告诉用户："这个扩展有权做这些事"。</p>
+<h3 id="permissions">permissions（普通权限）<a class="headerlink" href="#permissions" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-json">&quot;permissions&quot;: [
+  &quot;storage&quot;,
+  &quot;activeTab&quot;,
+  &quot;scripting&quot;,
+  &quot;tabs&quot;,
+  &quot;windows&quot;,
+  &quot;downloads&quot;,
+  &quot;sidePanel&quot;
+]
+</code></pre>
+
+<p>普通权限是指那些不涉及具体网站域名的 API 访问能力。常见的权限及触发警告情况：</p>
+<table>
+<thead>
+<tr>
+<th>权限</th>
+<th>用途</th>
+<th>安装时警告</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>storage</code></td>
+<td>读写 <code>chrome.storage.local/sync/session/managed</code></td>
+<td>否</td>
+</tr>
+<tr>
+<td><code>activeTab</code></td>
+<td>临时获得当前活动标签页的权限</td>
+<td>否</td>
+</tr>
+<tr>
+<td><code>scripting</code></td>
+<td>动态注入脚本（<code>chrome.scripting.executeScript</code>）</td>
+<td>否</td>
+</tr>
+<tr>
+<td><code>tabs</code></td>
+<td>操作标签页（查询/创建/更新/移动/分组）</td>
+<td>否</td>
+</tr>
+<tr>
+<td><code>alarms</code></td>
+<td>定时任务</td>
+<td>否</td>
+</tr>
+<tr>
+<td><code>downloads</code></td>
+<td>下载文件</td>
+<td>否</td>
+</tr>
+<tr>
+<td><code>sidePanel</code></td>
+<td>使用侧边栏</td>
+<td>否</td>
+</tr>
+<tr>
+<td><code>contextMenus</code></td>
+<td>右键菜单</td>
+<td>否</td>
+</tr>
+<tr>
+<td><code>notifications</code></td>
+<td>桌面通知</td>
+<td>否</td>
+</tr>
+<tr>
+<td><code>tts</code></td>
+<td>文字转语音</td>
+<td>否</td>
+</tr>
+<tr>
+<td><code>bookmarks</code></td>
+<td>读写书签</td>
+<td><strong>是</strong>（"读取和修改书签"）</td>
+</tr>
+<tr>
+<td><code>cookies</code></td>
+<td>读写 Cookie</td>
+<td><strong>是</strong>（"读取和修改你的浏览数据"）</td>
+</tr>
+<tr>
+<td><code>history</code></td>
+<td>读写浏览历史</td>
+<td><strong>是</strong>（"读取和修改浏览历史"）</td>
+</tr>
+<tr>
+<td><code>tabs</code> + <code>host_permissions</code></td>
+<td>读取标签页 URL</td>
+<td><strong>是</strong>（取决于 host 范围）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键原则：权限最小化</strong>。只声明你真正需要的。<code>activeTab</code> 比 <code>&lt;all_urls&gt;</code> + <code>tabs</code> 好一百倍。</p>
+<hr />
+<h3 id="host_permissions">host_permissions（主机权限）<a class="headerlink" href="#host_permissions" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-json">&quot;host_permissions&quot;: [
+  &quot;https://*.taobao.com/*&quot;,
+  &quot;https://*.tmall.com/*&quot;,
+  &quot;https://sycm.taobao.com/*&quot;,
+  &quot;https://api.deepseek.com/*&quot;
+]
+</code></pre>
+
+<p>MV3 把主机权限从 <code>permissions</code> 中拆成了独立的 <code>host_permissions</code> 字段。这是 MV2 到 MV3 的<strong>精妙改进</strong>：普通权限和主机权限分开声明，权限请求的粒度更清晰。</p>
+<p>格式规则（和 Content Script 的 <code>matches</code> 模式一样）：</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>匹配范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>*://*/*</code></td>
+<td>所有 URL（http/https/ws/wss）</td>
+</tr>
+<tr>
+<td><code>&lt;all_urls&gt;</code></td>
+<td>同上，等效写法</td>
+</tr>
+<tr>
+<td><code>https://*.taobao.com/*</code></td>
+<td>taobao.com 及其所有子域名</td>
+</tr>
+<tr>
+<td><code>https://api.deepseek.com/*</code></td>
+<td>指定域名下所有路径</td>
+</tr>
+<tr>
+<td><code>https://taobao.com/</code></td>
+<td>仅首页（不匹配子路径）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键区别</strong>：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>permissions 中的 API</th>
+<th>host_permissions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>安装时展示</td>
+<td>"访问 api.deepseek.com 上的数据"</td>
+<td></td>
+</tr>
+<tr>
+<td>用户能撤销</td>
+<td>否，只能禁用扩展</td>
+<td>是，可以在扩展管理页面上逐站关闭</td>
+</tr>
+<tr>
+<td>范围</td>
+<td>特定 API 功能</td>
+<td>特定网站的 DOM/Cookie/Network</td>
+</tr>
+</tbody>
+</table>
+<p><strong>实践中</strong>：永远用最窄的匹配模式。<code>https://*.taobao.com/*</code> 比 <code>&lt;all_urls&gt;</code> 更安全，也更容易通过 Chrome Web Store 审核。</p>
+<hr />
+<h3 id="optional_permissions-optional_host_permissions">optional_permissions / optional_host_permissions<a class="headerlink" href="#optional_permissions-optional_host_permissions" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-json">&quot;optional_permissions&quot;: [&quot;clipboardRead&quot;, &quot;clipboardWrite&quot;]
+</code></pre>
+
+<p>安装时不请求，运行中通过 <code>chrome.permissions.request()</code> 向用户动态申请。用户授予后生效，也可以随时在扩展管理页面撤销。</p>
+<p>适合场景：
+- 扩展的进阶功能需要更高权限（如 AI 分析功能需要 <code>clipboardRead</code>）
+- 用户需要自行决定是否信任某些权限
+- 大部分用户用不到的功能，不应该让全部用户承担权限警告</p>
+<p><strong>使用流程</strong>：</p>
+<pre class="codehilite"><code>用户打开高级功能 → 扩展检查权限 → 没有权限 → 弹窗申请
+→ 用户同意 → 授权成功 → 功能可用
+→ 用户拒绝 → 降级到基础功能
+</code></pre>
+
+<hr />
+<h2 id="content_scripts">三、内容脚本（content_scripts）<a class="headerlink" href="#content_scripts" title="Permanent link">&para;</a></h2>
+<pre class="codehilite"><code class="language-json">&quot;content_scripts&quot;: [
+  {
+    &quot;matches&quot;: [&quot;https://s.taobao.com/*&quot;, &quot;https://*.taobao.com/search*&quot;],
+    &quot;js&quot;: [&quot;lib/parser-utils.js&quot;, &quot;src/lib/storage.js&quot;, &quot;src/content/search-page.js&quot;],
+    &quot;run_at&quot;: &quot;document_end&quot;
+  }
+]
+</code></pre>
+
+<p>内容脚本是注入到目标页面的 JavaScript。每个声明块包含：</p>
+<h3 id="matches">matches（必填）<a class="headerlink" href="#matches" title="Permanent link">&para;</a></h3>
+<p>指定在哪些 URL 上注入脚本。格式与 host_permissions 相同：
+- <code>https://s.taobao.com/*</code> — 精确到子域名
+- <code>https://*.taobao.com/search*</code> — 子域名下以 /search 开头的路径
+- <code>&lt;all_urls&gt;</code> — 所有页面（极少场景使用，滥用会触发权限警告）</p>
+<p><strong>注意</strong>：matches 模式中不能使用 IP 地址（localhost 除外）。</p>
+<h3 id="exclude_matches">exclude_matches<a class="headerlink" href="#exclude_matches" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-json">&quot;exclude_matches&quot;: [&quot;https://*.taobao.com/admin/*&quot;]
+</code></pre>
+
+<p>排除不需要注入的页面。优先级高于 <code>matches</code>。</p>
+<h3 id="js-css">js / css<a class="headerlink" href="#js-css" title="Permanent link">&para;</a></h3>
+<p>注入的脚本和样式文件列表。按数组顺序依次执行。</p>
+<p><strong>一个常见陷阱</strong>：MV3 中 content_scripts 的 <code>js</code> 和 <code>css</code> 文件路径是相对于扩展根目录的，<strong>不是</strong>相对于 manifest 文件所在目录的。也就是说，不要把 <code>src/content/search-page.js</code> 写成 <code>../content/search-page.js</code>。</p>
+<h3 id="run_at">run_at<a class="headerlink" href="#run_at" title="Permanent link">&para;</a></h3>
+<p>脚本注入的时机：</p>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>时机</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>document_start</code></td>
+<td>DOM 构建之前（但仍可访问 DOM API）</td>
+<td>需要在页面加载最早阶段拦截/修改</td>
+</tr>
+<tr>
+<td><code>document_end</code></td>
+<td>DOM 已就绪，但图片/资源可能还在加载</td>
+<td><strong>推荐</strong>。绝大多数场景用这个</td>
+</tr>
+<tr>
+<td><code>document_idle</code></td>
+<td>页面加载完成后（浏览器空闲时）</td>
+<td>低优先级操作，不影响页面加载</td>
+</tr>
+</tbody>
+</table>
+<p><strong>实践中</strong>：除非你有明确理由，否则都用 <code>document_end</code>。<code>document_start</code> 在你需要修改页面最早的行为（如重写全局函数）时有用。<code>document_idle</code> 适合低优先级的 UI 增强。</p>
+<h3 id="world">world<a class="headerlink" href="#world" title="Permanent link">&para;</a></h3>
+<p><strong>MV3 新增</strong>。控制脚本运行在哪个 JavaScript 执行环境：</p>
+<ul>
+<li><code>"ISOLATED"</code>（默认）：Content Script 只能访问 DOM，不能访问页面自己的 JS 变量</li>
+<li><code>"MAIN"</code>：脚本运行在页面的主世界，可以访问页面 JS 变量，但不能使用 <code>chrome.*</code> API</li>
+</ul>
+<pre class="codehilite"><code class="language-json">{
+  &quot;matches&quot;: [&quot;https://*.taobao.com/*&quot;],
+  &quot;js&quot;: [&quot;src/content/bridge.js&quot;],
+  &quot;world&quot;: &quot;MAIN&quot;
+}
+</code></pre>
+
+<p><strong>实践中</strong>：大部分场景用默认的 ISOLATED 即可。只有当你需要劫持或调用页面已有的 JS 函数时，才需要 MAIN world。</p>
+<h3 id="match_about_blank-match_origin_as_fallback">match_about_blank / match_origin_as_fallback<a class="headerlink" href="#match_about_blank-match_origin_as_fallback" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-json">&quot;match_about_blank&quot;: true
+</code></pre>
+
+<p>控制是否在 <code>about:blank</code>、<code>about:srcdoc</code> 等特殊页面（如 iframe 内容）上注入脚本。默认 false。</p>
+<hr />
+<h2 id="background">四、后台入口（background）<a class="headerlink" href="#background" title="Permanent link">&para;</a></h2>
+<pre class="codehilite"><code class="language-json">&quot;background&quot;: {
+  &quot;service_worker&quot;: &quot;src/background/background.js&quot;
+}
+</code></pre>
+
+<h3 id="service_worker">service_worker<a class="headerlink" href="#service_worker" title="Permanent link">&para;</a></h3>
+<p>MV3 的 Service Worker 替代了 MV2 的后台页面。一个扩展只有一个 Service Worker。</p>
+<p><strong>关键特性</strong>：
+- 事件驱动：没有事件时不运行，不消耗内存
+- 约 30 秒不活动后自动休眠
+- 休眠后被事件（<code>onMessage</code>、<code>onAlarm</code>、<code>onInstalled</code> 等）唤醒
+- 全局变量在休眠后丢失——<strong>必须显式持久化所有状态</strong></p>
+<pre class="codehilite"><code class="language-json">// ❌ 错误写法——休眠后 count=undefined
+let count = 0;
+chrome.runtime.onMessage.addListener((msg, sender, sendResponse) =&gt; {
+  count++;
+});
+
+// ✅ 正确写法——从 storage 读取
+chrome.runtime.onMessage.addListener(async (msg, sender, sendResponse) =&gt; {
+  const { count } = await chrome.storage.local.get('count');
+  await chrome.storage.local.set({ count: (count || 0) + 1 });
+});
+</code></pre>
+
+<h3 id="type-module">type: "module"<a class="headerlink" href="#type-module" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-json">&quot;background&quot;: {
+  &quot;service_worker&quot;: &quot;src/background/background.js&quot;,
+  &quot;type&quot;: &quot;module&quot;
+}
+</code></pre>
+
+<p>当你的 SW 文件使用 <code>import</code>/<code>export</code>（ES Module）时需要指定 <code>"type": "module"</code>。不加的话，Chrome 会把 SW 文件当作普通脚本解析，遇到 <code>import</code> 会报错。</p>
+<p><strong>实践中</strong>：如果你用 WXT / Vite 等构建工具，它们通常会自动处理 SW 的 module 声明。如果你手写 SW（如 taobao-plugin 的 239 行无构建 SW），用 CommonJS 风格的 message handler，不需要 <code>type: "module"</code>。</p>
+<h3 id="mv2">MV2 兼容（了解即可）<a class="headerlink" href="#mv2" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-json">// MV2 写法，仅用于参考已弃用的代码
+&quot;background&quot;: {
+  &quot;scripts&quot;: [&quot;background.js&quot;],
+  &quot;persistent&quot;: false  // true=常驻后台页面，false=事件页面
+}
+</code></pre>
+
+<p>MV3 不存在 <code>persistent</code> 或 <code>scripts</code>（数组）了。</p>
+<hr />
+<h2 id="_3">五、用户界面<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="action">action（工具栏按钮）<a class="headerlink" href="#action" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-json">&quot;action&quot;: {
+  &quot;default_title&quot;: &quot;淘宝品类分析&quot;,
+  &quot;default_icon&quot;: {
+    &quot;16&quot;: &quot;icons/icon16.png&quot;,
+    &quot;48&quot;: &quot;icons/icon48.png&quot;,
+    &quot;128&quot;: &quot;icons/icon128.png&quot;
+  }
+}
+</code></pre>
+
+<p>在 MV3 中，<code>browser_action</code> 和 <code>page_action</code> 合并为 <code>action</code>。控制扩展图标在工具栏上的行为。</p>
+<table>
+<thead>
+<tr>
+<th>子字段</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>default_title</code></td>
+<td>鼠标悬停时显示的文字</td>
+</tr>
+<tr>
+<td><code>default_icon</code></td>
+<td>图标（16/32/48/128）</td>
+</tr>
+<tr>
+<td><code>default_popup</code></td>
+<td><strong>点击图标时弹出的 HTML 页面</strong></td>
+</tr>
+</tbody>
+</table>
+<h4 id="popup-vs-popup">有 Popup vs 无 Popup<a class="headerlink" href="#popup-vs-popup" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-json">// 有 Popup——点击自动弹窗
+&quot;action&quot;: {
+  &quot;default_popup&quot;: &quot;src/popup/popup.html&quot;
+}
+
+// 无 Popup——点击触发 chrome.action.onClicked 事件
+// taobao-plugin 就是这个模式
+&quot;action&quot;: {
+  &quot;default_title&quot;: &quot;淘宝品类分析&quot;,
+  &quot;default_icon&quot;: { ... }
+  // 没有 default_popup！
+}
+</code></pre>
+
+<p><strong>这是一个重要的架构决策</strong>：
+- 有 Popup → 点击弹出临时页面，适合短暂交互（开关、查看状态）。关闭即销毁。
+- 无 Popup → 在 SW 中监听 <code>chrome.action.onClicked</code>，适合打开 Side Panel 或新标签页。交互不随点击消失。</p>
+<h4 id="badge">Badge<a class="headerlink" href="#badge" title="Permanent link">&para;</a></h4>
+<pre class="codehilite"><code class="language-json">// 通过 chrome.action.setBadgeText / setBadgeBackgroundColor 设置
+chrome.action.setBadgeText({ text: &quot;42&quot; });
+chrome.action.setBadgeBackgroundColor({ color: &quot;#FF0000&quot; });
+</code></pre>
+
+<p>工具栏图标右上角的角标文字。适合显示计数（未读消息数、待处理任务数等）。气泡颜色和文字均可通过代码控制。</p>
+<hr />
+<h3 id="side_panel">side_panel（侧边栏）<a class="headerlink" href="#side_panel" title="Permanent link">&para;</a></h3>
+<p><strong>MV3 新增</strong>。</p>
+<pre class="codehilite"><code class="language-json">&quot;side_panel&quot;: {
+  &quot;default_path&quot;: &quot;src/sidepanel/sidepanel.html&quot;
+}
+</code></pre>
+
+<p>Side Panel 是 MV3 最实用的新特性之一。与 Popup 的关键区别：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Popup</th>
+<th>Side Panel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>生命周期</td>
+<td>点击出现，失焦消失</td>
+<td>手动打开/关闭，可常驻</td>
+</tr>
+<tr>
+<td>内容复杂度</td>
+<td>适合简单交互</td>
+<td>适合复杂/耗时的操作</td>
+</tr>
+<tr>
+<td>打开方式</td>
+<td>点击图标</td>
+<td>点击图标或快捷键</td>
+</tr>
+<tr>
+<td>同时性</td>
+<td>用户可同时做其他事</td>
+<td>用户可同时做其他事（侧栏不抢占焦点）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>典型的架构分工</strong>：Popup 做快捷入口/开关控制，Side Panel 做主工作区。taobao-plugin 的 3000+ 行代码全在 Side Panel 里，Popup 仅 130 行作为辅助入口。</p>
+<hr />
+<h3 id="options_ui">options_ui（设置页面）<a class="headerlink" href="#options_ui" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-json">&quot;options_ui&quot;: {
+  &quot;page&quot;: &quot;src/options/options.html&quot;,
+  &quot;open_in_tab&quot;: true
+}
+</code></pre>
+
+<p>用户右键扩展图标 → "选项" 时打开的页面。<code>open_in_tab: true</code> 在新标签页打开（适合复杂的设置界面），<code>false</code> 则在弹窗中打开（适合简短设置）。</p>
+<hr />
+<h3 id="commands">commands（快捷键）<a class="headerlink" href="#commands" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-json">&quot;commands&quot;: {
+  &quot;_execute_action&quot;: {
+    &quot;suggested_key&quot;: {
+      &quot;default&quot;: &quot;Ctrl+Shift+Y&quot;,
+      &quot;mac&quot;: &quot;Command+Shift+Y&quot;
+    }
+  },
+  &quot;open-side-panel&quot;: {
+    &quot;suggested_key&quot;: {
+      &quot;default&quot;: &quot;Alt+Shift+T&quot;
+    },
+    &quot;description&quot;: &quot;打开侧边栏&quot;
+  }
+}
+</code></pre>
+
+<ul>
+<li><code>_execute_action</code>：触发 action.onClicked 的快捷键（特殊预定义命令）</li>
+<li><code>_execute_side_panel_action</code>：打开/关闭 Side Panel（MV3）  </li>
+<li>自定义命令：在 SW 中通过 <code>chrome.commands.onCommand</code> 监听</li>
+</ul>
+<p>用户可以覆盖你建议的快捷键。</p>
+<hr />
+<h2 id="_4">六、网络与安全<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="web_accessible_resources">web_accessible_resources<a class="headerlink" href="#web_accessible_resources" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-json">&quot;web_accessible_resources&quot;: [{
+  &quot;resources&quot;: [&quot;icons/*&quot;, &quot;src/sidepanel/ai-report-print.css&quot;],
+  &quot;matches&quot;: [&quot;&lt;all_urls&gt;&quot;]
+}]
+</code></pre>
+
+<p>指定哪些资源可以被网页访问。不声明的资源，网页通过 <code>chrome-extension://</code> URL 访问会返回 404。</p>
+<p><strong>注意</strong>：<code>matches</code> 指定哪些<strong>网站</strong>可以访问这些资源，不是为了匹配生效页面。<code>&lt;all_urls&gt;</code> 表示任何网站都可以访问。</p>
+<pre class="codehilite"><code class="language-json">// 更精确的写法——只允许 taobao.com 页面访问
+&quot;web_accessible_resources&quot;: [{
+  &quot;resources&quot;: [&quot;icons/*&quot;],
+  &quot;matches&quot;: [&quot;https://*.taobao.com/*&quot;]
+}]
+</code></pre>
+
+<p><strong>use_dynamic_url</strong>（MV3）：</p>
+<pre class="codehilite"><code class="language-json">&quot;web_accessible_resources&quot;: [{
+  &quot;resources&quot;: [&quot;assets/*&quot;],
+  &quot;matches&quot;: [&quot;&lt;all_urls&gt;&quot;],
+  &quot;use_dynamic_url&quot;: true
+}]
+</code></pre>
+
+<p><code>use_dynamic_url: true</code> 时，每次安装/更新生成不同的随机 URL，防止其他网站硬编码资源 URL。这是安全增强机制。</p>
+<hr />
+<h3 id="content_security_policy">content_security_policy<a class="headerlink" href="#content_security_policy" title="Permanent link">&para;</a></h3>
+<p>MV3 中使用 <code>content_security_policy</code> 不再是一个字符串，而是结构化的 <code>extension_pages</code> 和 <code>sandbox</code> 字段：</p>
+<pre class="codehilite"><code class="language-json">&quot;content_security_policy&quot;: {
+  &quot;extension_pages&quot;: &quot;script-src 'self'; object-src 'self'&quot;,
+  &quot;sandbox&quot;: &quot;sandbox allow-scripts allow-forms; script-src 'self'&quot;
+}
+</code></pre>
+
+<p>MV3 默认 CSP：<code>script-src 'self'; object-src 'self'</code>（不允许 <code>'unsafe-eval'</code>）。</p>
+<p><strong>这是 MV3 的硬限制</strong>——你不能因为图方便就放开 CSP 允许 <code>eval()</code>。如果你的代码使用 <code>eval()</code> 或 <code>new Function()</code>，需要重构。这也是为什么 MV3 禁止远程代码的原因——远程代码 = 无法在构建时静态分析 = 安全风险。</p>
+<hr />
+<h3 id="sandbox">sandbox<a class="headerlink" href="#sandbox" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-json">&quot;sandbox&quot;: {
+  &quot;pages&quot;: [&quot;src/sandbox/export.html&quot;]
+}
+</code></pre>
+
+<p>默认情况下，扩展页面运行在严格 CSP 下。如果你需要在扩展中使用 <code>eval()</code> 或 <code>new Function()</code>（比如用户自定义表达式计算），需要把相关页面声明为 sandbox 页面。沙盒页面失去了 <code>chrome.*</code> API 访问权限，需要通过 postMessage 与父页面通信。</p>
+<hr />
+<h2 id="_5">七、扩展通信<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="externally_connectable">externally_connectable<a class="headerlink" href="#externally_connectable" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-json">&quot;externally_connectable&quot;: {
+  &quot;ids&quot;: [&quot;*&quot;],
+  &quot;matches&quot;: [&quot;https://*.taobao.com/*&quot;]
+}
+</code></pre>
+
+<p>控制哪些<strong>其他扩展</strong>和<strong>网页</strong>可以给你的扩展发送消息。不声明这个字段时，只有你的扩展内部可以通信。</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ids</code></td>
+<td>允许哪些扩展 ID 连接。<code>"*"</code> 表示所有扩展</td>
+</tr>
+<tr>
+<td><code>matches</code></td>
+<td>允许哪些网站通过 <code>chrome.runtime.connect</code> 或 <code>sendMessage</code> 调用你的扩展</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键安全场景</strong>：如果你在 Content Script 中通过 <code>window.postMessage</code> 与 Main World 通信，那任何页面脚本都可以发消息给 Content Script。<code>externally_connectable</code> 无法防范这个——你需要自己在消息 handler 中校验来源。</p>
+<hr />
+<h3 id="update_url">update_url<a class="headerlink" href="#update_url" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-json">&quot;update_url&quot;: &quot;https://your-server.com/updates.xml&quot;
+</code></pre>
+
+<p>Chrome Web Store 上的扩展使用商店的自动更新，不需要这个字段。只有通过开发者模式或企业策略侧载（side-loading）的扩展才需要自建更新服务器。</p>
+<p>实践中，绝大多数场景不需要这个字段。</p>
+<hr />
+<h3 id="key">key<a class="headerlink" href="#key" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-json">&quot;key&quot;: &quot;MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA...&quot;
+</code></pre>
+
+<p>用于固定扩展的公钥。扩展 ID 是由公钥生成的。不指定 <code>key</code> 时，Chrome 为每个扩展生成随机 ID。<code>key</code> 字段确保<strong>不同电脑/不同构建方式</strong>下生成相同的扩展 ID。</p>
+<p><strong>当你需要</strong>：开发者模式加载的扩展需要固定 ID（比如 OAuth 重定向 URL 需要扩展 ID）。发布到 CWS 后，由商店签名，ID 自然固定。</p>
+<hr />
+<h2 id="_6">八、高级功能 &amp; 冷门字段<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="devtools_page">devtools_page<a class="headerlink" href="#devtools_page" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-json">&quot;devtools_page&quot;: &quot;src/devtools/index.html&quot;
+</code></pre>
+
+<p>注册一个 F12 开发者工具面板。独立的 HTML 页面，有独立的开发工具窗口生命周期。不在 DevTools 中不会加载，不消耗资源。</p>
+<h3 id="omnibox">omnibox<a class="headerlink" href="#omnibox" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-json">&quot;omnibox&quot;: {
+  &quot;keyword&quot;: &quot;tb&quot;
+}
+</code></pre>
+
+<p>在地址栏输入 <code>tb</code> + 空格，地址栏切换为扩展搜索模式。用户在地址栏输入的内容会触发 <code>chrome.omnibox.onInputChanged</code> 事件，扩展可以提供建议列表。</p>
+<h3 id="storagemanaged_schema">storage.managed_schema<a class="headerlink" href="#storagemanaged_schema" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-json">&quot;storage&quot;: {
+  &quot;managed_schema&quot;: &quot;schemas/policy-schema.json&quot;
+}
+</code></pre>
+
+<p>定义企业策略（Group Policy）的 JSON Schema。只有被管理的 Chrome 实例（通过 GPO/MDM 配置）才会从这个 schema 读取配置。普通用户用不到。</p>
+<h3 id="offline_enabled">offline_enabled<a class="headerlink" href="#offline_enabled" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-json">&quot;offline_enabled&quot;: true
+</code></pre>
+
+<p>ChromeOS/Android 上使用。告知系统你的扩展可以在离线状态下工作。</p>
+<h3 id="tts_engine">tts_engine<a class="headerlink" href="#tts_engine" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-json">&quot;tts_engine&quot;: {
+  &quot;voices&quot;: [{&quot;voice_name&quot;: &quot;Alice&quot;, &quot;lang&quot;: &quot;zh-CN&quot;}]
+}
+</code></pre>
+
+<p>注册一个 TTS（文字转语音）引擎到 Chrome 的语音系统中。很少用到。</p>
+<h3 id="file_browser_handlers-file_system_provider_capabilities">file_browser_handlers / file_system_provider_capabilities<a class="headerlink" href="#file_browser_handlers-file_system_provider_capabilities" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-json">&quot;file_browser_handlers&quot;: [...]
+</code></pre>
+
+<p>ChromeOS 文件管理器的集成。ChromeOS 专属，桌面 Chrome 不支持。</p>
+<h3 id="automation">automation<a class="headerlink" href="#automation" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-json">&quot;automation&quot;: {
+  &quot;desktop&quot;: true
+}
+</code></pre>
+
+<p>允许扩展通过 <code>chrome.automation</code> API 访问无障碍树。用于自动化测试或屏幕阅读器类扩展。</p>
+<hr />
+<h2 id="_7">附录：字段快速索引<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>分类</th>
+<th>字段</th>
+<th>必填</th>
+<th>MV3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>元数据</td>
+<td><code>manifest_version</code></td>
+<td>✅</td>
+<td>3</td>
+</tr>
+<tr>
+<td></td>
+<td><code>name</code></td>
+<td>✅</td>
+<td>—</td>
+</tr>
+<tr>
+<td></td>
+<td><code>version</code></td>
+<td>✅</td>
+<td>—</td>
+</tr>
+<tr>
+<td></td>
+<td><code>description</code></td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td></td>
+<td><code>icons</code></td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td></td>
+<td><code>default_locale</code></td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td></td>
+<td><code>minimum_chrome_version</code></td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>权限</td>
+<td><code>permissions</code></td>
+<td>—</td>
+<td>拆分出 host_permissions</td>
+</tr>
+<tr>
+<td></td>
+<td><code>host_permissions</code></td>
+<td>—</td>
+<td>✅ 新增</td>
+</tr>
+<tr>
+<td></td>
+<td><code>optional_permissions</code></td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td></td>
+<td><code>optional_host_permissions</code></td>
+<td>—</td>
+<td>✅ 新增</td>
+</tr>
+<tr>
+<td>后台</td>
+<td><code>background</code></td>
+<td>—</td>
+<td>service_worker 替代 scripts</td>
+</tr>
+<tr>
+<td>内容脚本</td>
+<td><code>content_scripts</code></td>
+<td>—</td>
+<td>新增 world 字段</td>
+</tr>
+<tr>
+<td>UI</td>
+<td><code>action</code></td>
+<td>—</td>
+<td>browser_action+page_action 合并</td>
+</tr>
+<tr>
+<td></td>
+<td><code>side_panel</code></td>
+<td>—</td>
+<td>✅ 新增</td>
+</tr>
+<tr>
+<td></td>
+<td><code>options_ui</code></td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td></td>
+<td><code>commands</code></td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>安全</td>
+<td><code>web_accessible_resources</code></td>
+<td>—</td>
+<td>新格式（数组）</td>
+</tr>
+<tr>
+<td></td>
+<td><code>content_security_policy</code></td>
+<td>—</td>
+<td>新格式（结构化）</td>
+</tr>
+<tr>
+<td></td>
+<td><code>sandbox</code></td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>通信</td>
+<td><code>externally_connectable</code></td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td></td>
+<td><code>key</code></td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>高级</td>
+<td><code>devtools_page</code></td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td></td>
+<td><code>omnibox</code></td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td></td>
+<td><code>storage</code></td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td></td>
+<td><code>update_url</code></td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td></td>
+<td><code>offline_enabled</code></td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td></td>
+<td><code>tts_engine</code></td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td></td>
+<td><code>automation</code></td>
+<td>—</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_8">参考<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://developer.chrome.com/docs/extensions/mv3/manifest/">Chrome Extensions Manifest File Format</a></li>
+<li><a href="https://developer.chrome.com/docs/extensions/mv3/declare_permissions/">Permissions documentation</a></li>
+<li>Chrome Web Store <a href="https://developer.chrome.com/docs/webstore/manifest/">Manifest documentation</a></li>
+<li><a href="https://developer.chrome.com/docs/extensions/mv3/mv2-migration/">Manifest V2 → V3 migration guide</a></li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../" class="btn btn-neutral float-left" title="总览"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../02-core-architecture/" class="btn btn-neutral float-right" title="02 - 核心架构层">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>CC0 1.0 Universal</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/sylar-qiu/grow-path" class="fa fa-code-fork" style="color: #fcfcfc"> sylar-qiu/grow-path</a>
+        </span>
+    
+    
+      <span><a href="../" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../02-core-architecture/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

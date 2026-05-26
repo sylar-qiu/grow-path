@@ -128,4 +128,4 @@ function updateCount() {
 
 - 源码：`Projects/taobao-plugin/extension/src/sidepanel/sidepanel.js`
 - 源码：`Projects/taobao-plugin/extension/src/popup/popup.js`
-- 知识体系：[UI 层](05-ui-layer.md)
+- 知识体系：[UI 层](06-ui-layer.md)

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://sylar-qiu.github.io/grow-path/browser-extension/07-network/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>07 - 网络层 - 成长笔记</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "07 - \u7f51\u7edc\u5c42";
+        var mkdocs_page_input_path = "browser-extension/07-network.md";
+        var mkdocs_page_url = "/grow-path/browser-extension/07-network/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 成长笔记
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">浏览器扩展</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../">总览</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" >知识体系</a>
+    <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../01-manifest-reference/">01 - Manifest 字段详解</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../02-core-architecture/">02 - 核心架构层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../03-content-scripts/">03 - 内容脚本层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../04-service-worker/">04 - Service Worker 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../05-storage/">05 - 存储层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../06-ui-layer/">06 - UI 层</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">07 - 网络层</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#declarative-net-request">Declarative Net Request</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#webrequest">webRequest（观察模式）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_6">跨域与安全</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_8">参考</a>
+    </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../08-api-panorama/">08 - 浏览器 API 全景</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../09-devtools/">09 - DevTools 扩展</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../10-native-messaging/">10 - 原生通信</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../11-build-tooling/">11 - 构建与工程化</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../12-debugging-testing/">12 - 调试与测试</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../13-publishing/">13 - 发布与运维</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../14-cross-browser/">14 - 多浏览器兼容</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >实战案例（淘宝插件）</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../case-01-architecture/">01 - 架构与 Manifest</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-02-content-scripts/">02 - 内容脚本实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-03-service-worker/">03 - Service Worker 实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-04-storage/">04 - 存储层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-05-ui-layer/">05 - UI 层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../case-06-engineering/">06 - 工程化与数据流</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">架构师之路</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../architecture/">架构师之路</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">机器人之路</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../robotics/">机器人之路</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">成长笔记</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">浏览器扩展</li>
+          <li class="breadcrumb-item">知识体系</li>
+      <li class="breadcrumb-item active">07 - 网络层</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/sylar-qiu/grow-path/edit/master/docs/browser-extension/07-network.md">Edit on sylar-qiu/grow-path</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">网络层<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>MV3 最大的网络变化：webRequest 的 blocking 模式被 Declarative Net Request (DNR) 替代。</p>
+<h2 id="declarative-net-request">Declarative Net Request<a class="headerlink" href="#declarative-net-request" title="Permanent link">&para;</a></h2>
+<p>核心思想：不写代码拦截请求，声明规则让浏览器替你执行。</p>
+<h3 id="_2">规则结构<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>一条规则由三部分组成：</p>
+<pre class="codehilite"><code class="language-json">{
+  &quot;id&quot;: 1,
+  &quot;priority&quot;: 1,
+  &quot;condition&quot;: {
+    &quot;urlFilter&quot;: &quot;||example.com/ads/*&quot;,
+    &quot;resourceTypes&quot;: [&quot;script&quot;, &quot;image&quot;]
+  },
+  &quot;action&quot;: {
+    &quot;type&quot;: &quot;block&quot;
+  }
+}
+</code></pre>
+
+<h3 id="_3">规则存放方式<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p><strong>静态规则</strong>：manifest.json 中声明规则文件</p>
+<pre class="codehilite"><code class="language-json">{
+  &quot;declarative_net_request&quot;: {
+    &quot;rule_resources&quot;: [{
+      &quot;id&quot;: &quot;ruleset_1&quot;,
+      &quot;enabled&quot;: true,
+      &quot;path&quot;: &quot;rules.json&quot;
+    }]
+  }
+}
+</code></pre>
+
+<p><strong>动态规则</strong>：运行时通过 API 添加/删除</p>
+<pre class="codehilite"><code class="language-javascript">await chrome.declarativeNetRequest.updateDynamicRules({
+  addRules: [newRule],
+  removeRuleIds: [oldRuleId]
+});
+</code></pre>
+
+<h3 id="_4">规则类型<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>type</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>block</code></td>
+<td>拦截请求</td>
+</tr>
+<tr>
+<td><code>redirect</code></td>
+<td>重定向（去除参数、替换 URL）</td>
+</tr>
+<tr>
+<td><code>modifyHeaders</code></td>
+<td>修改请求/响应头</td>
+</tr>
+<tr>
+<td><code>allow</code></td>
+<td>允许（优先级高于 block）</td>
+</tr>
+<tr>
+<td><code>allowAllRequests</code></td>
+<td>允许该域名下所有请求</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_5">配额限制<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>限额</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>静态规则集</td>
+<td>最多 50 个</td>
+</tr>
+<tr>
+<td>每个规则集规则数</td>
+<td>最多 5000 条</td>
+</tr>
+<tr>
+<td>动态规则总数</td>
+<td>最多 5000 条</td>
+</tr>
+<tr>
+<td>会话规则总数</td>
+<td>最多 5000 条</td>
+</tr>
+<tr>
+<td>正则表达式规则</td>
+<td>最多 1000 条</td>
+</tr>
+<tr>
+<td>修改请求头的规则</td>
+<td>最多 50 条</td>
+</tr>
+</tbody>
+</table>
+<h3 id="url">实际案例：去掉 URL 中的追踪参数<a class="headerlink" href="#url" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-json">{
+  &quot;id&quot;: 1,
+  &quot;priority&quot;: 1,
+  &quot;condition&quot;: {
+    &quot;regexFilter&quot;: &quot;^https?://[^/]+/[^?]*\\?(.*&amp;)?(utm_source|utm_medium|utm_campaign|fbclid)=[^&amp;]+&quot;
+  },
+  &quot;action&quot;: {
+    &quot;type&quot;: &quot;redirect&quot;,
+    &quot;redirect&quot;: {
+      &quot;regexSubstitution&quot;: &quot;\\0&quot;
+    }
+  }
+}
+</code></pre>
+
+<p>这个场景注意：正则比 urlFilter 慢，尽量先用 urlFilter 缩小范围。</p>
+<hr />
+<h2 id="webrequest">webRequest（观察模式）<a class="headerlink" href="#webrequest" title="Permanent link">&para;</a></h2>
+<p>MV3 中 webRequest 保留但只读：</p>
+<pre class="codehilite"><code class="language-javascript">chrome.webRequest.onBeforeRequest.addListener(
+  (details) =&gt; {
+    console.log('请求:', details.url);
+    // 可以读但不能修改
+    return {}; // 不能返回 redirectUrl 或 cancel
+  },
+  { urls: ['&lt;all_urls&gt;'] },
+  ['requestBody'] // 可以读 requestBody
+);
+</code></pre>
+
+<h3 id="dnr">DNR 覆盖不了的场景<a class="headerlink" href="#dnr" title="Permanent link">&para;</a></h3>
+<ul>
+<li>需要根据请求<strong>内容</strong>动态判断（读取 requestBody 的值决定是否拦截）</li>
+<li>需要非常复杂的重定向逻辑（非正则可表达的）</li>
+<li>需要与其他扩展协作</li>
+</ul>
+<p>这些场景只能保留 webRequest 的观察模式，无法完全替代原来的 blocking 行为。</p>
+<hr />
+<h2 id="_6">跨域与安全<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="_7">扩展跨域<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>Content Script 受目标页面的 CSP 限制。但扩展自身（SW 或 Popup）发请求不受页面 CSP 限制：</p>
+<pre class="codehilite"><code class="language-javascript">// SW 中，可以请求任何 URL（需 host_permissions）
+const resp = await fetch('https://api.example.com/data');
+</code></pre>
+
+<p>manifest.json 中声明：</p>
+<pre class="codehilite"><code class="language-json">&quot;host_permissions&quot;: [
+  &quot;https://api.example.com/*&quot;
+]
+</code></pre>
+
+<h3 id="csp">CSP 配置<a class="headerlink" href="#csp" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-json">// manifest.json
+&quot;content_security_policy&quot;: {
+  &quot;extension_pages&quot;: &quot;script-src 'self'; object-src 'self'&quot;,
+  &quot;sandbox&quot;: &quot;sandbox allow-scripts allow-forms&quot;
+}
+</code></pre>
+
+<p>在 MV3 中，<code>extension_pages</code> 的 CSP 更严格——不能加 <code>'unsafe-eval'</code>，意味着你不能用 eval、new Function 等。</p>
+<h3 id="sandbox">Sandbox 页面<a class="headerlink" href="#sandbox" title="Permanent link">&para;</a></h3>
+<p>如果你需要执行用户提供的动态代码（比如用户脚本编辑器），必须使用 Sandbox：</p>
+<pre class="codehilite"><code class="language-json">&quot;sandbox&quot;: {
+  &quot;pages&quot;: [&quot;sandbox/sandbox.html&quot;]
+}
+</code></pre>
+
+<p>Sandbox 页面不能访问任何 extension API。</p>
+<hr />
+<h2 id="_8">参考<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://developer.chrome.com/docs/extensions/reference/declarativeNetRequest/">Declarative Net Request API</a></li>
+<li><a href="https://developer.chrome.com/docs/extensions/mv3/mv3-migration/#network-request-modification">MV3 Network Migration</a></li>
+<li><a href="https://developer.chrome.com/docs/extensions/mv3/manifest/content_security_policy/">Content Security Policy</a></li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../06-ui-layer/" class="btn btn-neutral float-left" title="06 - UI 层"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../08-api-panorama/" class="btn btn-neutral float-right" title="08 - 浏览器 API 全景">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>CC0 1.0 Universal</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/sylar-qiu/grow-path" class="fa fa-code-fork" style="color: #fcfcfc"> sylar-qiu/grow-path</a>
+        </span>
+    
+    
+      <span><a href="../06-ui-layer/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../08-api-panorama/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
