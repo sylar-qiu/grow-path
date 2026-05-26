@@ -3,18 +3,18 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://sylar-qiu.github.io/grow-path/browser-extension/01-core-architecture/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://sylar-qiu.github.io/grow-path/browser-extension/02-core-architecture/" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>01 - 核心架构层 - 成长笔记</title>
+    <title>02 - 核心架构层 - 成长笔记</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "01 - \u6838\u5fc3\u67b6\u6784\u5c42";
-        var mkdocs_page_input_path = "browser-extension/01-core-architecture.md";
-        var mkdocs_page_url = "/grow-path/browser-extension/01-core-architecture/";
+        var mkdocs_page_name = "02 - \u6838\u5fc3\u67b6\u6784\u5c42";
+        var mkdocs_page_input_path = "browser-extension/02-core-architecture.md";
+        var mkdocs_page_url = "/grow-path/browser-extension/02-core-architecture/";
       </script>
     
     <!--[if lt IE 9]>
@@ -49,7 +49,9 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" >知识体系</a>
     <ul class="current">
-                <li class="toctree-l2 current"><a class="reference internal current" href="#">01 - 核心架构层</a>
+                <li class="toctree-l2"><a class="reference internal" href="../01-manifest-reference/">01 - Manifest 字段详解</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">02 - 核心架构层</a>
     <ul class="current">
     <li class="toctree-l3"><a class="reference internal" href="#manifest-v3">Manifest V3 的核心变化</a>
     </li>
@@ -63,29 +65,29 @@
     </li>
     </ul>
                 </li>
-                <li class="toctree-l2"><a class="reference internal" href="../02-content-scripts/">02 - 内容脚本层</a>
+                <li class="toctree-l2"><a class="reference internal" href="../03-content-scripts/">03 - 内容脚本层</a>
                 </li>
-                <li class="toctree-l2"><a class="reference internal" href="../03-service-worker/">03 - Service Worker 层</a>
+                <li class="toctree-l2"><a class="reference internal" href="../04-service-worker/">04 - Service Worker 层</a>
                 </li>
-                <li class="toctree-l2"><a class="reference internal" href="../04-storage/">04 - 存储层</a>
+                <li class="toctree-l2"><a class="reference internal" href="../05-storage/">05 - 存储层</a>
                 </li>
-                <li class="toctree-l2"><a class="reference internal" href="../05-ui-layer/">05 - UI 层</a>
+                <li class="toctree-l2"><a class="reference internal" href="../06-ui-layer/">06 - UI 层</a>
                 </li>
-                <li class="toctree-l2"><a class="reference internal" href="../06-network/">06 - 网络层</a>
+                <li class="toctree-l2"><a class="reference internal" href="../07-network/">07 - 网络层</a>
                 </li>
-                <li class="toctree-l2"><a class="reference internal" href="../07-api-panorama/">07 - 浏览器 API 全景</a>
+                <li class="toctree-l2"><a class="reference internal" href="../08-api-panorama/">08 - 浏览器 API 全景</a>
                 </li>
-                <li class="toctree-l2"><a class="reference internal" href="../08-devtools/">08 - DevTools 扩展</a>
+                <li class="toctree-l2"><a class="reference internal" href="../09-devtools/">09 - DevTools 扩展</a>
                 </li>
-                <li class="toctree-l2"><a class="reference internal" href="../09-native-messaging/">09 - 原生通信</a>
+                <li class="toctree-l2"><a class="reference internal" href="../10-native-messaging/">10 - 原生通信</a>
                 </li>
-                <li class="toctree-l2"><a class="reference internal" href="../10-build-tooling/">10 - 构建与工程化</a>
+                <li class="toctree-l2"><a class="reference internal" href="../11-build-tooling/">11 - 构建与工程化</a>
                 </li>
-                <li class="toctree-l2"><a class="reference internal" href="../11-debugging-testing/">11 - 调试与测试</a>
+                <li class="toctree-l2"><a class="reference internal" href="../12-debugging-testing/">12 - 调试与测试</a>
                 </li>
-                <li class="toctree-l2"><a class="reference internal" href="../12-publishing/">12 - 发布与运维</a>
+                <li class="toctree-l2"><a class="reference internal" href="../13-publishing/">13 - 发布与运维</a>
                 </li>
-                <li class="toctree-l2"><a class="reference internal" href="../13-cross-browser/">13 - 多浏览器兼容</a>
+                <li class="toctree-l2"><a class="reference internal" href="../14-cross-browser/">14 - 多浏览器兼容</a>
                 </li>
     </ul>
                   </li>
@@ -132,9 +134,9 @@
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
           <li class="breadcrumb-item">浏览器扩展</li>
           <li class="breadcrumb-item">知识体系</li>
-      <li class="breadcrumb-item active">01 - 核心架构层</li>
+      <li class="breadcrumb-item active">02 - 核心架构层</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/sylar-qiu/grow-path/edit/master/docs/browser-extension/01-core-architecture.md">Edit on sylar-qiu/grow-path</a>
+          <a href="https://github.com/sylar-qiu/grow-path/edit/master/docs/browser-extension/02-core-architecture.md">Edit on sylar-qiu/grow-path</a>
     </li>
   </ul>
   <hr/>
@@ -146,7 +148,7 @@
 <h2 id="manifest-v3">Manifest V3 的核心变化<a class="headerlink" href="#manifest-v3" title="Permanent link">&para;</a></h2>
 <p>MV3 有三条根本性改变，理解它们就理解了整个架构设计：</p>
 <h3 id="1-service-worker">1. Service Worker 替代后台页面<a class="headerlink" href="#1-service-worker" title="Permanent link">&para;</a></h3>
-<p>之前 <code>"persistent": true/false</code> 控制的后台页面，现在变成一个纯粹的事件驱动 Service Worker。详情在<a href="../03-service-worker/">Service Worker 层</a>展开，这里只说架构层面的影响：</p>
+<p>之前 <code>"persistent": true/false</code> 控制的后台页面，现在变成一个纯粹的事件驱动 Service Worker。详情在<a href="../04-service-worker/">Service Worker 层</a>展开，这里只说架构层面的影响：</p>
 <ul>
 <li>所有状态必须显式持久化，不能依赖内存变量</li>
 <li>长时间操作需要拆分或使用 <code>alarms</code> 维持</li>
@@ -163,7 +165,7 @@ chrome.scripting.executeScript(tabId, { files: [&quot;bundled-content.js&quot;] 
 
 <p>你的构建工具必须把<strong>所有</strong> JS 打包进扩展包。这个变化直接决定了工程化方案——你的 Vite/Webpack 必须正确处理多入口 bundle。</p>
 <h3 id="3-webrequest-blocking">3. webRequest blocking 模式废除<a class="headerlink" href="#3-webrequest-blocking" title="Permanent link">&para;</a></h3>
-<p><code>webRequest</code> 还能监听，但不能再拦截和修改请求。代替方案是 Declarative Net Request——声明式规则引擎，具体在<a href="../06-network/">网络层</a>展开。</p>
+<p><code>webRequest</code> 还能监听，但不能再拦截和修改请求。代替方案是 Declarative Net Request——声明式规则引擎，具体在<a href="../07-network/">网络层</a>展开。</p>
 <hr />
 <h2 id="_2">五大组件及其定位<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <pre class="codehilite"><code>                 ┌─────────────┐
@@ -290,8 +292,8 @@ script.remove();
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../" class="btn btn-neutral float-left" title="总览"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../02-content-scripts/" class="btn btn-neutral float-right" title="02 - 内容脚本层">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../01-manifest-reference/" class="btn btn-neutral float-left" title="01 - Manifest 字段详解"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../03-content-scripts/" class="btn btn-neutral float-right" title="03 - 内容脚本层">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -319,10 +321,10 @@ script.remove();
         </span>
     
     
-      <span><a href="../" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../01-manifest-reference/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../02-content-scripts/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../03-content-scripts/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

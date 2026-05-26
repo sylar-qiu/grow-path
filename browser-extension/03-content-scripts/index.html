@@ -3,18 +3,18 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://sylar-qiu.github.io/grow-path/browser-extension/02-content-scripts/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://sylar-qiu.github.io/grow-path/browser-extension/03-content-scripts/" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>02 - 内容脚本层 - 成长笔记</title>
+    <title>03 - 内容脚本层 - 成长笔记</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "02 - \u5185\u5bb9\u811a\u672c\u5c42";
-        var mkdocs_page_input_path = "browser-extension/02-content-scripts.md";
-        var mkdocs_page_url = "/grow-path/browser-extension/02-content-scripts/";
+        var mkdocs_page_name = "03 - \u5185\u5bb9\u811a\u672c\u5c42";
+        var mkdocs_page_input_path = "browser-extension/03-content-scripts.md";
+        var mkdocs_page_url = "/grow-path/browser-extension/03-content-scripts/";
       </script>
     
     <!--[if lt IE 9]>
@@ -49,9 +49,11 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" >知识体系</a>
     <ul class="current">
-                <li class="toctree-l2"><a class="reference internal" href="../01-core-architecture/">01 - 核心架构层</a>
+                <li class="toctree-l2"><a class="reference internal" href="../01-manifest-reference/">01 - Manifest 字段详解</a>
                 </li>
-                <li class="toctree-l2 current"><a class="reference internal current" href="#">02 - 内容脚本层</a>
+                <li class="toctree-l2"><a class="reference internal" href="../02-core-architecture/">02 - 核心架构层</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">03 - 内容脚本层</a>
     <ul class="current">
     <li class="toctree-l3"><a class="reference internal" href="#_2">注入机制</a>
     </li>
@@ -67,27 +69,27 @@
     </li>
     </ul>
                 </li>
-                <li class="toctree-l2"><a class="reference internal" href="../03-service-worker/">03 - Service Worker 层</a>
+                <li class="toctree-l2"><a class="reference internal" href="../04-service-worker/">04 - Service Worker 层</a>
                 </li>
-                <li class="toctree-l2"><a class="reference internal" href="../04-storage/">04 - 存储层</a>
+                <li class="toctree-l2"><a class="reference internal" href="../05-storage/">05 - 存储层</a>
                 </li>
-                <li class="toctree-l2"><a class="reference internal" href="../05-ui-layer/">05 - UI 层</a>
+                <li class="toctree-l2"><a class="reference internal" href="../06-ui-layer/">06 - UI 层</a>
                 </li>
-                <li class="toctree-l2"><a class="reference internal" href="../06-network/">06 - 网络层</a>
+                <li class="toctree-l2"><a class="reference internal" href="../07-network/">07 - 网络层</a>
                 </li>
-                <li class="toctree-l2"><a class="reference internal" href="../07-api-panorama/">07 - 浏览器 API 全景</a>
+                <li class="toctree-l2"><a class="reference internal" href="../08-api-panorama/">08 - 浏览器 API 全景</a>
                 </li>
-                <li class="toctree-l2"><a class="reference internal" href="../08-devtools/">08 - DevTools 扩展</a>
+                <li class="toctree-l2"><a class="reference internal" href="../09-devtools/">09 - DevTools 扩展</a>
                 </li>
-                <li class="toctree-l2"><a class="reference internal" href="../09-native-messaging/">09 - 原生通信</a>
+                <li class="toctree-l2"><a class="reference internal" href="../10-native-messaging/">10 - 原生通信</a>
                 </li>
-                <li class="toctree-l2"><a class="reference internal" href="../10-build-tooling/">10 - 构建与工程化</a>
+                <li class="toctree-l2"><a class="reference internal" href="../11-build-tooling/">11 - 构建与工程化</a>
                 </li>
-                <li class="toctree-l2"><a class="reference internal" href="../11-debugging-testing/">11 - 调试与测试</a>
+                <li class="toctree-l2"><a class="reference internal" href="../12-debugging-testing/">12 - 调试与测试</a>
                 </li>
-                <li class="toctree-l2"><a class="reference internal" href="../12-publishing/">12 - 发布与运维</a>
+                <li class="toctree-l2"><a class="reference internal" href="../13-publishing/">13 - 发布与运维</a>
                 </li>
-                <li class="toctree-l2"><a class="reference internal" href="../13-cross-browser/">13 - 多浏览器兼容</a>
+                <li class="toctree-l2"><a class="reference internal" href="../14-cross-browser/">14 - 多浏览器兼容</a>
                 </li>
     </ul>
                   </li>
@@ -134,9 +136,9 @@
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
           <li class="breadcrumb-item">浏览器扩展</li>
           <li class="breadcrumb-item">知识体系</li>
-      <li class="breadcrumb-item active">02 - 内容脚本层</li>
+      <li class="breadcrumb-item active">03 - 内容脚本层</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/sylar-qiu/grow-path/edit/master/docs/browser-extension/02-content-scripts.md">Edit on sylar-qiu/grow-path</a>
+          <a href="https://github.com/sylar-qiu/grow-path/edit/master/docs/browser-extension/03-content-scripts.md">Edit on sylar-qiu/grow-path</a>
     </li>
   </ul>
   <hr/>
@@ -278,8 +280,8 @@ shadow.innerHTML = `&lt;style&gt;/* 你的样式 */&lt;/style&gt;&lt;div&gt;你�
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../01-core-architecture/" class="btn btn-neutral float-left" title="01 - 核心架构层"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../03-service-worker/" class="btn btn-neutral float-right" title="03 - Service Worker 层">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../02-core-architecture/" class="btn btn-neutral float-left" title="02 - 核心架构层"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../04-service-worker/" class="btn btn-neutral float-right" title="04 - Service Worker 层">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -307,10 +309,10 @@ shadow.innerHTML = `&lt;style&gt;/* 你的样式 */&lt;/style&gt;&lt;div&gt;你�
         </span>
     
     
-      <span><a href="../01-core-architecture/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../02-core-architecture/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../03-service-worker/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../04-service-worker/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
