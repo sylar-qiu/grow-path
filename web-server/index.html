@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://sylar-qiu.github.io/grow-path/chip-design/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://sylar-qiu.github.io/grow-path/web-server/" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
     <title>总览 - 成长笔记</title>
     <link rel="stylesheet" href="../css/theme.css" />
@@ -13,8 +13,8 @@
       <script>
         // Current page data
         var mkdocs_page_name = "\u603b\u89c8";
-        var mkdocs_page_input_path = "chip-design/index.md";
-        var mkdocs_page_url = "/grow-path/chip-design/";
+        var mkdocs_page_input_path = "web-server/index.md";
+        var mkdocs_page_url = "/grow-path/web-server/";
       </script>
     
     <!--[if lt IE 9]>
@@ -97,33 +97,31 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">芯片设计</span></p>
-              <ul class="current">
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">总览</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#_2">知识地图：五章之间的关系</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_3">核心流程速览</a>
-    </li>
-    </ul>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../chip-design/">总览</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="01-ecosystem/">01 - 行业生态与角色定位</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../chip-design/01-ecosystem/">01 - 行业生态与角色定位</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="02-lifecycle/">02 - 全生命周期流程与惯例</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../chip-design/02-lifecycle/">02 - 全生命周期流程与惯例</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="03-business-decisions/">03 - 商务决策框架</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../chip-design/03-business-decisions/">03 - 商务决策框架</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="04-terminology/">04 - 关键术语深度辨析</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../chip-design/04-terminology/">04 - 关键术语深度辨析</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="05-client-communication/">05 - 客户沟通实战框架</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../chip-design/05-client-communication/">05 - 客户沟通实战框架</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="06-ip-knowledge/">06 - 半导体 IP 深度解析</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../chip-design/06-ip-knowledge/">06 - 半导体 IP 深度解析</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Web 服务器</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../web-server/">总览</a>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">总览</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_1">内容</a>
+    </li>
+    </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../web-server/apache-handlers/">Apache Handler 全景</a>
+                  <li class="toctree-l1"><a class="reference internal" href="apache-handlers/">Apache Handler 全景</a>
                   </li>
               </ul>
       </div>
@@ -140,10 +138,10 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">芯片设计</li>
+          <li class="breadcrumb-item">Web 服务器</li>
       <li class="breadcrumb-item active">总览</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/sylar-qiu/grow-path/edit/master/docs/chip-design/index.md">Edit on sylar-qiu/grow-path</a>
+          <a href="https://github.com/sylar-qiu/grow-path/edit/master/docs/web-server/index.md">Edit on sylar-qiu/grow-path</a>
     </li>
   </ul>
   <hr/>
@@ -151,103 +149,18 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">芯片设计：从设计到量产全流程<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>芯片（IC）从设计到量产的全流程、关键环节、核心术语及风险点，以及你在产业链中的定位与沟通策略。</p>
-<blockquote>
-<p>这套知识体系分为五章，从宏观到微观、从理论到实践逐步深入。</p>
-</blockquote>
-<hr />
-<table>
-<thead>
-<tr>
-<th>章节</th>
-<th>内容</th>
-<th>适合谁</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="01-ecosystem/">第一章：行业生态与角色定位</a></td>
-<td>产业链全景图、各角色详解、力量关系分析、你的生态位</td>
-<td>第一次接触芯片行业的人</td>
-</tr>
-<tr>
-<td><a href="02-lifecycle/">第二章：全生命周期流程（带执行惯例）</a></td>
-<td>6 个阶段的完整流程，每个阶段附"标准操作→行业惯例→实际博弈点"</td>
-<td>需要理解业务全貌的人</td>
-</tr>
-<tr>
-<td><a href="03-business-decisions/">第三章：商务决策框架</a></td>
-<td>MPW vs Full Mask 选择、NRE 计算、Wafer Cost 定价、Retooling 风险管理</td>
-<td>负责报价和商务谈判的人</td>
-</tr>
-<tr>
-<td><a href="04-terminology/">第四章：关键术语深度辨析</a></td>
-<td>PDK vs IP、Die vs Chip、工艺类型（BCDE/RF/HV）、FSR 等术语详解</td>
-<td>需要在邮件和对话中使用正确术语的人</td>
-</tr>
-<tr>
-<td><a href="05-client-communication/">第五章：客户沟通实战框架</a></td>
-<td>初次接触信息收集、报价模板、各阶段沟通要点、风险信号识别</td>
-<td>直接跟客户沟通的人</td>
-</tr>
-<tr>
-<td><a href="06-ip-knowledge/">第六章：半导体 IP 深度解析</a></td>
-<td>IP 类型、三种授权路径、费用结构、IP vs PDK 决策逻辑、客户沟通话术</td>
-<td>负责管理和顾问 IP 环节的人</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="_2">知识地图：五章之间的关系<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<pre class="codehilite"><code>                     ┌─────────────────────┐
-                     │   第一章：行业生态   │
-                     │   &quot;谁在玩&quot;          │
-                     └─────────┬───────────┘
-                               │
-                               ▼
-                     ┌─────────────────────┐
-                     │   第二章：生命周期   │
-                     │   &quot;怎么玩&quot;          │
-                     └─────────┬───────────┘
-                               │
-                    ┌──────────┴──────────┐
-                    ▼                     ▼
-          ┌─────────────────┐  ┌─────────────────┐
-          │  第三章：商务决策 │  │  第四章：术语辨析 │
-          │  &quot;钱怎么算&quot;     │  │  &quot;话怎么说&quot;     │
-          └────────┬────────┘  └────────┬────────┘
-                   │                    │
-                   └──────────┬─────────┘
-                              ▼
-                    ┌─────────────────────┐
-                    │  第五章：客户沟通    │
-                    │  &quot;事怎么做&quot;        │
-                    └─────────────────────┘
-</code></pre>
-
-<hr />
-<h2 id="_3">核心流程速览<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
-<pre class="codehilite"><code>设计准备 → 物理验证 → 制造准备 → 晶圆制造 → 封测 → 量产
-                        ↓
-                     JDV 确认
-                （最重要决策节点）
-</code></pre>
-
+                <h1 id="web">Web 服务器<a class="headerlink" href="#web" title="Permanent link">&para;</a></h1>
+<p>Apache / Nginx / Caddy 等 Web 服务器的配置、架构、调试知识。</p>
+<h2 id="_1">内容<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>PDK</strong> = 开工许可证</li>
-<li><strong>Tape-Out</strong> = 设计结束、制造开始</li>
-<li><strong>JDV</strong> = 最后免费修改窗口</li>
-<li><strong>NRE</strong> = 一次性成本（光罩费）</li>
-<li><strong>Wafer Cost</strong> = 量产核心成本</li>
-<li><strong>Retooling</strong> = 成本超支头号杀手</li>
+<li><a href="apache-handlers/">Apache Handler 全景</a> — 从 static files 到 FastCGI、Proxy、嵌入式语言模块的完整 handler 分类与详解</li>
 </ul>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../browser-extension/case-06-engineering/" class="btn btn-neutral float-left" title="06 - 工程化与数据流"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="01-ecosystem/" class="btn btn-neutral float-right" title="01 - 行业生态与角色定位">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../chip-design/06-ip-knowledge/" class="btn btn-neutral float-left" title="06 - 半导体 IP 深度解析"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="apache-handlers/" class="btn btn-neutral float-right" title="Apache Handler 全景">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -275,10 +188,10 @@
         </span>
     
     
-      <span><a href="../browser-extension/case-06-engineering/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../chip-design/06-ip-knowledge/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="01-ecosystem/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="apache-handlers/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
