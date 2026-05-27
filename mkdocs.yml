@@ -44,6 +44,9 @@ nav:
     - 04 - 关键术语深度辨析: chip-design/04-terminology.md
     - 05 - 客户沟通实战框架: chip-design/05-client-communication.md
     - 06 - 半导体 IP 深度解析: chip-design/06-ip-knowledge.md
+  - Web 服务器:
+    - 总览: web-server/index.md
+    - Apache Handler 全景: web-server/apache-handlers.md
 
 markdown_extensions:
   - codehilite
