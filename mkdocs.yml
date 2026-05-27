@@ -41,9 +41,12 @@ nav:
   - 机器人之路:
     - robotics/index.md
   - 芯片设计:
-    - 从设计到量产全流程: chip-design/index.md
-    - 产业链全景与角色定位: chip-design/industry-overview.md
-    - 流片常见问题详解: chip-design/faq.md
+    - 总览: chip-design/index.md
+    - 01 - 行业生态与角色定位: chip-design/01-ecosystem.md
+    - 02 - 全生命周期流程与惯例: chip-design/02-lifecycle.md
+    - 03 - 商务决策框架: chip-design/03-business-decisions.md
+    - 04 - 关键术语深度辨析: chip-design/04-terminology.md
+    - 05 - 客户沟通实战框架: chip-design/05-client-communication.md
 
 markdown_extensions:
   - codehilite

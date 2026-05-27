@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://sylar-qiu.github.io/grow-path/chip-design/04-terminology/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>04 - 关键术语深度辨析 - 成长笔记</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "04 - \u5173\u952e\u672f\u8bed\u6df1\u5ea6\u8fa8\u6790";
+        var mkdocs_page_input_path = "chip-design/04-terminology.md";
+        var mkdocs_page_url = "/grow-path/chip-design/04-terminology/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 成长笔记
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">浏览器扩展</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../browser-extension/">总览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >知识体系</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/01-manifest-reference/">01 - Manifest 字段详解</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/02-core-architecture/">02 - 核心架构层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/03-content-scripts/">03 - 内容脚本层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/04-service-worker/">04 - Service Worker 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/05-storage/">05 - 存储层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/06-ui-layer/">06 - UI 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/07-network/">07 - 网络层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/08-api-panorama/">08 - 浏览器 API 全景</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/09-devtools/">09 - DevTools 扩展</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/10-native-messaging/">10 - 原生通信</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/11-build-tooling/">11 - 构建与工程化</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/12-debugging-testing/">12 - 调试与测试</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/13-publishing/">13 - 发布与运维</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/14-cross-browser/">14 - 多浏览器兼容</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >实战案例（淘宝插件）</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-01-architecture/">01 - 架构与 Manifest</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-02-content-scripts/">02 - 内容脚本实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-03-service-worker/">03 - Service Worker 实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-04-storage/">04 - 存储层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-05-ui-layer/">05 - UI 层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-06-engineering/">06 - 工程化与数据流</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">架构师之路</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../architecture/">架构师之路</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">机器人之路</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../robotics/">机器人之路</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">芯片设计</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../">总览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../01-ecosystem/">01 - 行业生态与角色定位</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../02-lifecycle/">02 - 全生命周期流程与惯例</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../03-business-decisions/">03 - 商务决策框架</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">04 - 关键术语深度辨析</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#pdk-vs-ip">PDK vs IP</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#pdk">PDK（工艺设计工具包）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ip">IP（知识产权核）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_2">核心区别表</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#die-vs-chip">Die vs Chip</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">区别</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">行业惯例</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">跟客户沟通时</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">工艺类型辨析</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#bcde">BCDE（集成模拟+数字+高压+存储）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#rf">RF（射频工艺）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_7">同级别的其他工艺类型</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#fsrfoundry-service-request">FSR（Foundry Service Request）</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_8">它是什么</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_9">它在业务中代表什么</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_10">行业惯例</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_11">其他业务术语速查</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../05-client-communication/">05 - 客户沟通实战框架</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">成长笔记</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">芯片设计</li>
+      <li class="breadcrumb-item active">04 - 关键术语深度辨析</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/sylar-qiu/grow-path/edit/master/docs/chip-design/04-terminology.md">Edit on sylar-qiu/grow-path</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">第四章：关键术语深度辨析<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>这一章专门拆解你在实际邮件和对话中遇到的术语。每一个词我都按"它是什么 → 它在业务里代表什么 → 它对你跟客户沟通意味着什么"三层来写。</p>
+<hr />
+<h2 id="pdk-vs-ip">PDK vs IP<a class="headerlink" href="#pdk-vs-ip" title="Permanent link">&para;</a></h2>
+<p>这是最容易混淆，也最能体现你跟客户专业深度的一对概念。</p>
+<h3 id="pdk">PDK（工艺设计工具包）<a class="headerlink" href="#pdk" title="Permanent link">&para;</a></h3>
+<p><strong>它是什么：</strong>
+- 晶圆厂提供给设计者的"设计规则和基础元器件库"
+- 包含：DRC/LVS 规则文件、晶体管/电阻/电容等基础器件的模型和符号、EDA 工具工艺库文件
+- 每个晶圆厂、每个工艺节点独立一套</p>
+<p><strong>它在业务中代表什么：</strong>
+- PDK 是"开工许可证"。没有 PDK，设计公司什么也做不了
+- 申请 PDK 需要：资质审核 + 签署 NDA + 技术评估（2-4 周）
+- PDK 通常免费，但绑定必须在该晶圆厂流片
+- PDK 产权 100% 属于晶圆厂——你不能把 SMIC 的 PDK 拿去给华虹用</p>
+<p><strong>跟客户沟通时：</strong>
+- 客户说"我拿到了 SMIC 的 PDK" → 意味着他已经通过了最基础的审核门禁，不再是"来路不明的小公司"
+- 客户说"PDK 还没拿到，在等" → 这就是你的切入点。你能帮客户加速拿 PDK</p>
+<h3 id="ip">IP（知识产权核）<a class="headerlink" href="#ip" title="Permanent link">&para;</a></h3>
+<p><strong>它是什么：</strong>
+- 基于 PDK 设计好的、可复用的复杂功能模块
+- 举例：ARM CPU 核、USB 控制器、DSP、DDR 控制器
+- 不是基础元器件，而是"预制好了的子系统"</p>
+<p><strong>它在业务中代表什么：</strong>
+- IP 是昂贵的"高级预制件"——跟 PDK 的免费不同
+- 授权模式：
+  - <strong>一次性授权费</strong>（几万到几百万美金不等）
+  - <strong>版税（Royalty）</strong>——每卖一颗芯片抽 1-5%
+- IP 供应商是 ARM、Cadence、Synopsys 这样的公司，不是晶圆厂
+- IP 选择直接决定了芯片的性能和成本，是设计阶段最核心的决策之一</p>
+<p><strong>跟客户沟通时：</strong>
+- 客户说"这个芯片用的是 ARM M4 核" → 意味着他已经花了 IP 的钱，设计已经做了一半
+- 客户说"还没选好 IP" → 这意味着他还在设计早期
+- IP 授权的谈判周期比流片更长（3-6 个月），如果你的客户在等 IP，流片时间会跟着推迟</p>
+<h3 id="_2">核心区别表<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>PDK</th>
+<th>IP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>比喻</td>
+<td><strong>砖瓦水泥和建筑规范</strong></td>
+<td><strong>预制好的厨房或楼梯</strong></td>
+</tr>
+<tr>
+<td>提供方</td>
+<td>晶圆厂</td>
+<td>第三方 IP 公司</td>
+</tr>
+<tr>
+<td>价格</td>
+<td>通常免费</td>
+<td>高额授权费 + 版税</td>
+</tr>
+<tr>
+<td>获取难度</td>
+<td>资质审核 + NDA</td>
+<td>复杂商业谈判</td>
+</tr>
+<tr>
+<td>使用限制</td>
+<td>绑定该晶圆厂</td>
+<td>可使用于多家</td>
+</tr>
+<tr>
+<td>开放程度</td>
+<td>晶圆厂核心机密</td>
+<td>公开市场购买</td>
+</tr>
+</tbody>
+</table>
+<p><strong>实际业务场景中两者的关系：</strong></p>
+<p>PDK 和 IP 不是二选一，而是<strong>先后关系</strong>。
+1. 客户先拿到 PDK（晶圆厂准入）
+2. 在 PDK 基础上选择并购买 IP（ARM、Cadence 等）
+3. 基于 PDK + IP 做完整设计
+4. 生成 GDS → 流片</p>
+<hr />
+<h2 id="die-vs-chip">Die vs Chip<a class="headerlink" href="#die-vs-chip" title="Permanent link">&para;</a></h2>
+<h3 id="_3">区别<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Die（裸片）</th>
+<th>Chip（芯片成品）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>状态</td>
+<td>从晶圆切下来的单个芯片，未经封装</td>
+<td>经过封装 + 测试的最终产品</td>
+</tr>
+<tr>
+<td>对外形</td>
+<td>裸露的硅片，极小、极脆</td>
+<td>黑色/塑封的芯片，可以焊在 PCB 上</td>
+</tr>
+<tr>
+<td>测试</td>
+<td>仅 CP 测试（晶圆级测试）</td>
+<td>CP + FT（封装后完整测试）</td>
+</tr>
+<tr>
+<td>成本</td>
+<td>基准价</td>
+<td>Die 价 + 封装费 + 测试费（约增 20-30%）</td>
+</tr>
+<tr>
+<td>使用</td>
+<td>需要自己封装才能用</td>
+<td>直接可以用</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_4">行业惯例<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p><strong>为什么 MPW 默认交付 Die：</strong>
+- 客户拿 Die 去自己评估（做可靠性测试、送样给终端客户）
+- 客户可能有自己的封装合作方
+- 跳过封装测试降低本次流片的直接费用</p>
+<p><strong>什么情况下交付 Chip：</strong>
+- 量产项目，直接用于终端产品
+- Turn-Key 项目（交钥匙）
+- 客户没封装测试资源，你一并做了</p>
+<h3 id="_5">跟客户沟通时<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>这是报价时最容易出歧义的地方。一定要明确问："你要 Die 还是 Chip？"</p>
+<pre class="codehilite"><code>错误示例：
+客户问：&quot;流片多少钱？&quot;
+你答：&quot;50 颗 1.8 万美金&quot;
+结果客户以为 1.8 万拿到的是一颗颗可以直接用的成品芯片
+实际拿到的是裸露的 Die
+客户不满 → 信任受损 → 后续难做
+
+正确示例：
+客户问：&quot;流片多少钱？&quot;
+你答：&quot;Die 是 1.8 万；如果要封装成成品 Chip，加封装和测试
+      大概再加 4000-6000。您这边是自己封装还是需要我们一并？&quot;
+→ 客户心里有数，不会后期产生预期差
+</code></pre>
+
+<hr />
+<h2 id="_6">工艺类型辨析<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>你会在邮件中遇到客户说"我要 0.18 BCDE"或"0.18 RF"或"40nm LL"。同一个工艺节点（如 0.18μm）下有多种变体，应对不同应用。</p>
+<h3 id="bcde">BCDE（集成模拟+数字+高压+存储）<a class="headerlink" href="#bcde" title="Permanent link">&para;</a></h3>
+<p><strong>它是什么：</strong>
+- 0.18μm 工艺下的一种"特色工艺套件"
+- B = Bipolar（双极型，用于模拟信号）
+- C = CMOS（互补金属氧化物半导体，用于数字电路）
+- D = DMOS（双扩散金属氧化物半导体，用于高压功率器件）
+- E = eNVM / EPROM（嵌入式非易失性存储器）</p>
+<p><strong>应用场景：</strong> 电源管理芯片、显示驱动芯片、LED 驱动芯片
+<strong>特征：</strong> 需要同时处理模拟信号、数字控制和高压输出</p>
+<p><strong>跟客户沟通时：</strong>
+- 客户说"0.18 BCDE" → 大概率是做电源管理或显示驱动的
+- BCDE 的工艺比纯 CMOS 贵，因为光罩层数更多（集成更多功能）
+- 单一芯片实现所有功能 = 板级体积更小、成本更低</p>
+<h3 id="rf">RF（射频工艺）<a class="headerlink" href="#rf" title="Permanent link">&para;</a></h3>
+<p><strong>它是什么：</strong>
+- 在基础 CMOS 工艺上优化，专门处理高频无线信号
+- 提供高性能无源器件（电感、电容）、低噪声晶体管、精确射频模型</p>
+<p><strong>应用场景：</strong> 蓝牙、Wi-Fi、手机射频前端、NFC
+<strong>特征：</strong> 必须处理 GHz 级别的高频信号，对噪声和功耗要求极高</p>
+<p><strong>跟客户沟通时：</strong>
+- 客户问"0.18 RF PDK" → 在设计蓝牙/Wi-Fi 类芯片
+- RF 工艺比同节点数字工艺贵一档，但比 BCDE 便宜
+- RF 设计难度大，也是 Retooling 高发区（高频信号对版图极其敏感）</p>
+<h3 id="_7">同级别的其他工艺类型<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>工艺类型</th>
+<th>关键词</th>
+<th>应用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>混合信号</strong></td>
+<td>Mixed-Signal</td>
+<td>模拟 + 数字结合，但不含高压器件</td>
+</tr>
+<tr>
+<td><strong>高压</strong></td>
+<td>HV（High Voltage）</td>
+<td>显示驱动、电源管理（几十-上百伏）</td>
+</tr>
+<tr>
+<td><strong>嵌入式存储器</strong></td>
+<td>eFlash / eEEPROM</td>
+<td>MCU、带存储功能的芯片</td>
+</tr>
+<tr>
+<td><strong>低功耗</strong></td>
+<td>LL（Low Leakage / Low Power）</td>
+<td>物联网、可穿戴设备</td>
+</tr>
+<tr>
+<td><strong>标准逻辑</strong></td>
+<td>Logic / Digital</td>
+<td>纯数字芯片，最基础、最便宜</td>
+</tr>
+</tbody>
+</table>
+<p><strong>行业惯例：</strong>
+- 同一个工艺节点下，特色工艺（BCDE、RF、HV）的光罩层数比纯数字逻辑多 30-50%
+- 特色工艺的 PDK 更新慢于标准工艺——如果你想等某个特色工艺的新版 PDK，可能需要等半年
+- 客户有时会"选错"工艺——比如需要模拟功能但选了纯数字工艺。这是前期技术沟通不到位导致的</p>
+<hr />
+<h2 id="fsrfoundry-service-request">FSR（Foundry Service Request）<a class="headerlink" href="#fsrfoundry-service-request" title="Permanent link">&para;</a></h2>
+<h3 id="_8">它是什么<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>"流片服务请求表"——客户在正式流片前向晶圆厂提交的工艺选项和制造规范表格。</p>
+<h3 id="_9">它在业务中代表什么<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>FSR 是<strong>制造合同的技术部分</strong>，是 JDV 生成的依据。</p>
+<p><strong>FSR 填什么：</strong>
+- 工艺节点（如 0.18 BCDE）
+- 工作电压（如 pure5V / 3.3V / 1.8V）
+- 器件类型
+- 金属层数
+- 特殊模块（eFlash、MIM 电容等）
+- 测试结构
+- 可靠性要求</p>
+<p><strong>为什么 FSR 极其重要（你在邮件中已经体会到了）：</strong>
+- FSR 上选"pure5V" vs "3.3V" → 决定了某些光罩层（NW/PW 层）要不要做
+- FSR 填错 → JDV 错 → 光罩错 → 芯片功能不对 → 整批报废
+- FSR 通常由 Design Service 的人帮客户填，但<strong>最终客户签字</strong></p>
+<h3 id="_10">行业惯例<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<ul>
+<li>许多项目在 FSR 阶段反复确认（你提到的邮件里双方确认"pure5V"就是这个环节）</li>
+<li>FSR 确认后，任何改动都涉及费时费钱的修改流程——你之前需要知道这个</li>
+<li>如果客户让你参与技术讨论，你应该帮客户多一重检查，确认 FSR 上的参数跟设计意图一致</li>
+</ul>
+<hr />
+<h2 id="_11">其他业务术语速查<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>它是什么</th>
+<th>业务场景中的含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tape-Out</strong></td>
+<td>将最终 GDS 提交给晶圆厂的行为</td>
+<td>设计阶段结束，制造阶段开始。既是里程碑也是担责时刻</td>
+</tr>
+<tr>
+<td><strong>JDV</strong></td>
+<td>GDS 数据的最终确认</td>
+<td>最后免费修改窗口，过时不候</td>
+</tr>
+<tr>
+<td><strong>Mask / 光罩</strong></td>
+<td>生产用的光学模板</td>
+<td>NRE 的大头成本来源</td>
+</tr>
+<tr>
+<td><strong>Wafer / 晶圆</strong></td>
+<td>上有数百颗芯片的硅片</td>
+<td>基本计价单位</td>
+</tr>
+<tr>
+<td><strong>良率</strong></td>
+<td>合格芯片百分比</td>
+<td>直接影响有效成本，是 Foundry 的技术水平体现</td>
+</tr>
+<tr>
+<td><strong>NRE</strong></td>
+<td>一次性工程费</td>
+<td>主要是光罩费。沉没成本，但决定项目门槛</td>
+</tr>
+<tr>
+<td><strong>Waive</strong></td>
+<td>DRC 错误的豁免</td>
+<td>晶圆厂工程师的"批准权"，有限度的柔性处理</td>
+</tr>
+<tr>
+<td><strong>Retooling</strong></td>
+<td>重新做光罩</td>
+<td>银子打水漂的代名词</td>
+</tr>
+<tr>
+<td><strong>Code</strong></td>
+<td>客户在晶圆厂的账户代码</td>
+<td>生意的准入证</td>
+</tr>
+<tr>
+<td><strong>Shuttle / 班次</strong></td>
+<td>MPW 的周期性运行计划</td>
+<td>错过一次等几个月</td>
+</tr>
+<tr>
+<td><strong>Turn-Key</strong></td>
+<td>交钥匙方案</td>
+<td>从设计到封装测试全包，省心但贵</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../03-business-decisions/" class="btn btn-neutral float-left" title="03 - 商务决策框架"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../05-client-communication/" class="btn btn-neutral float-right" title="05 - 客户沟通实战框架">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>CC0 1.0 Universal</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/sylar-qiu/grow-path" class="fa fa-code-fork" style="color: #fcfcfc"> sylar-qiu/grow-path</a>
+        </span>
+    
+    
+      <span><a href="../03-business-decisions/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../05-client-communication/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://sylar-qiu.github.io/grow-path/chip-design/03-business-decisions/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>03 - 商务决策框架 - 成长笔记</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "03 - \u5546\u52a1\u51b3\u7b56\u6846\u67b6";
+        var mkdocs_page_input_path = "chip-design/03-business-decisions.md";
+        var mkdocs_page_url = "/grow-path/chip-design/03-business-decisions/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 成长笔记
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">浏览器扩展</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../browser-extension/">总览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >知识体系</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/01-manifest-reference/">01 - Manifest 字段详解</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/02-core-architecture/">02 - 核心架构层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/03-content-scripts/">03 - 内容脚本层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/04-service-worker/">04 - Service Worker 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/05-storage/">05 - 存储层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/06-ui-layer/">06 - UI 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/07-network/">07 - 网络层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/08-api-panorama/">08 - 浏览器 API 全景</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/09-devtools/">09 - DevTools 扩展</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/10-native-messaging/">10 - 原生通信</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/11-build-tooling/">11 - 构建与工程化</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/12-debugging-testing/">12 - 调试与测试</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/13-publishing/">13 - 发布与运维</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/14-cross-browser/">14 - 多浏览器兼容</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >实战案例（淘宝插件）</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-01-architecture/">01 - 架构与 Manifest</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-02-content-scripts/">02 - 内容脚本实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-03-service-worker/">03 - Service Worker 实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-04-storage/">04 - 存储层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-05-ui-layer/">05 - UI 层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-06-engineering/">06 - 工程化与数据流</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">架构师之路</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../architecture/">架构师之路</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">机器人之路</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../robotics/">机器人之路</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">芯片设计</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../">总览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../01-ecosystem/">01 - 行业生态与角色定位</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../02-lifecycle/">02 - 全生命周期流程与惯例</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">03 - 商务决策框架</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#mpw-vs-full-mask">第一步：MPW vs Full Mask 选择</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_2">行业惯例</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">你的判断框架</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#nre">第二步：NRE 计算</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#nre_1">NRE 是什么</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#nre_2">影响 NRE 的因素</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">行业惯例</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">实际报价示例</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#wafer-cost">第三步：Wafer Cost 定价</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#wafer-cost_1">Wafer Cost 是什么</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#wafer-cost_2">影响 Wafer Cost 的因素</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_6">行业惯例</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_7">你的报价策略</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#retooling">第四步：Retooling 成本管理</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#retooling_1">Retooling 是什么</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#retooling_2">Retooling 的成本构成</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_8">行业惯例</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#retooling_3">你如何管理 Retooling 风险</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_9">决策链条总结</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../04-terminology/">04 - 关键术语深度辨析</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../05-client-communication/">05 - 客户沟通实战框架</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">成长笔记</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">芯片设计</li>
+      <li class="breadcrumb-item active">03 - 商务决策框架</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/sylar-qiu/grow-path/edit/master/docs/chip-design/03-business-decisions.md">Edit on sylar-qiu/grow-path</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">第三章：商务决策框架<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>前两章讲的是"谁在玩"和"怎么玩"，这一章讲的是"钱怎么算"——成本、定价、模式选择。</p>
+<p>核心逻辑是一个<strong>四步决策链条</strong>，每个客户在找你的第一时间，脑子里的问题都落在这个链条上：</p>
+<pre class="codehilite"><code>客户问 → 我要流片 → 走 MPW 还是 Full Mask？
+          → NRE 多少？
+          → Wafer Cost 多少？
+          → 交期多久？
+</code></pre>
+
+<hr />
+<h2 id="mpw-vs-full-mask">第一步：MPW vs Full Mask 选择<a class="headerlink" href="#mpw-vs-full-mask" title="Permanent link">&para;</a></h2>
+<p>这是客户最先要做，也最基础的决策。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>MPW（多项目晶圆）</th>
+<th>Full Mask / NTO（全掩模）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>本质</td>
+<td>拼单，多个客户的芯片在同一套光罩上</td>
+<td>独占整道光罩和晶圆</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>工程验证、小批量试产</td>
+<td>大规模量产</td>
+</tr>
+<tr>
+<td>NRE</td>
+<td>极低（分摊到多个客户，约 Full Mask 的 5-10%）</td>
+<td>高（客户独自承担所有光罩费）</td>
+</tr>
+<tr>
+<td>Wafer Cost</td>
+<td>高（分摊了光罩面积，但单颗芯片成本更高）</td>
+<td>低（量产后边际成本大幅下降）</td>
+</tr>
+<tr>
+<td>交期</td>
+<td>被动等班次（晶圆厂说什么时候就什么时候）</td>
+<td>主动（自己决定排产时间）</td>
+</tr>
+<tr>
+<td>灵活性</td>
+<td>差（光罩布局不能随意调整）</td>
+<td>好（光罩设计完全自主）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_2">行业惯例<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p><strong>什么情况下客户选 MPW：</strong>
+- 第一次流片验证，不确定设计是否工作 → 先 MPW 看看
+- 只有几十到几百颗样品需求 → MPW 够用
+- NRE 预算有限，想低成本验证 → MPW 唯一选择
+- <strong>做产品的公司必经之路：</strong> 几乎 100% 的芯片产品，第一版都是 MPW。没人敢直接 Full Mask</p>
+<p><strong>什么情况下客户选 Full Mask：</strong>
+- 设计已验证通过，需要量产 → Full Mask
+- 需求量大（月需千片以上）→ Full Mask 的 Wafer Cost 优势体现
+- 对交期要求高，不想等 MPW 班次</p>
+<p><strong>一个常见的陷阱：</strong>
+客户 MPW 成功以后，感觉很兴奋，觉得量产指日可待。但实际上 <strong>MPW 的光罩通常不能直接用于量产</strong>——因为 MPW 的光罩是拼单的，布局不是最优。量产用的 Full Mask 需要重新开光罩，产生新的 NRE。这个预期差会导致客户不满——你要在客户启动 MPW 的时候就帮他建立正确的认知。</p>
+<h3 id="_3">你的判断框架<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>当客户说"想流片"时，用这几个问题快速判断方向：</p>
+<pre class="codehilite"><code>问题1：&quot;这是第一版还是已有流片经验？&quot;
+→ 第一版 → MPW
+→ 已有量产经验 → 问产量
+
+问题2：&quot;大概需要多少颗？&quot;
+→ &lt; 1000 颗 → MPW
+→ &gt; 10000 颗 → 算 Wafer Cost，可能 Full Mask 更划算
+
+问题3：&quot;目标成本有概念吗？&quot;
+→ 模糊 → 先做 MPW 报价
+→ 明确 → 对齐目标，看 Full Mask 是否可行
+
+问题4：&quot;时间上急不急？&quot;
+→ 很急（1-2 个月内要出样）→ Full Mask（但要承担更高 NRE）
+→ 可以等（3-6 个月）→ MPW
+</code></pre>
+
+<hr />
+<h2 id="nre">第二步：NRE 计算<a class="headerlink" href="#nre" title="Permanent link">&para;</a></h2>
+<h3 id="nre_1">NRE 是什么<a class="headerlink" href="#nre_1" title="Permanent link">&para;</a></h3>
+<p>一次性工程费用（Non-Recurring Engineering），主要包括<strong>光罩费</strong>。</p>
+<p>公式：</p>
+<pre class="codehilite"><code>NRE ≈ 单层光罩价 × 总层数 + 工程服务费
+</code></pre>
+
+<h3 id="nre_2">影响 NRE 的因素<a class="headerlink" href="#nre_2" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>因素</th>
+<th>影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>工艺节点</td>
+<td>越先进，单层光罩越贵。0.18μm ≈ $3-6K/层，28nm ≈ $50-100K/层</td>
+</tr>
+<tr>
+<td>光罩层数</td>
+<td>芯片复杂度决定。简单芯片 ~20 层，复杂 SoC ~60 层</td>
+</tr>
+<tr>
+<td>工程服务费</td>
+<td>晶圆厂或 Service Provider 收的流程管理费</td>
+</tr>
+<tr>
+<td>加急费</td>
+<td>插队赶班次，额外费用</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_4">行业惯例<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p><strong>NRE 的谈判空间：</strong>
+- 光罩费本身基本没得谈——光罩厂的价格是透明的
+- 但<strong>工程服务费有空间</strong>——服务商报价通常有 10-20% 的水分，大客户可以压下去
+- <strong>你的话语权来源：</strong> 你跟的客户如果第一版是 MPW，后续量产会有长期订单。你可以在第一笔 NRE 上让利（少赚服务费），换取量产 Wafer Cost 的利润</p>
+<p><strong>NRE 分期：</strong>
+- 有些 Service Provider 允许 NRE 分期支付（如 50% 启动 + 50% tape-out），但不是行业标配
+- 如果你的客户资金紧张，可以帮客户谈分期——前提是你跟 Service Provider 的关系够铁</p>
+<p><strong>NRE 的"隐性成本"：</strong>
+- Retooling 导致的二次 NRE——头号隐形杀手
+- 客户说"先 MPW 再说" → 但 MPW 失败 + 修改 + 再 MPW → NRE 翻倍
+- 你在前期帮客户把设计风险管理好，能省的不是一点点</p>
+<h3 id="_5">实际报价示例<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code>工艺：0.18μm BCDE
+层数：36 层
+单层光罩价：$5,800
+光罩总价：36 × $5,800 = $208,800
+工程服务费：$1,200
+NRE 合计：$210,000（约 21 万美金）
+
+MPW 分摊（假设 5 家拼单）：
+NRE 分摊：$210,000 / 5 = $42,000
+每片 Wafer Cost：比 Full Mask 高约 30-50%
+</code></pre>
+
+<hr />
+<h2 id="wafer-cost">第三步：Wafer Cost 定价<a class="headerlink" href="#wafer-cost" title="Permanent link">&para;</a></h2>
+<h3 id="wafer-cost_1">Wafer Cost 是什么<a class="headerlink" href="#wafer-cost_1" title="Permanent link">&para;</a></h3>
+<p>每片晶圆的制造费用。<strong>这是量产后最主要的成本，直接决定芯片的边际成本。</strong></p>
+<h3 id="wafer-cost_2">影响 Wafer Cost 的因素<a class="headerlink" href="#wafer-cost_2" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>因素</th>
+<th>影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>工艺节点</td>
+<td>成熟工艺（0.18μm）≈ $1,500-2,500/片；先进工艺（28nm）≈ $3,000-5,000/片</td>
+</tr>
+<tr>
+<td>晶圆尺寸</td>
+<td>8寸≈$1,500-3,000；12寸≈$3,000-8,000+</td>
+</tr>
+<tr>
+<td>良率</td>
+<td>直接影响有效成本。良率 70% = 实际成本 / 0.7</td>
+</tr>
+<tr>
+<td>订单量</td>
+<td>量越大，单价越低。月 100 片 vs 月 1000 片，价差 15-30%</td>
+</tr>
+<tr>
+<td>客户等级</td>
+<td>大客户 vs 小客户，价差巨大</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_6">行业惯例<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p><strong>价格体系的实际运作：</strong></p>
+<p>Foundry 的报价不是"公开价"——每家客户拿到的价格不同。这就是你的核心利润来源。</p>
+<pre class="codehilite"><code>大客户（如中兴/华为系）：
+Wafer Cost = $2,200/片（0.18μm）
+
+小客户直接找 SMIC：
+Wafer Cost = $2,800-3,000/片（同样工艺）
+
+你给客户的报价：
+$2,500-2,600/片 → 你赚差价，客户比市场价低
+</code></pre>
+
+<p><strong>价格谈判的权力结构：</strong>
+- <strong>Foundry 给大客户的价格是按季度/年度重新谈的</strong>，不是一劳永逸
+- 年底产能宽松时好谈，Q3 产能紧张时难谈
+- 你能拿到的价格受你搭档的大客户订单量影响——如果大客户的月度消费量下降，你能拿到的优惠也可能缩水</p>
+<h3 id="_7">你的报价策略<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code>到手的 Wafer Cost：$2,200（通过大客户渠道）
+给客户的报价：$2,500
+单片利润：$300
+
+一个 MPW 项目：25 片 → $7,500 利润
+一个量产项目：100 片/月 × $300 = $30,000/月 毛利
+</code></pre>
+
+<p><strong>关键：</strong> 不要只卖 Wafer Cost。你的真正溢价来自"流程管理 + 产能 + 速度"的组合。纯拼价格的话，客户早晚会找到更便宜的渠道。</p>
+<hr />
+<h2 id="retooling">第四步：Retooling 成本管理<a class="headerlink" href="#retooling" title="Permanent link">&para;</a></h2>
+<h3 id="retooling_1">Retooling 是什么<a class="headerlink" href="#retooling_1" title="Permanent link">&para;</a></h3>
+<p>Tape-Out 后发现设计问题，修改 GDS 并重新制作全部或部分光罩。</p>
+<h3 id="retooling_2">Retooling 的成本构成<a class="headerlink" href="#retooling_2" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code>直接成本：
+- 重新制作光罩（NRE 的 50-100%，取决于修改层数）
+- 工程服务费（再次跑流程）
+
+间接成本：
+- 时间延迟（1-3 个月）
+- 错过 MPW 班次 → 再等下一班
+- 客户信任损失
+- 你的声誉和精力消耗
+</code></pre>
+
+<h3 id="_8">行业惯例<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p><strong>什么情况下能争取免费 Retooling：</strong>
+- 问题出在<strong>晶圆厂侧</strong>（工艺参数给错、JDV 处理出错）→ 晶圆厂免费补做
+- 问题出在<strong>设计侧</strong>（客户改设计、DRC 遗漏）→ 客户付费
+- <strong>灰色地带：</strong> 如果问题很小（只需改 1-2 层光罩），而且你跟晶圆厂关系够好，可以争取"作为特殊处理"免费改一次。但这个面子只能用一次</p>
+<p><strong>什么情况 Retooling 不可避免：</strong>
+- 功能缺陷：芯片造出来跑不起来
+- 性能不达标：速度、功耗、电压范围不符合要求
+- 工艺兼容性问题：设计用了不存在的器件或参数</p>
+<h3 id="retooling_3">你如何管理 Retooling 风险<a class="headerlink" href="#retooling_3" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>在 GDS → JDV 阶段盯紧</strong></li>
+<li>确保客户 DRC 清干净再 Tape-Out</li>
+<li>确保 FSR 填写正确（避免工艺参数错误）</li>
+<li>推动客户在 JDV 窗口期内完成确认</li>
+<li><strong>帮助客户决策：这个 Retooling 值不值得做</strong></li>
+<li>有时候芯片虽然性能差一点，但能用。客户过于追求完美可能付出更高代价</li>
+<li>你需要帮客户算账：Retooling 的 NRE + 延迟 vs 凑合用并且卖出去回笼资金</li>
+<li><strong>控制 Retooling 范围</strong></li>
+<li>如果必须 Retool，尽量控制在少数几层光罩</li>
+<li>不要"既然都要改了顺便再优化一下别的"——这是 Retooling 范围失控的经典路径</li>
+</ol>
+<hr />
+<h2 id="_9">决策链条总结<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<p>客户走进来说"我要做芯片"，你的思考路径应该是：</p>
+<pre class="codehilite"><code>1. 确定模式：MPW 还是 Full Mask？
+   → 看项目阶段和需求量
+
+2. 估算 NRE：光罩费 + 工程费
+   → 看工艺节点和层数
+
+3. 计算 Wafer Cost：渠道价 vs 报价
+   → 看量大不大、良率预估多少
+
+4. 评估风险：Retooling 概率
+   → 看客户设计成熟度和前期准备
+
+5. 报价：NRE + Wafer Cost + 你的服务费
+   → 组合报价，体现你的全链条价值
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../02-lifecycle/" class="btn btn-neutral float-left" title="02 - 全生命周期流程与惯例"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../04-terminology/" class="btn btn-neutral float-right" title="04 - 关键术语深度辨析">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>CC0 1.0 Universal</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/sylar-qiu/grow-path" class="fa fa-code-fork" style="color: #fcfcfc"> sylar-qiu/grow-path</a>
+        </span>
+    
+    
+      <span><a href="../02-lifecycle/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../04-terminology/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
