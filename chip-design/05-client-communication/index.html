@@ -128,29 +128,43 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_9">三、项目推进：各阶段的沟通要点</a>
+    <li class="toctree-l2"><a class="reference internal" href="#ip">三、报价阶段的 IP 确认流程</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_10">设计准备阶段</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_9">核心原则：客户主导，我们确认</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_11">物理验证阶段</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_10">沟通话术</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_11">追加确认：工艺兼容性</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_12">三种情况的处理</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_13">理解背后的业务逻辑</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_14">四、项目推进：各阶段的沟通要点</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_15">设计准备阶段</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_16">物理验证阶段</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#jdv">JDV 确认阶段（最关键的窗口）</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_12">制造与交付阶段</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_17">制造与交付阶段</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_13">四、风险信号识别</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_18">五、风险信号识别</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#_14">前期风险信号</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_19">前期风险信号</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_15">执行阶段风险信号</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_20">执行阶段风险信号</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#_16">你能做的</a>
+    <li class="toctree-l3"><a class="reference internal" href="#_21">你能做的</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_17">五、跟客户建立长期关系的沟通原则</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_22">六、跟客户建立长期关系的沟通原则</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#1">原则 1：做"流程导航员"，不做"推销员"</a>
     </li>
@@ -274,8 +288,104 @@
 <li><strong>多处留白</strong> — 给后期谈判留空间（工程服务费通常有一定浮动空间）</li>
 </ol>
 <hr />
-<h2 id="_9">三、项目推进：各阶段的沟通要点<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
-<h3 id="_10">设计准备阶段<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<h2 id="ip">三、报价阶段的 IP 确认流程<a class="headerlink" href="#ip" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>本章节与第六章「半导体 IP 深度解析」配套阅读，那里详细介绍了 IP 的三种授权路径和费用结构。</p>
+</blockquote>
+<p>在成熟工艺节点（0.18μm / 0.11μm / 55nm / 40nm）的项目中，IP 的处理方式与先进工艺 SoC 有本质区别——<strong>你不需要深度介入 IP 的技术选型，但必须在报价环节做一次关键的确认</strong>。</p>
+<h3 id="_9">核心原则：客户主导，我们确认<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>为什么可以这样简化：</p>
+<table>
+<thead>
+<tr>
+<th>原因</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>成熟工艺生态稳定</td>
+<td>客户需要的 IP（USB 2.0、Ethernet PHY、基础 MCU 核）技术方案成熟，选择范围固定</td>
+</tr>
+<tr>
+<td>客户经验丰富</td>
+<td>你的 Fabless 客户对这行很熟，有自己的 IP 供应商和选型偏好</td>
+</tr>
+<tr>
+<td>IP 成本占比低</td>
+<td>成熟工艺的 IP 授权费相对 NRE（尤其是光罩费）来说不高，很多基础 IP 已标准化甚至包含在晶圆厂合作框架内</td>
+</tr>
+</tbody>
+</table>
+<p>你的角色从"技术方案顾问"精炼为<strong>"商务风险排查员"</strong>——核心动作是：在报价前，用一两句专业问话，明确 IP 的来源、费用归属和工艺兼容性。</p>
+<h3 id="_10">沟通话术<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<p>当客户就一个新项目询价，你已了解其工艺、尺寸、层数等基本信息后，追加确认：</p>
+<blockquote>
+<p>"X 总，关于流片的 NRE 成本，除了光罩，还需要确认一下 IP 授权的部分。请问咱们这个项目需要用到的核心 IP 模块（比如处理器核、USB、以太网 PHY 这些），是通过我们这边（晶圆厂渠道）来申请，还是您那边已经有现成的授权了？</p>
+<p>如果是通过我们这边，我们需要把对应的授权费纳入报价。如果您那边已经有了，那我们就按纯流片和掩膜费来报价，这样最准确。"</p>
+</blockquote>
+<p>这一句话达到三个目的：</p>
+<table>
+<thead>
+<tr>
+<th>目的</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>明确责任</strong></td>
+<td>分清 IP 授权的责任方（客户自备还是你协调），避免后续推诿</td>
+</tr>
+<tr>
+<td><strong>锁定成本</strong></td>
+<td>确保最终报价包含所有成本项，避免利润出现窟窿</td>
+</tr>
+<tr>
+<td><strong>展现专业</strong></td>
+<td>用最简短的问题证明你对全流程成本的熟悉</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_11">追加确认：工艺兼容性<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<p>即使客户回复"IP 我们自己有"，也建议你多问一句：</p>
+<blockquote>
+<p>"好的，那您确认一下这些 IP 是支持我们计划采用的这个工艺节点（比如 SMIC 40nm LL）的吧？这样我们后期对接数据能更顺畅。"</p>
+</blockquote>
+<p>这一句的价值在于：<strong>避免客户因 IP 与工艺不匹配而导致项目延误</strong>。这是你对项目成功关键风险点的把控，也是你提供的附加价值。</p>
+<h3 id="_12">三种情况的处理<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>客户回答</th>
+<th>你的应对</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IP 通过我们（晶圆厂渠道）申请</td>
+<td>把 IP 授权费纳入报价，走晶圆厂的标准流程（参见第六章「路径一」）</td>
+</tr>
+<tr>
+<td>IP 客户自备，且已经在该工艺上验证过</td>
+<td>确认工艺兼容性后，按纯流片+光罩费报价即可</td>
+</tr>
+<tr>
+<td>IP 客户自备，但不确定工艺兼容性</td>
+<td>建议客户联系 IP 原厂确认，或通过晶圆厂的 IP 兼容性数据库核查</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_13">理解背后的业务逻辑<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<p>这个流程能成立，根本原因在于你的商业模式——<strong>资源杠杆 + 流程润滑</strong>。你的利润不来自 IP 选型咨询，而来自：</p>
+<ul>
+<li><strong>产能优先级</strong>：帮客户争取更优的 Wafer Cost 和产能排期</li>
+<li><strong>流程效率</strong>：管控 Retooling、推动 JDV 确认、加速 PDK 获取</li>
+</ul>
+<p>IP 问题只是报价阶段的一个风险排查节点，确保项目"算得清、走得通"。这个确认做完，你就可以放心地进入下一阶段。</p>
+<hr />
+<h2 id="_14">四、项目推进：各阶段的沟通要点<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
+<h3 id="_15">设计准备阶段<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -298,7 +408,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="_11">物理验证阶段<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<h3 id="_16">物理验证阶段<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -344,7 +454,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="_12">制造与交付阶段<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<h3 id="_17">制造与交付阶段<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -368,9 +478,9 @@
 </tbody>
 </table>
 <hr />
-<h2 id="_13">四、风险信号识别<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
+<h2 id="_18">五、风险信号识别<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h2>
 <p>在跟客户沟通的各个阶段，有些信号一出现就要警觉：</p>
-<h3 id="_14">前期风险信号<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<h3 id="_19">前期风险信号<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -397,7 +507,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="_15">执行阶段风险信号<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<h3 id="_20">执行阶段风险信号<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -424,14 +534,14 @@
 </tr>
 </tbody>
 </table>
-<h3 id="_16">你能做的<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<h3 id="_21">你能做的<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h3>
 <ul>
 <li>信号刚出现时就提醒客户，而不是等出问题再补救</li>
 <li>有些信号是沟通问题（客户没理解流程），可以教</li>
 <li>有些信号是项目问题（设计不成熟、预算不清晰），需要客户自己解决，你注意不要替客户承担不属于你的风险</li>
 </ul>
 <hr />
-<h2 id="_17">五、跟客户建立长期关系的沟通原则<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h2>
+<h2 id="_22">六、跟客户建立长期关系的沟通原则<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h2>
 <h3 id="1">原则 1：做"流程导航员"，不做"推销员"<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
 <p>你在客户面前的角色是帮他走通芯片制造这条路的人。只夸自己关系多好、价格多低没用，拿出对流程的熟悉度和专业的沟通姿态，你才能赢得信任。</p>
 <h3 id="2">原则 2：把技术语言翻译成商业语言<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
