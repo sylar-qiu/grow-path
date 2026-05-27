@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://sylar-qiu.github.io/grow-path/chip-design/05-client-communication/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>05 - 客户沟通实战框架 - 成长笔记</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "05 - \u5ba2\u6237\u6c9f\u901a\u5b9e\u6218\u6846\u67b6";
+        var mkdocs_page_input_path = "chip-design/05-client-communication.md";
+        var mkdocs_page_url = "/grow-path/chip-design/05-client-communication/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 成长笔记
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">浏览器扩展</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../browser-extension/">总览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >知识体系</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/01-manifest-reference/">01 - Manifest 字段详解</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/02-core-architecture/">02 - 核心架构层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/03-content-scripts/">03 - 内容脚本层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/04-service-worker/">04 - Service Worker 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/05-storage/">05 - 存储层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/06-ui-layer/">06 - UI 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/07-network/">07 - 网络层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/08-api-panorama/">08 - 浏览器 API 全景</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/09-devtools/">09 - DevTools 扩展</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/10-native-messaging/">10 - 原生通信</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/11-build-tooling/">11 - 构建与工程化</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/12-debugging-testing/">12 - 调试与测试</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/13-publishing/">13 - 发布与运维</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/14-cross-browser/">14 - 多浏览器兼容</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >实战案例（淘宝插件）</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-01-architecture/">01 - 架构与 Manifest</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-02-content-scripts/">02 - 内容脚本实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-03-service-worker/">03 - Service Worker 实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-04-storage/">04 - 存储层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-05-ui-layer/">05 - UI 层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-06-engineering/">06 - 工程化与数据流</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">架构师之路</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../architecture/">架构师之路</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">机器人之路</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../robotics/">机器人之路</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">芯片设计</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../">总览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../01-ecosystem/">01 - 行业生态与角色定位</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../02-lifecycle/">02 - 全生命周期流程与惯例</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../03-business-decisions/">03 - 商务决策框架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../04-terminology/">04 - 关键术语深度辨析</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">05 - 客户沟通实战框架</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_2">一、第一次接触：信息收集</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">必问清单</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">沟通话术示例</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">这些信息对你有用</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">二、报价阶段：报价模板</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_7">报价的结构</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_8">报价注意事项</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_9">三、项目推进：各阶段的沟通要点</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_10">设计准备阶段</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_11">物理验证阶段</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#jdv">JDV 确认阶段（最关键的窗口）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_12">制造与交付阶段</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_13">四、风险信号识别</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_14">前期风险信号</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_15">执行阶段风险信号</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_16">你能做的</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_17">五、跟客户建立长期关系的沟通原则</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#1">原则 1：做"流程导航员"，不做"推销员"</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2">原则 2：把技术语言翻译成商业语言</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#3">原则 3：预期管理比价格更重要</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">成长笔记</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">芯片设计</li>
+      <li class="breadcrumb-item active">05 - 客户沟通实战框架</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/sylar-qiu/grow-path/edit/master/docs/chip-design/05-client-communication.md">Edit on sylar-qiu/grow-path</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">第五章：客户沟通实战框架<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>前面四章是知识储备，这一章是<strong>行动指南</strong>——从第一次跟客户接触到项目落地，每一步该问什么、该注意什么。</p>
+<hr />
+<h2 id="_2">一、第一次接触：信息收集<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>当你第一次接触一个潜在的流片客户，用这个清单把信息收全。</p>
+<h3 id="_3">必问清单<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code>技术规格
+├─ 工艺节点？（多少 nm / μm？）
+├─ 工艺类型？（CMOS / BCDE / RF / HV？）
+├─ 芯片尺寸？（X × Y mm² —— 成本计算核心）
+├─ 光罩层数？（多少层 Mask？）
+├─ 封装形式？（QFN / BGA / SOP？还是只拿 Die？）
+
+项目阶段
+├─ 当前到什么进度了？（选型 / 设计 / GDS 快好了？）
+├─ 计划什么时候 Tape-Out？（匹配 MPW 班次）
+├─ 是 MPW 验证还是量产？（决定报价模式）
+
+商业信息
+├─ MPW 要多少颗？量产月需多少片？
+├─ 有没有目标 Wafer Cost？
+├─ 有没有指定的晶圆厂？（SMIC / 华虹？）
+├─ PDK 拿到没有？（判断他过了哪道门槛）
+
+应用场景
+├─ 芯片用在什么产品上？（手机 / 汽车 / IoT / 电源）
+├─ 目标市场是国内还是海外？
+</code></pre>
+
+<h3 id="_4">沟通话术示例<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>"为了给您做一个初步的评估，我们几个关键信息需要对齐一下：芯片用的是哪种工艺和大概尺寸？目前项目到什么进度了，计划什么时候流片？首年的产量预期大概是多少？"</p>
+<p>"PDK 拿到了吗？如果还在等，我们可以帮忙加速一下流程。"</p>
+<p>"您这边是自己有封装资源，还是需要我们后期一并处理？这个报价差异挺大的。"</p>
+</blockquote>
+<h3 id="_5">这些信息对你有用<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>工艺 + 尺寸</strong> → 估算 NRE</li>
+<li><strong>产量</strong> → 判断 MPW 还是 Full Mask</li>
+<li><strong>Tape-Out 时间</strong> → 是否有 MPW 班次匹配</li>
+<li><strong>PDK 状态</strong> → 你的第一个价值切入点（加速拿 PDK）</li>
+<li><strong>封装需求</strong> → 报价包含不包含封测</li>
+<li><strong>指定晶圆厂</strong> → 决定找 SMIC 还是华虹还是其他</li>
+</ul>
+<hr />
+<h2 id="_6">二、报价阶段：报价模板<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="_7">报价的结构<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code>┌─────────────────────────────────────────────┐
+│                                        报价单 │
+│                                               │
+│ 工艺：0.18μm BCDE                             │
+│ 光罩层数：36 层                               │
+│ 类型：MPW                                     │
+│                                               │
+│ ┌── 一次性费用（NRE） ──────────────────────┐ │
+│ │ 光罩分摊费：$42,000                      │ │
+│ │ 工程服务费：$1,200                       │ │
+│ │ NRE 合计：$43,200                        │ │
+│ └─────────────────────────────────────────┘ │
+│                                               │
+│ ┌── 晶圆费用 ─────────────────────────────┐ │
+│ │ 单片 Wafer Cost：$2,500                 │ │
+│ │ 数量：25 片                              │ │
+│ │ 晶圆小计：$62,500                       │ │
+│ └─────────────────────────────────────────┘ │
+│                                               │
+│ ┌── 封装测试（如需） ──────────────────────┐ │
+│ │ 封装费：Die 数量的 QC 报价                │ │
+│ │ FT测试费：每颗 $XX                       │ │
+│ └─────────────────────────────────────────┘ │
+│                                               │
+│ 交期：JDV 确认后 45 天                         │
+│ 报价有效期：15 天                              │
+└─────────────────────────────────────────────┘
+</code></pre>
+
+<h3 id="_8">报价注意事项<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>明确 Die 还是 Chip</strong> — 在报价单上标注，避免歧义</li>
+<li><strong>报价有效期</strong> — 晶圆价格有波动，通常给 15 天有效期</li>
+<li><strong>NRE 是否可退</strong> — 不可退，这是行业惯例。如果客户问，直接说</li>
+<li><strong>多处留白</strong> — 给后期谈判留空间（工程服务费通常有一定浮动空间）</li>
+</ol>
+<hr />
+<h2 id="_9">三、项目推进：各阶段的沟通要点<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<h3 id="_10">设计准备阶段<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>你的动作</th>
+<th>话术</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>确认 PDK 状态</td>
+<td>"PDK 那边大概什么时候能拿到？如果流程上需要加速我可以帮忙跟进。"</td>
+</tr>
+<tr>
+<td>确认 FSR 填写</td>
+<td>"FSR 填了吗？要不要我们帮忙过一遍，确认参数跟设计意图一致？"</td>
+</tr>
+<tr>
+<td>对齐时间线</td>
+<td>"MPW 下个班次的截止日期是 X 月 X 日，我们往前推到 X 日完成 Tape-Out 才能赶上。"</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_11">物理验证阶段<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>你的动作</th>
+<th>话术</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>关注 DRC 进展</td>
+<td>"DRC 情况怎么样？有没有需要跟晶圆厂沟通 Waive 的问题？"</td>
+</tr>
+<tr>
+<td>控制 Retooling 风险</td>
+<td>"如果这个阶段发现问题要改，现在改比后面改便宜得多。JDV 窗口期一过，改一层光罩 = $5,800 + 等排期。"</td>
+</tr>
+<tr>
+<td>确认 Tape-Out 日期</td>
+<td>"Tape-Out 时间定下来了吗？我们好通知晶圆厂排 JDV 窗口。"</td>
+</tr>
+</tbody>
+</table>
+<h3 id="jdv">JDV 确认阶段（最关键的窗口）<a class="headerlink" href="#jdv" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>你的动作</th>
+<th>话术</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>提前提醒</td>
+<td>"JDV 窗口大概 3-5 个工作日，需要您这边安排人逐层确认。我会盯紧时间线。"</td>
+</tr>
+<tr>
+<td>进展跟踪</td>
+<td>"JDV 看完了吗？还有几层没确认？窗口期还剩 2 天。"</td>
+</tr>
+<tr>
+<td>决策推动</td>
+<td>"我理解您想再检查一遍，但如果过了窗口期不确认，晶圆厂默认推进。有问题的话现在提，光罩还没做，改起来代价最小。"</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_12">制造与交付阶段<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>你的动作</th>
+<th>话术</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>周期跟踪</td>
+<td>"晶圆预计 X 月 X 日出货，我会跟进物流和交货。"</td>
+</tr>
+<tr>
+<td>良率通报</td>
+<td>"这批良率 X%，在正常范围内。如果低于预期，我跟晶圆厂沟通一下看看能不能调参数。"</td>
+</tr>
+<tr>
+<td>交付确认</td>
+<td>"Die 已经准备好了，您这边是自取还是我们安排寄送？"</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_13">四、风险信号识别<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
+<p>在跟客户沟通的各个阶段，有些信号一出现就要警觉：</p>
+<h3 id="_14">前期风险信号<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>信号</th>
+<th>解读</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>客户说不清楚芯片具体尺寸</td>
+<td>他的设计还没定型，离 Tape-Out 还远，不要报确定价格</td>
+</tr>
+<tr>
+<td>客户说"多少钱都行，先做再说"</td>
+<td>大概率预算没概念，后期容易产生价格纠纷</td>
+</tr>
+<tr>
+<td>客户说"我觉得这个工艺应该行"而不是"我确认用这个工艺"</td>
+<td>选型还没定，你报价早了</td>
+</tr>
+<tr>
+<td>客户说"PDK 正在申请"超过 2 个月</td>
+<td>资质审核可能有障碍，需要你介入加速</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_15">执行阶段风险信号<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>信号</th>
+<th>解读</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DRC 反复没过，而且客户态度变快</td>
+<td>项目可能延期，准备调整排期预期</td>
+</tr>
+<tr>
+<td>客户在 JDV 窗口期最后 1 天还在犹豫</td>
+<td>Retooling 风险极高，你需要强硬推动</td>
+</tr>
+<tr>
+<td>客户突然说"我想改一下设计" + "已经 Tape-Out 了"</td>
+<td>Retooling 不可避免，开始算额外费用</td>
+</tr>
+<tr>
+<td>客户说"先把这一批做了，量产后再说" + 不提量产后怎么走</td>
+<td>客户可能只做第一版就不做了，你的长期利润不成立</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_16">你能做的<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<ul>
+<li>信号刚出现时就提醒客户，而不是等出问题再补救</li>
+<li>有些信号是沟通问题（客户没理解流程），可以教</li>
+<li>有些信号是项目问题（设计不成熟、预算不清晰），需要客户自己解决，你注意不要替客户承担不属于你的风险</li>
+</ul>
+<hr />
+<h2 id="_17">五、跟客户建立长期关系的沟通原则<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h2>
+<h3 id="1">原则 1：做"流程导航员"，不做"推销员"<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<p>你在客户面前的角色是帮他走通芯片制造这条路的人。只夸自己关系多好、价格多低没用，拿出对流程的熟悉度和专业的沟通姿态，你才能赢得信任。</p>
+<h3 id="2">原则 2：把技术语言翻译成商业语言<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>技术语言</th>
+<th>商业语言</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"要 Retooling 5 层光罩"</td>
+<td>"要追加 3 万美金，项目延后 6 周"</td>
+</tr>
+<tr>
+<td>"DRC 有 200 个违规"</td>
+<td>"有 200 个需要处理的小问题，但大部分可以跟晶圆厂豁免，我们安排一次电话对齐"</td>
+</tr>
+<tr>
+<td>"MPW 班次错过了"</td>
+<td>"等下一班的话，样品要晚 3 个月。或者我们走 Full Mask，快但贵一些"</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3">原则 3：预期管理比价格更重要<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<p>芯片行业最伤信任的不是价格高，而是<strong>预期没对齐</strong>。所有后期的不满意，都是因为前期没说清楚：
+- 报价时说清 Die 还是 Chip
+- MPW 启动时说清"MPW 后发现要量产可能需要重开光罩"
+- JDV 窗口期说清"确认了就不能改"
+- 交期说清"不包括节假日和晶圆厂检修"</p>
+<p>把丑话说在前面，比事后补救好无数倍。</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../04-terminology/" class="btn btn-neutral float-left" title="04 - 关键术语深度辨析"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>CC0 1.0 Universal</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/sylar-qiu/grow-path" class="fa fa-code-fork" style="color: #fcfcfc"> sylar-qiu/grow-path</a>
+        </span>
+    
+    
+      <span><a href="../04-terminology/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
