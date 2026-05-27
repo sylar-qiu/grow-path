@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://sylar-qiu.github.io/grow-path/chip-design/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>芯片设计：从设计到量产全流程 - 成长笔记</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u82af\u7247\u8bbe\u8ba1\uff1a\u4ece\u8bbe\u8ba1\u5230\u91cf\u4ea7\u5168\u6d41\u7a0b";
+        var mkdocs_page_input_path = "chip-design/index.md";
+        var mkdocs_page_url = "/grow-path/chip-design/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> 成长笔记
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">浏览器扩展</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../browser-extension/">总览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >知识体系</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../browser-extension/01-manifest-reference/">01 - Manifest 字段详解</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../browser-extension/02-core-architecture/">02 - 核心架构层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../browser-extension/03-content-scripts/">03 - 内容脚本层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../browser-extension/04-service-worker/">04 - Service Worker 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../browser-extension/05-storage/">05 - 存储层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../browser-extension/06-ui-layer/">06 - UI 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../browser-extension/07-network/">07 - 网络层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../browser-extension/08-api-panorama/">08 - 浏览器 API 全景</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../browser-extension/09-devtools/">09 - DevTools 扩展</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../browser-extension/10-native-messaging/">10 - 原生通信</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../browser-extension/11-build-tooling/">11 - 构建与工程化</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../browser-extension/12-debugging-testing/">12 - 调试与测试</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../browser-extension/13-publishing/">13 - 发布与运维</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../browser-extension/14-cross-browser/">14 - 多浏览器兼容</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >实战案例（淘宝插件）</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../browser-extension/case-01-architecture/">01 - 架构与 Manifest</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../browser-extension/case-02-content-scripts/">02 - 内容脚本实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../browser-extension/case-03-service-worker/">03 - Service Worker 实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../browser-extension/case-04-storage/">04 - 存储层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../browser-extension/case-05-ui-layer/">05 - UI 层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../browser-extension/case-06-engineering/">06 - 工程化与数据流</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">架构师之路</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../architecture/">架构师之路</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">机器人之路</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../robotics/">机器人之路</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">芯片设计</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">芯片设计：从设计到量产全流程</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_2">一、核心流程与关键环节（按时间线）</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">第一阶段：设计准备与启动</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">第二阶段：物理设计与验证（流片前核心）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">第三阶段：制造准备与光罩制作</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_6">第四阶段：晶圆制造、封装与测试</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_7">二、核心关键词 / 术语汇总</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_8">参与方</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_9">成本与模式</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_10">设计文件</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_11">制造流程</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_12">验证</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_13">商务</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_14">三、商务沟通核心要点（价值主张）</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">成长笔记</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">芯片设计</li>
+      <li class="breadcrumb-item active">芯片设计：从设计到量产全流程</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/sylar-qiu/grow-path/edit/master/docs/chip-design/index.md">Edit on sylar-qiu/grow-path</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1">芯片设计：从设计到量产全流程<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>芯片（IC）从设计到量产的全流程、关键环节、核心术语及风险点梳理，用于内部参考或与客户沟通时快速查阅。</p>
+<hr />
+<h2 id="_2">一、核心流程与关键环节（按时间线）<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="_3">第一阶段：设计准备与启动<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p><strong>核心动作：</strong> 客户（Fabless 设计公司）定义芯片规格，启动设计。</p>
+<p><strong>关键产出：</strong> 电路设计图、技术方案。</p>
+<p><strong>核心环节与关键词：</strong></p>
+<ul>
+<li><strong>工艺选择</strong> — 确定制造工艺节点（如 55nm, 40nm, 28nm）</li>
+<li><strong>PDK 申请</strong> — 向晶圆厂申请"工艺设计工具包"，这是设计的"工具箱"</li>
+<li><strong>建 Code</strong> — 在晶圆厂开通客户账户，获得下单资格。高门槛（如 SMIC 要求月产能承诺）</li>
+</ul>
+<p><strong>风险与价值点：</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>风险</td>
+<td>新建 Code 门槛高，周期长</td>
+</tr>
+<tr>
+<td>价值</td>
+<td>通过既有渠道（如已有渠道资源）帮助客户绕过建 Code 门槛，快速启动</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="_4">第二阶段：物理设计与验证（流片前核心）<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p><strong>核心动作：</strong> 将电路图转化为物理版图，并反复验证。</p>
+<p><strong>关键产出：</strong> GDSII 文件（芯片制造的最终图纸）。</p>
+<p><strong>核心环节与关键词：</strong></p>
+<ul>
+<li><strong>后端设计</strong> — 布局布线，生成 GDS</li>
+<li><strong>DRC / LVS 验证：</strong></li>
+<li><strong>DRC</strong> — 设计规则检查，确保版图可制造</li>
+<li><strong>Waive</strong> — 对某些 DRC 错误的"豁免"决策</li>
+<li><strong>Retooling</strong> — 因修改设计而需重新制作光罩，导致成本增加与延期</li>
+<li><strong>Tape-Out（流片）</strong> — 正式将 GDS 提交给晶圆厂</li>
+</ul>
+<p><strong>风险与价值点：</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>风险</td>
+<td>DRC 问题反复、最后一刻修改引发 Retooling</td>
+</tr>
+<tr>
+<td>价值</td>
+<td>协助高效沟通，争取免费修改机会，控制 NRE 成本</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="_5">第三阶段：制造准备与光罩制作<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p><strong>核心动作：</strong> 晶圆厂处理数据，制作生产模板。</p>
+<p><strong>关键产出：</strong> 光罩。</p>
+<p><strong>核心环节与关键词：</strong></p>
+<ul>
+<li><strong>JDV</strong> — 晶圆厂的"数据打包与最终确认"。这是修改的最后免费关口，JDV 释放后修改代价巨大</li>
+<li><strong>Mask Making</strong> — 制作光罩</li>
+<li><strong>NRE</strong> — 一次性工程费用，主要指光罩费。计算公式：NRE ≈ 单层光罩价 × 总层数 + 工程费</li>
+</ul>
+<p><strong>风险与价值点：</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>风险</td>
+<td>错过 JDV 确认截止期，或 Retooling 层数失控</td>
+</tr>
+<tr>
+<td>价值</td>
+<td>推动客户完成 JDV 确认，锁定修改范围，避免项目"下车"</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="_6">第四阶段：晶圆制造、封装与测试<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p><strong>核心动作：</strong> 用光罩生产晶圆，切割封装成芯片。</p>
+<p><strong>关键产出：</strong> Wafer → Chip。</p>
+<p><strong>核心环节与关键词：</strong></p>
+<ul>
+<li><strong>流片</strong> — 在晶圆厂进行制造</li>
+<li><strong>CP / FT 测试</strong> — 晶圆探针测试、成品芯片测试</li>
+<li><strong>封装</strong> — 将裸片封装为成品芯片</li>
+<li><strong>Wafer Cost</strong> — 每片晶圆的制造费，决定量产成本</li>
+<li><strong>MPW / Full Mask：</strong></li>
+<li><strong>MPW</strong> — 多项目晶圆，拼单降低 NRE，用于小批量</li>
+<li><strong>Full Mask (NTO)</strong> — 全掩模，用于大规模量产</li>
+</ul>
+<p><strong>风险与价值点：</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>风险</td>
+<td>良率问题、产能排期紧张</td>
+</tr>
+<tr>
+<td>价值</td>
+<td>提供有竞争力的 Wafer Cost、保障产能、缩短流片周期</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_7">二、核心关键词 / 术语汇总<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h3 id="_8">参与方<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>关键词</th>
+<th>简要解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fabless</td>
+<td>无晶圆厂设计公司（如你的客户）</td>
+</tr>
+<tr>
+<td>Foundry / 晶圆厂</td>
+<td>芯片制造厂（如 SMIC）</td>
+</tr>
+<tr>
+<td>IDM</td>
+<td>集成器件制造商（设计制造一体）</td>
+</tr>
+<tr>
+<td>Service Provider</td>
+<td>服务商 / 代理</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_9">成本与模式<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>关键词</th>
+<th>简要解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NRE</td>
+<td>一次性工程费用（主要是光罩费）</td>
+</tr>
+<tr>
+<td>Wafer Cost</td>
+<td>每片晶圆的制造费（量产主要成本）</td>
+</tr>
+<tr>
+<td>MPW</td>
+<td>多项目晶圆，拼单流片</td>
+</tr>
+<tr>
+<td>Full Mask / NTO</td>
+<td>全掩模 / 新产品量产流片</td>
+</tr>
+<tr>
+<td>Retooling</td>
+<td>重新制作光罩（代价高昂）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_10">设计文件<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>关键词</th>
+<th>简要解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PDK</td>
+<td>工艺设计工具包</td>
+</tr>
+<tr>
+<td>GDS / GDSII</td>
+<td>芯片最终版图文件</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_11">制造流程<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>关键词</th>
+<th>简要解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tape-Out</td>
+<td>提交 GDS，流片</td>
+</tr>
+<tr>
+<td>JDV</td>
+<td>数据最终确认环节（关键节点）</td>
+</tr>
+<tr>
+<td>Mask / 光罩</td>
+<td>生产用的模板</td>
+</tr>
+<tr>
+<td>Wafer / 晶圆</td>
+<td>上有数百颗芯片的硅片</td>
+</tr>
+<tr>
+<td>Die / 裸片</td>
+<td>晶圆切割后的单个芯片</td>
+</tr>
+<tr>
+<td>Chip / 芯片</td>
+<td>封装后的成品</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_12">验证<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>关键词</th>
+<th>简要解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DRC</td>
+<td>设计规则检查</td>
+</tr>
+<tr>
+<td>LVS</td>
+<td>版图与电路图一致性检查</td>
+</tr>
+<tr>
+<td>Waive</td>
+<td>对 DRC 错误的豁免决定</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_13">商务<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>关键词</th>
+<th>简要解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Code</td>
+<td>客户在晶圆厂的账户代码</td>
+</tr>
+<tr>
+<td>Shuttle / 班次</td>
+<td>MPW 的轮次计划</td>
+</tr>
+<tr>
+<td>良率</td>
+<td>合格芯片的百分比</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_14">三、商务沟通核心要点（价值主张）<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
+<p>在与设计公司老板沟通时，可将以上知识转化为你的价值：</p>
+<ol>
+<li>
+<p><strong>"我们帮您解决准入和成本"</strong> — 通过我们的渠道，您可以绕过 SMIC 严苛的建码门槛，并享受基于我们大客户资源的优势量产单价。</p>
+</li>
+<li>
+<p><strong>"我们帮您管控流程风险"</strong> — 在流片前的关键阶段（DRC 验证、JDV 确认），我们能协助高效沟通，争取免费修改、控制 Retooling 范围，保护您的 NRE 预算和上市时间。</p>
+</li>
+<li>
+<p><strong>"我们提供产能与周期保障"</strong> — 我们能提供确定的产能和更短的流片周期，助您产品快速上市。</p>
+</li>
+</ol>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../robotics/" class="btn btn-neutral float-left" title="机器人之路"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>CC0 1.0 Universal</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/sylar-qiu/grow-path" class="fa fa-code-fork" style="color: #fcfcfc"> sylar-qiu/grow-path</a>
+        </span>
+    
+    
+      <span><a href="../robotics/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

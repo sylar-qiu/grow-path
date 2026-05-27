@@ -2,98 +2,102 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://sylar-qiu.github.io/grow-path/</loc>
-         <lastmod>2026-05-26</lastmod>
+         <lastmod>2026-05-27</lastmod>
     </url>
     <url>
          <loc>https://sylar-qiu.github.io/grow-path/architecture/</loc>
-         <lastmod>2026-05-26</lastmod>
+         <lastmod>2026-05-27</lastmod>
     </url>
     <url>
          <loc>https://sylar-qiu.github.io/grow-path/browser-extension/</loc>
-         <lastmod>2026-05-26</lastmod>
+         <lastmod>2026-05-27</lastmod>
     </url>
     <url>
          <loc>https://sylar-qiu.github.io/grow-path/browser-extension/01-manifest-reference/</loc>
-         <lastmod>2026-05-26</lastmod>
+         <lastmod>2026-05-27</lastmod>
     </url>
     <url>
          <loc>https://sylar-qiu.github.io/grow-path/browser-extension/02-core-architecture/</loc>
-         <lastmod>2026-05-26</lastmod>
+         <lastmod>2026-05-27</lastmod>
     </url>
     <url>
          <loc>https://sylar-qiu.github.io/grow-path/browser-extension/03-content-scripts/</loc>
-         <lastmod>2026-05-26</lastmod>
+         <lastmod>2026-05-27</lastmod>
     </url>
     <url>
          <loc>https://sylar-qiu.github.io/grow-path/browser-extension/04-service-worker/</loc>
-         <lastmod>2026-05-26</lastmod>
+         <lastmod>2026-05-27</lastmod>
     </url>
     <url>
          <loc>https://sylar-qiu.github.io/grow-path/browser-extension/05-storage/</loc>
-         <lastmod>2026-05-26</lastmod>
+         <lastmod>2026-05-27</lastmod>
     </url>
     <url>
          <loc>https://sylar-qiu.github.io/grow-path/browser-extension/06-ui-layer/</loc>
-         <lastmod>2026-05-26</lastmod>
+         <lastmod>2026-05-27</lastmod>
     </url>
     <url>
          <loc>https://sylar-qiu.github.io/grow-path/browser-extension/07-network/</loc>
-         <lastmod>2026-05-26</lastmod>
+         <lastmod>2026-05-27</lastmod>
     </url>
     <url>
          <loc>https://sylar-qiu.github.io/grow-path/browser-extension/08-api-panorama/</loc>
-         <lastmod>2026-05-26</lastmod>
+         <lastmod>2026-05-27</lastmod>
     </url>
     <url>
          <loc>https://sylar-qiu.github.io/grow-path/browser-extension/09-devtools/</loc>
-         <lastmod>2026-05-26</lastmod>
+         <lastmod>2026-05-27</lastmod>
     </url>
     <url>
          <loc>https://sylar-qiu.github.io/grow-path/browser-extension/10-native-messaging/</loc>
-         <lastmod>2026-05-26</lastmod>
+         <lastmod>2026-05-27</lastmod>
     </url>
     <url>
          <loc>https://sylar-qiu.github.io/grow-path/browser-extension/11-build-tooling/</loc>
-         <lastmod>2026-05-26</lastmod>
+         <lastmod>2026-05-27</lastmod>
     </url>
     <url>
          <loc>https://sylar-qiu.github.io/grow-path/browser-extension/12-debugging-testing/</loc>
-         <lastmod>2026-05-26</lastmod>
+         <lastmod>2026-05-27</lastmod>
     </url>
     <url>
          <loc>https://sylar-qiu.github.io/grow-path/browser-extension/13-publishing/</loc>
-         <lastmod>2026-05-26</lastmod>
+         <lastmod>2026-05-27</lastmod>
     </url>
     <url>
          <loc>https://sylar-qiu.github.io/grow-path/browser-extension/14-cross-browser/</loc>
-         <lastmod>2026-05-26</lastmod>
+         <lastmod>2026-05-27</lastmod>
     </url>
     <url>
          <loc>https://sylar-qiu.github.io/grow-path/browser-extension/case-01-architecture/</loc>
-         <lastmod>2026-05-26</lastmod>
+         <lastmod>2026-05-27</lastmod>
     </url>
     <url>
          <loc>https://sylar-qiu.github.io/grow-path/browser-extension/case-02-content-scripts/</loc>
-         <lastmod>2026-05-26</lastmod>
+         <lastmod>2026-05-27</lastmod>
     </url>
     <url>
          <loc>https://sylar-qiu.github.io/grow-path/browser-extension/case-03-service-worker/</loc>
-         <lastmod>2026-05-26</lastmod>
+         <lastmod>2026-05-27</lastmod>
     </url>
     <url>
          <loc>https://sylar-qiu.github.io/grow-path/browser-extension/case-04-storage/</loc>
-         <lastmod>2026-05-26</lastmod>
+         <lastmod>2026-05-27</lastmod>
     </url>
     <url>
          <loc>https://sylar-qiu.github.io/grow-path/browser-extension/case-05-ui-layer/</loc>
-         <lastmod>2026-05-26</lastmod>
+         <lastmod>2026-05-27</lastmod>
     </url>
     <url>
          <loc>https://sylar-qiu.github.io/grow-path/browser-extension/case-06-engineering/</loc>
-         <lastmod>2026-05-26</lastmod>
+         <lastmod>2026-05-27</lastmod>
+    </url>
+    <url>
+         <loc>https://sylar-qiu.github.io/grow-path/chip-design/</loc>
+         <lastmod>2026-05-27</lastmod>
     </url>
     <url>
          <loc>https://sylar-qiu.github.io/grow-path/robotics/</loc>
-         <lastmod>2026-05-26</lastmod>
+         <lastmod>2026-05-27</lastmod>
     </url>
 </urlset>
