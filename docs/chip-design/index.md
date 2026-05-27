@@ -169,3 +169,4 @@
 ## 延伸阅读
 
 - [产业链全景与角色定位](industry-overview.md) — 生态位拆解、行业常识、商务行动框架
+- [流片常见问题详解](faq.md) — Die vs Chip、MPW模式、PDK vs IP、客户沟通清单

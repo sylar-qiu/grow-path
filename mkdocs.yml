@@ -43,6 +43,7 @@ nav:
   - 芯片设计:
     - 从设计到量产全流程: chip-design/index.md
     - 产业链全景与角色定位: chip-design/industry-overview.md
+    - 流片常见问题详解: chip-design/faq.md
 
 markdown_extensions:
   - codehilite
