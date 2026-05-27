@@ -47,6 +47,7 @@ nav:
     - 03 - 商务决策框架: chip-design/03-business-decisions.md
     - 04 - 关键术语深度辨析: chip-design/04-terminology.md
     - 05 - 客户沟通实战框架: chip-design/05-client-communication.md
+    - 06 - 半导体 IP 深度解析: chip-design/06-ip-knowledge.md
 
 markdown_extensions:
   - codehilite

@@ -13,6 +13,7 @@
 | [第三章：商务决策框架](03-business-decisions.md) | MPW vs Full Mask 选择、NRE 计算、Wafer Cost 定价、Retooling 风险管理 | 负责报价和商务谈判的人 |
 | [第四章：关键术语深度辨析](04-terminology.md) | PDK vs IP、Die vs Chip、工艺类型（BCDE/RF/HV）、FSR 等术语详解 | 需要在邮件和对话中使用正确术语的人 |
 | [第五章：客户沟通实战框架](05-client-communication.md) | 初次接触信息收集、报价模板、各阶段沟通要点、风险信号识别 | 直接跟客户沟通的人 |
+| [第六章：半导体 IP 深度解析](06-ip-knowledge.md) | IP 类型、三种授权路径、费用结构、IP vs PDK 决策逻辑、客户沟通话术 | 负责管理和顾问 IP 环节的人 |
 
 ---
 
