@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://sylar-qiu.github.io/grow-path/web-server/apache-handlers/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Apache Handler 全景 - 成长笔记</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Apache Handler \u5168\u666f";
+        var mkdocs_page_input_path = "web-server/apache-handlers.md";
+        var mkdocs_page_url = "/grow-path/web-server/apache-handlers/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 成长笔记
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">浏览器扩展</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../browser-extension/">总览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >知识体系</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/01-manifest-reference/">01 - Manifest 字段详解</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/02-core-architecture/">02 - 核心架构层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/03-content-scripts/">03 - 内容脚本层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/04-service-worker/">04 - Service Worker 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/05-storage/">05 - 存储层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/06-ui-layer/">06 - UI 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/07-network/">07 - 网络层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/08-api-panorama/">08 - 浏览器 API 全景</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/09-devtools/">09 - DevTools 扩展</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/10-native-messaging/">10 - 原生通信</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/11-build-tooling/">11 - 构建与工程化</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/12-debugging-testing/">12 - 调试与测试</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/13-publishing/">13 - 发布与运维</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/14-cross-browser/">14 - 多浏览器兼容</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >实战案例（淘宝插件）</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-01-architecture/">01 - 架构与 Manifest</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-02-content-scripts/">02 - 内容脚本实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-03-service-worker/">03 - Service Worker 实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-04-storage/">04 - 存储层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-05-ui-layer/">05 - UI 层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-06-engineering/">06 - 工程化与数据流</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">芯片设计</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/">总览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/01-ecosystem/">01 - 行业生态与角色定位</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/02-lifecycle/">02 - 全生命周期流程与惯例</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/03-business-decisions/">03 - 商务决策框架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/04-terminology/">04 - 关键术语深度辨析</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/05-client-communication/">05 - 客户沟通实战框架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/06-ip-knowledge/">06 - 半导体 IP 深度解析</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Web 服务器</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../">总览</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Apache Handler 全景</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_1">一、静态文件服务</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#default-handler">default-handler（核心，内置）</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">二、内容协商与类型映射</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#type-mapmod_negotiation">type-map（mod_negotiation）</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">三、目录索引</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#autoindexmod_autoindex">autoindex（mod_autoindex）</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ssi">四、服务端包含（SSI）</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#server-parsed-server-parsed-htmlmod_include">server-parsed / server-parsed-html（mod_include）</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#http">五、原始 HTTP 输出</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#send-as-ismod_asis">send-as-is（mod_asis）</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">六、图像地图</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#imap-filemod_imagemap">imap-file（mod_imagemap）</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">七、服务器状态 / 信息</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#server-statusmod_status">server-status（mod_status）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#server-infomod_info">server-info（mod_info）</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#cgicommon-gateway-interface">八、CGI（Common Gateway Interface）</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#cgi-scriptmod_cgi-mod_cgid">cgi-script（mod_cgi / mod_cgid）</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#fastcgiproxy">九、FastCGI（Proxy 模式）</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#proxyfcgimod_proxy_fcgi">proxy:fcgi://（mod_proxy_fcgi）</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">十、通用反向代理</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#proxyhttp-proxyhttpsmod_proxy_http">proxy:http:// / proxy:https://（mod_proxy_http）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#proxyajpmod_proxy_ajp">proxy:ajp://（mod_proxy_ajp）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#proxyws-proxywssmod_proxy_wstunnel">proxy:ws:// / proxy:wss://（mod_proxy_wstunnel）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#proxyh2-proxyh2cmod_proxy_http2">proxy:h2:// / proxy:h2c://（mod_proxy_http2）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#proxybalancermod_proxy_balancer">proxy:balancer://（mod_proxy_balancer）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#proxyftpmod_proxy_ftp">proxy:ftp://（mod_proxy_ftp）</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_7">十一、嵌入式脚本语言模块</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#php_modulemod_php">php*_module（mod_php）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#perl-scriptmod_perl">perl-script（mod_perl）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#wsgi-scriptmod_wsgi">wsgi-script（mod_wsgi）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#python-scriptmod_python">python-script（mod_python，已废弃）</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_8">十二、动作触发</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#actionmod_actions">action（mod_actions）</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#handler">十三、过滤链作为 Handler</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#addoutputfilter">通过 AddOutputFilter 设置</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mod_filterfilter">mod_filter（Filter 链配置）</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#http2">十四、HTTP/2 协议支持</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#mod_http2-handler">mod_http2（协议升级，非传统 Handler）</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tlsssl">十五、TLS/SSL</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#mod_ssl-handler">mod_ssl（连接级安全，非 Handler）</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#handler_1">十六、完整的 Handler 注册与匹配顺序</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#handler_2">十七、Handler 选择流程图</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#handler_3">十八、各 Handler 的现代适用场景汇总</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">成长笔记</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Web 服务器</li>
+      <li class="breadcrumb-item active">Apache Handler 全景</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/sylar-qiu/grow-path/edit/master/docs/web-server/apache-handlers.md">Edit on sylar-qiu/grow-path</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="apache-handler">Apache Handler 全景<a class="headerlink" href="#apache-handler" title="Permanent link">&para;</a></h1>
+<p>Handler 是 Apache 中决定"谁来处理这个请求"的核心机制。当请求经过所有 Hook（URL 映射、认证、授权）之后，最后一步是选择一个 Handler 来生成响应内容。</p>
+<p>Handler 的分配方式：</p>
+<pre class="codehilite"><code>SetHandler handler-name        # 目录/位置级别
+AddHandler handler-name .ext   # 按文件扩展名
+Action handler-name cgi-path   # 按 MIME 类型触发
+</code></pre>
+
+<hr />
+<h2 id="_1">一、静态文件服务<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="default-handler">default-handler（核心，内置）<a class="headerlink" href="#default-handler" title="Permanent link">&para;</a></h3>
+<p>最基础的 Handler。Apache 的核心行为：把文件系统上的文件内容作为 HTTP 响应直接返回。</p>
+<pre class="codehilite"><code>SetHandler default-handler
+</code></pre>
+
+<p>内部实现：</p>
+<pre class="codehilite"><code>1. Apache 检查文件是否存在（stat() 系统调用）
+2. 检查文件权限（Apache 进程用户是否有读权限）
+3. 根据扩展名查 MIME 类型映射表 → Content-Type header
+4. 读取并输出文件内容
+
+输出方式：
+- 小文件（&lt; 8KB）：mmap + write
+- 大文件：sendfile() 系统调用（零拷贝）
+  → 数据从磁盘 Page Cache → NIC 发送缓冲区
+  → 完全绕过用户空间
+  → 理论上限 ≈ 磁盘 IO 带宽
+</code></pre>
+
+<p><strong>特性：</strong>
+- Range Requests（断点续传）：<code>Accept-Ranges: bytes</code>，mod_negotiation 自动处理 If-Range
+- ETag / Last-Modified + If-None-Match / If-Modified-Since → 304 Not Modified
+- Precompressed files（预压缩文件）：如果 <code>.gz</code> 或 <code>.br</code> 版本存在且客户端支持，自动发压缩版（通过 MultiViews 或 mod_negotiation）</p>
+<p><strong>适用场景：</strong> HTML、CSS、JS、图片、字体、下载文件。几乎所有静态资源。</p>
+<hr />
+<h2 id="_2">二、内容协商与类型映射<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="type-mapmod_negotiation">type-map（mod_negotiation）<a class="headerlink" href="#type-mapmod_negotiation" title="Permanent link">&para;</a></h3>
+<p>根据客户端请求头（Accept、Accept-Language、Accept-Encoding）选择最合适的文件版本返回。</p>
+<pre class="codehilite"><code>SetHandler type-map
+
+# 配合 Options +MultiViews 自动使用
+Options +MultiViews
+</code></pre>
+
+<p><strong>多语言站点示例：</strong></p>
+<p>假设你有：</p>
+<pre class="codehilite"><code>index.html.en    → English version
+index.html.zh    → 中文版本
+index.html.ja    → 日文版本
+index.html.var   → type-map 文件
+</code></pre>
+
+<p><code>index.html.var</code> 内容：</p>
+<pre class="codehilite"><code>URI: index.html
+
+URI: index.html.en
+Content-Type: text/html; charset=utf-8
+Content-Language: en
+
+URI: index.html.zh
+Content-Type: text/html; charset=utf-8
+Content-Language: zh
+
+URI: index.html.ja
+Content-Type: text/html; charset=utf-8
+Content-Language: ja
+</code></pre>
+
+<p>客户端请求 <code>Accept-Language: zh</code> → Apache 返回 <code>index.html.zh</code>。</p>
+<p><strong>原理：</strong> 基于 RFC 2296 的透明内容协商。Apache 对每个变体计算一个"quality factor"，选最高的。</p>
+<p><strong>性能影响：</strong> 每次请求都要 stat() 所有变体文件。在变体很多（&gt;10）时，会明显增加请求耗时。不推荐在高流量页面使用，除非真的需要。</p>
+<hr />
+<h2 id="_3">三、目录索引<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="autoindexmod_autoindex">autoindex（mod_autoindex）<a class="headerlink" href="#autoindexmod_autoindex" title="Permanent link">&para;</a></h3>
+<p>当请求的路径是一个目录且没有 index 文件（index.html / index.php 等）时，Apache 生成一个目录文件列表页面。</p>
+<pre class="codehilite"><code>&lt;Directory /var/www/html/downloads&gt;
+    Options +Indexes
+    SetHandler autoindex
+&lt;/Directory&gt;
+</code></pre>
+
+<p><strong>生成的内容：</strong></p>
+<pre class="codehilite"><code>Index of /downloads/
+[parent directory]
+tools/           2026-05-28 14:30   -
+docs/            2026-05-27 09:15   -
+readme.txt       2026-05-26 18:00  2.4K
+setup.exe        2026-05-25 11:22  15M
+</code></pre>
+
+<p><strong>可定制项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>HeaderName HEADER.html</code></td>
+<td>在列表顶部嵌入自定义 HTML</td>
+</tr>
+<tr>
+<td><code>ReadmeName README.html</code></td>
+<td>在列表底部嵌入自定义 HTML</td>
+</tr>
+<tr>
+<td><code>IndexStyleSheet</code></td>
+<td>自定义 CSS</td>
+</tr>
+<tr>
+<td><code>IndexOrderDefault</code></td>
+<td>排序方式</td>
+</tr>
+<tr>
+<td><code>AddIcon</code> / <code>AddAlt</code></td>
+<td>不同文件类型显示不同图标</td>
+</tr>
+<tr>
+<td><code>FancyIndexing</code></td>
+<td>是否显示图标、大小、日期列</td>
+</tr>
+</tbody>
+</table>
+<p><strong>安全注意事项：</strong></p>
+<pre class="codehilite"><code># 千万不要暴露包含敏感信息的目录
+Options -Indexes           # 关闭目录列表
+# 或
+&lt;Directory /var/www/html/admin&gt;
+    Deny from all
+&lt;/Directory&gt;
+</code></pre>
+
+<p><strong>性能：</strong> 每次请求都做 <code>ls</code> 操作（readdir + stat 每个文件/子目录）。目录下文件超过几千个时，响应时间会显著增加。</p>
+<hr />
+<h2 id="ssi">四、服务端包含（SSI）<a class="headerlink" href="#ssi" title="Permanent link">&para;</a></h2>
+<h3 id="server-parsed-server-parsed-htmlmod_include">server-parsed / server-parsed-html（mod_include）<a class="headerlink" href="#server-parsed-server-parsed-htmlmod_include" title="Permanent link">&para;</a></h3>
+<p>在 HTML 文件中嵌入服务器端指令，在响应返回客户端之前处理。</p>
+<pre class="codehilite"><code>AddHandler server-parsed .shtml
+# 或让所有 .html 文件也支持 SSI
+AddType text/html .shtml
+AddHandler server-parsed .shtml
+Options +Includes
+</code></pre>
+
+<p><strong>支持的指令：</strong></p>
+<pre class="codehilite"><code>&lt;!--#include virtual=&quot;/header.html&quot; --&gt;     # 包含其他文件
+&lt;!--#echo var=&quot;DATE_LOCAL&quot; --&gt;              # 输出当前时间
+&lt;!--#set var=&quot;user&quot; value=&quot;admin&quot; --&gt;       # 设置变量
+&lt;!--#if expr=&quot;$REMOTE_ADDR = /192\\.168/ --&gt; # 条件判断
+  内网用户可见内容
+&lt;!--#else --&gt;
+  外网用户可见内容
+&lt;!--#endif --&gt;
+
+&lt;!--#exec cgi=&quot;/counter.cgi&quot; --&gt;            # 执行 CGI 程序（需要 +ExecCGI 选项）
+&lt;!--#flastmod file=&quot;index.html&quot; --&gt;          # 文件最后修改时间
+&lt;!--#fsize file=&quot;download.zip&quot; --&gt;          # 文件大小
+</code></pre>
+
+<p><strong>性能影响：</strong></p>
+<ul>
+<li>SSI 文件即使没有变更也会定期重新解析</li>
+<li>每个 SSI include 都是一个额外的文件系统操作</li>
+<li><code>exec cmd</code> / <code>exec cgi</code> 会 fork 子进程（和 CGI 一样重）</li>
+<li>现代站点几乎不用 SSI，被模板引擎（PHP / Jinja2 / JSX）取代</li>
+</ul>
+<p><strong>现代替代方案：</strong> Nginx SSI 模块、Edge Side Includes（ESI）、客户端模板。</p>
+<hr />
+<h2 id="http">五、原始 HTTP 输出<a class="headerlink" href="#http" title="Permanent link">&para;</a></h2>
+<h3 id="send-as-ismod_asis">send-as-is（mod_asis）<a class="headerlink" href="#send-as-ismod_asis" title="Permanent link">&para;</a></h3>
+<p>按原样发送文件内容，不做任何 HTTP 头处理。内容必须包含完整 HTTP 头。</p>
+<pre class="codehilite"><code>AddHandler send-as-is .asis
+</code></pre>
+
+<p><strong>示例文件 <code>redirect.asis</code>：</strong></p>
+<pre class="codehilite"><code>HTTP/1.1 301 Moved Permanently
+Location: https://new-site.com/
+Content-Type: text/html
+
+&lt;html&gt;&lt;body&gt;Moved&lt;/body&gt;&lt;/html&gt;
+</code></pre>
+
+<p><strong>用途：</strong>
+- 自定义重定向
+- 自定义 HTTP 状态码的响应
+- 非标准 MIME 类型场景
+- 单文件实现快速跳转，无需配置</p>
+<p><strong>注意事项：</strong> Apache 不会帮你做任何合法性检查。如果你写错了 HTTP 头格式，客户端收到的是语法错误的响应。</p>
+<hr />
+<h2 id="_4">六、图像地图<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="imap-filemod_imagemap">imap-file（mod_imagemap）<a class="headerlink" href="#imap-filemod_imagemap" title="Permanent link">&para;</a></h3>
+<p>处理服务端图像地图（Server-Side Image Map）。浏览器在图片上点击某个坐标，服务器根据坐标范围决定跳转到不同 URL。</p>
+<pre class="codehilite"><code>AddHandler imap-file .map
+</code></pre>
+
+<p><strong>文件格式 <code>nav.map</code>：</strong></p>
+<pre class="codehilite"><code>default /default.html
+rect /products.html 0,0 100,50
+circle /about.html 150,25 20
+poly /contact.html 100,50 200,80 150,120
+point /faq.html 50,100
+</code></pre>
+
+<ul>
+<li><code>rect</code>：矩形区域（左上 x1,y1 右下 x2,y2）</li>
+<li><code>circle</code>：圆形区域（圆心 x,y 半径 r）</li>
+<li><code>poly</code>：多边形区域（三个以上顶点 x1,y1 x2,y2 ...）</li>
+<li><code>point</code>：最近的点（兜底）</li>
+</ul>
+<p><strong>工作原理：</strong></p>
+<pre class="codehilite"><code>1. 浏览器加载包含 &lt;img src=&quot;nav.map&quot; ismap&gt; 的页面
+2. 用户点击图片 → 浏览器发送 GET /nav.map?x,y
+3. Apache 解析坐标 → 匹配区域 → 302 重定向到对应 URL
+</code></pre>
+
+<p><strong>性能：</strong> 每个请求都是简单内存计算，没有磁盘 IO。<strong>已经几乎被废弃</strong>，被客户端 JavaScript 图像地图（配合 CSS/JS）完全取代。</p>
+<hr />
+<h2 id="_5">七、服务器状态 / 信息<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="server-statusmod_status">server-status（mod_status）<a class="headerlink" href="#server-statusmod_status" title="Permanent link">&para;</a></h3>
+<p>返回 Apache 服务器的运行时状态页面。</p>
+<pre class="codehilite"><code>&lt;Location &quot;/server-status&quot;&gt;
+    SetHandler server-status
+    Require ip 127.0.0.1
+&lt;/Location&gt;
+</code></pre>
+
+<p><strong>输出内容：</strong></p>
+<pre class="codehilite"><code>Apache Server Status for example.com (via 127.0.0.1)
+
+Server Version: Apache/2.4.62 (Unix) PHP/8.2 PHP-FPM
+Server Built: 2026-01-15T14:22:00
+
+Current Time: Thursday, 28-May-2026 14:30:00 CST
+Restart Time: Thursday, 28-May-2026 08:00:00 CST
+Parent Server Config. Generation: 3
+Parent Server MPM Generation: 3
+Server uptime: 6 hours 30 minutes
+Server load: 0.42 0.35 0.28
+Total accesses: 154203 - Total Traffic: 2.3 GB
+CPU Usage: u5.2 s3.8 cu0 cu0 - .0386% CPU load
+
+1.2 requests/sec - 5.3 kB/second - 4.2 kB/request
+3 requests currently being processed, 12 idle workers
+
+  __W__.........................................................
+  ................................................................
+  ..................................K................................
+</code></pre>
+
+<p><strong>关键信息：</strong>
+- <code>_</code> — 空闲 worker
+- <code>W</code> — 正在发送响应
+- <code>K</code> — 保持连接（keepalive）
+- <code>R</code> — 正在读请求
+- <code>S</code> — 正在启动中</p>
+<p><strong>扩展模式：<code>?auto</code></strong> — 机器可读的 key=value 格式，适合被监控工具（Nagios、Prometheus）采集。</p>
+<p><strong>安全：</strong> 永远不要对外暴露。这会泄露你的精确流量、版本、子进程数量。</p>
+<h3 id="server-infomod_info">server-info（mod_info）<a class="headerlink" href="#server-infomod_info" title="Permanent link">&para;</a></h3>
+<p>显示 Apache 配置详情：加载了哪些模块、每个模块的配置指令、当前生效的配置值。</p>
+<pre class="codehilite"><code>&lt;Location &quot;/server-info&quot;&gt;
+    SetHandler server-info
+    Require ip 127.0.0.1
+&lt;/Location&gt;
+</code></pre>
+
+<p><strong>用途：</strong> 调试时确认哪个配置在生效、追踪模块加载顺序、排查指令冲突。</p>
+<p><strong>安全：</strong> 绝对不要对外暴露。配置详情包含网站路径、模块版本、认证方式等敏感信息。</p>
+<hr />
+<h2 id="cgicommon-gateway-interface">八、CGI（Common Gateway Interface）<a class="headerlink" href="#cgicommon-gateway-interface" title="Permanent link">&para;</a></h2>
+<h3 id="cgi-scriptmod_cgi-mod_cgid">cgi-script（mod_cgi / mod_cgid）<a class="headerlink" href="#cgi-scriptmod_cgi-mod_cgid" title="Permanent link">&para;</a></h3>
+<p>每个请求 fork 一个外部进程来生成响应。历史最悠久的动态内容处理方式。</p>
+<pre class="codehilite"><code>AddHandler cgi-script .cgi .pl .py .sh
+</code></pre>
+
+<p><strong>mod_cgi vs mod_cgid：</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>mod_cgi</th>
+<th>mod_cgid</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>进程管理</td>
+<td>Apache 子进程直接 fork CGI</td>
+<td>独立的 cgid 守护进程统一 fork</td>
+</tr>
+<tr>
+<td>适用 MPM</td>
+<td>prefork（主流）</td>
+<td>worker / event（线程化 MPM）</td>
+</tr>
+<tr>
+<td>设计原因</td>
+<td>线程安全限制</td>
+<td>线程安全限制 → 用独立守护进程管理</td>
+</tr>
+</tbody>
+</table>
+<p><strong>CGI 的完整流程：</strong></p>
+<pre class="codehilite"><code>Apache 收到 .cgi 文件请求
+  → 验证文件属性（可执行 + 所有者身份）
+  → 构造环境变量（40+ 个 CGI 环境变量）
+  → 重定向 stdin/stdout 到管道
+  → fork() + exec() CGI 程序
+  → 等待子进程退出（同步阻塞）
+  → 从 stdout 管道读取响应
+  → 发送给客户端
+</code></pre>
+
+<p><strong>环境变量列表（完整）：</strong></p>
+<pre class="codehilite"><code>SERVER_SOFTWARE=Apache/2.4.62
+SERVER_NAME=example.com
+GATEWAY_INTERFACE=CGI/1.1
+SERVER_PROTOCOL=HTTP/1.1
+SERVER_PORT=443
+REQUEST_METHOD=GET
+PATH_INFO=/extra/path
+PATH_TRANSLATED=/var/www/html/extra/path
+SCRIPT_NAME=/cgi-bin/test.cgi
+QUERY_STRING=key=value&amp;page=2
+REMOTE_ADDR=192.168.1.100
+REMOTE_PORT=54321
+REMOTE_HOST= (如果 HostnameLookups 开启)
+CONTENT_TYPE= (POST 请求)
+CONTENT_LENGTH= (POST 请求)
+HTTP_HOST=example.com
+HTTP_USER_AGENT=Mozilla/5.0 ...
+HTTP_ACCEPT=text/html,...
+HTTP_ACCEPT_LANGUAGE=zh-CN
+HTTP_COOKIE=session=abc123
+HTTPS=on
+</code></pre>
+
+<p><strong>性能瓶颈量化：</strong></p>
+<pre class="codehilite"><code>CGI 脚本 &quot;Hello World&quot; 的请求耗时分解：
+  Apache 请求解析：         ~20μs
+  fork() + exec()：         ~500μs - 2ms
+  Perl/Python 解释器启动：  ~10ms - 50ms
+  脚本执行：                ~100μs
+  输出 + 回写：             ~50μs
+  ─────────────────────────────────
+  总计：                   ~11ms - 52ms
+
+对比 PHP-FPM 动态请求（无 OPcache，同机器）：
+  总计：                   ~3ms - 8ms（因为解释器已常驻）
+
+CGI 是解释器启动开销 + 进程创建开销双重叠加。
+</code></pre>
+
+<p><strong>每个进程内存：</strong> Perl CGI ~10-20MB，Python CGI ~15-25MB。</p>
+<p><strong>100 并发 CGI 请求 = 100 个 CGI 进程 = 1-2.5GB 内存。</strong></p>
+<hr />
+<h2 id="fastcgiproxy">九、FastCGI（Proxy 模式）<a class="headerlink" href="#fastcgiproxy" title="Permanent link">&para;</a></h2>
+<h3 id="proxyfcgimod_proxy_fcgi">proxy:fcgi://（mod_proxy_fcgi）<a class="headerlink" href="#proxyfcgimod_proxy_fcgi" title="Permanent link">&para;</a></h3>
+<p>Apache 通过 FastCGI 二进制协议与独立的语言进程池通信。<strong>这是现代动态内容处理的标准方式。</strong></p>
+<pre class="codehilite"><code>&lt;FilesMatch \.php$&gt;
+    SetHandler &quot;proxy:fcgi://127.0.0.1:9000&quot;
+&lt;/FilesMatch&gt;
+
+# 或者带文件路径
+ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://127.0.0.1:9000/var/www/html/$1
+</code></pre>
+
+<p><strong>支持的 FastCGI 进程管理器：</strong></p>
+<table>
+<thead>
+<tr>
+<th>语言</th>
+<th>进程管理器</th>
+<th>监听地址</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PHP</td>
+<td>PHP-FPM</td>
+<td>127.0.0.1:9000 或 /run/php/php8.2-fpm.sock</td>
+</tr>
+<tr>
+<td>Python</td>
+<td>uWSGI (FastCGI 模式)</td>
+<td>127.0.0.1:4000</td>
+</tr>
+<tr>
+<td>Python</td>
+<td>Gunicorn (FastCGI 模式)</td>
+<td>/run/gunicorn.sock</td>
+</tr>
+<tr>
+<td>Ruby</td>
+<td>Unicorn (FastCGI 模式)</td>
+<td>/run/unicorn.sock</td>
+</tr>
+</tbody>
+</table>
+<p><strong>FastCGI 协议摘要：</strong></p>
+<p>FastCGI 是二进制协议（不是 HTTP），使用记录（Record）传输：</p>
+<pre class="codehilite"><code>Record header (8 bytes):
+  Version (1B) | Type (1B) | RequestId (2B) | ContentLength (2B) | PaddingLength (1B) | Reserved (1B)
+
+Type 定义：
+  BEGIN_REQUEST   = 1    开始请求
+  ABORT_REQUEST   = 2    中断请求
+  END_REQUEST     = 3    请求结束
+  PARAMS          = 4    环境变量（key=value 对，类似 CGI 环境变量）
+  STDIN           = 5    POST body
+  STDOUT          = 6    响应输出
+  STDERR          = 7    错误输出
+  DATA            = 8    额外数据（很少使用）
+  GET_VALUES      = 9    查询管理器能力
+  GET_VALUES_RESULT = 10 能力返回
+  UNKNOWN_TYPE    = 11   未知类型
+</code></pre>
+
+<p><strong>性能对比（mod_php vs PHP-FPM FastCGI）：</strong></p>
+<pre class="codehilite"><code>相同硬件，100 并发请求，PHP 执行 50ms：
+
+mod_php (prefork 模式)：
+  100 个 Apache 子进程 × 30MB = 3GB
+  上下文切换：100 个进程竞争 CPU
+  最大吞吐：~2000 req/s
+
+PHP-FPM (dynamic, max_children=50)：
+  50 个 FPM worker + Apache event 线程（轻量）
+  50 × 30MB = 1.5GB（FPM）+ Apache ~50MB
+  上下文切换：50 个进程竞争 CPU
+  最大吞吐：~1000 req/s（受限于 50 个 worker）
+
+  max_children 调大可以提升吞吐，但受 CPU 核心数和 PHP 执行时间限制
+  50ms 执行时间 → 每个 worker 每秒处理 20 个请求
+  50 workers → 1000 req/s
+  100 workers → 2000 req/s（但内存 3GB）
+</code></pre>
+
+<p><strong>FastCGI 的关键优势：</strong></p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>资源隔离</strong></td>
+<td>PHP crash 只影响 FPM worker，不拉垮 Apache</td>
+</tr>
+<tr>
+<td><strong>慢请求保护</strong></td>
+<td><code>request_terminate_timeout</code> 超时杀 worker</td>
+</tr>
+<tr>
+<td><strong>进程池管理</strong></td>
+<td>static / dynamic / ondemand 三种模式</td>
+</tr>
+<tr>
+<td><strong>慢日志</strong></td>
+<td>超过阈值自动 dump 调用栈</td>
+</tr>
+<tr>
+<td><strong>独立资源限制</strong></td>
+<td>ulimit / rlimit 可以单独设置</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_6">十、通用反向代理<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="proxyhttp-proxyhttpsmod_proxy_http">proxy:http:// / proxy:https://（mod_proxy_http）<a class="headerlink" href="#proxyhttp-proxyhttpsmod_proxy_http" title="Permanent link">&para;</a></h3>
+<p>把请求转发给另一个 HTTP 服务器。最常用：反向代理到 Node.js / Java / .NET 应用。</p>
+<pre class="codehilite"><code>ProxyPass /app http://localhost:3000/
+ProxyPassReverse /app http://localhost:3000/
+
+# 或者用 SetHandler 方式：
+&lt;Location &quot;/api&quot;&gt;
+    SetHandler &quot;proxy:http://127.0.0.1:8080&quot;
+&lt;/Location&gt;
+</code></pre>
+
+<p><strong>连接复用：</strong> 支持 Keep-Alive 连接到后端，避免每个请求都建立新 TCP 连接。</p>
+<p><strong>HTTP 头转发：</strong> 自动添加 <code>X-Forwarded-For</code>、<code>X-Forwarded-Proto</code>、<code>X-Forwarded-Host</code> 头。</p>
+<p><strong>超时控制：</strong></p>
+<pre class="codehilite"><code>ProxyTimeout 30           # 后端响应超时
+ProxyPass /api http://backend/ timeout=60
+</code></pre>
+
+<p><strong>缓冲控制：</strong></p>
+<pre class="codehilite"><code>ProxyPass /api http://backend/ disablereuse=on
+</code></pre>
+
+<h3 id="proxyajpmod_proxy_ajp">proxy:ajp://（mod_proxy_ajp）<a class="headerlink" href="#proxyajpmod_proxy_ajp" title="Permanent link">&para;</a></h3>
+<p>Apache JServ Protocol——专门用于连接 Apache 和 Java 应用服务器（Tomcat / Jetty / JBoss）。</p>
+<pre class="codehilite"><code>ProxyPass /webapp ajp://127.0.0.1:8009/
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>HTTP 代理</th>
+<th>AJP 代理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>协议</td>
+<td>HTTP 1.1</td>
+<td>AJP 1.3（二进制）</td>
+</tr>
+<tr>
+<td>数据格式</td>
+<td>ASCII 文本</td>
+<td>二进制（更紧凑）</td>
+</tr>
+<tr>
+<td>头传递</td>
+<td>每个请求都传所有 header</td>
+<td><strong>优化：</strong> Tomcat 和 Apache 之间的长连接共享常见 header</td>
+</tr>
+<tr>
+<td>性能</td>
+<td>略慢（解析开销大）</td>
+<td>略快（二进制协议）</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>通用后端</td>
+<td>Java 应用服务器</td>
+</tr>
+</tbody>
+</table>
+<p>AJP 的优势在于它优化了请求头传递——常见的 header（Content-Type、Cache-Control 等）有预定义编码，不需要每次都传完整字符串。但在现代网络环境下（内网连接的延迟通常 &lt;1ms），这个差异可以忽略。</p>
+<h3 id="proxyws-proxywssmod_proxy_wstunnel">proxy:ws:// / proxy:wss://（mod_proxy_wstunnel）<a class="headerlink" href="#proxyws-proxywssmod_proxy_wstunnel" title="Permanent link">&para;</a></h3>
+<p>WebSocket 反向代理——把 WebSocket 连接通过隧道传递给后端。</p>
+<pre class="codehilite"><code>ProxyPass /ws/ ws://127.0.0.1:3000/ws/
+ProxyPassReverse /ws/ ws://127.0.0.1:3000/ws/
+</code></pre>
+
+<p><strong>工作原理：</strong></p>
+<pre class="codehilite"><code>1. 客户端发 HTTP Upgrade: websocket 请求
+2. Apache 识别并建立到后端的 WebSocket 连接
+3. Apache 开始双向隧道
+   - 客户端 → Apache（加密 TCP）→ 后端（明文/加密）
+   - 后端 → Apache → 客户端
+4. Apache 在两个方向之间桥接数据，不解析内容
+</code></pre>
+
+<p><strong>注意：</strong> Apache 的 WebSocket 代理是隧道模式，不是代理模式——数据流只是透传，不做任何解析或缓存。mod_proxy_wstunnel 在 Apache 2.4.5+ 可用。</p>
+<h3 id="proxyh2-proxyh2cmod_proxy_http2">proxy:h2:// / proxy:h2c://（mod_proxy_http2）<a class="headerlink" href="#proxyh2-proxyh2cmod_proxy_http2" title="Permanent link">&para;</a></h3>
+<p>HTTP/2 反向代理——把请求转发给支持 HTTP/2 的后端。</p>
+<pre class="codehilite"><code>ProxyPass / h2c://127.0.0.1:8080/
+</code></pre>
+
+<ul>
+<li><code>h2://</code> — HTTP/2 over TLS</li>
+<li><code>h2c://</code> — HTTP/2 cleartext（无需 TLS，但浏览器不支持，适合内部通信）</li>
+</ul>
+<p><strong>说明：</strong> Apache 作为 HTTP/2 前端非常成熟（mod_http2），但作为 HTTP/2 的代理客户端是较新的功能（Apache 2.4.50+ 才稳定）。</p>
+<h3 id="proxybalancermod_proxy_balancer">proxy:balancer://（mod_proxy_balancer）<a class="headerlink" href="#proxybalancermod_proxy_balancer" title="Permanent link">&para;</a></h3>
+<p>负载均衡——把请求分发到多个后端。</p>
+<pre class="codehilite"><code>&lt;Proxy &quot;balancer://mycluster&quot;&gt;
+    BalancerMember http://192.168.1.10:8080
+    BalancerMember http://192.168.1.11:8080
+    BalancerMember http://192.168.1.12:8080
+    ProxySet lbmethod=byrequests
+&lt;/Proxy&gt;
+
+ProxyPass / balancer://mycluster/
+</code></pre>
+
+<p><strong>负载均衡算法：</strong></p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>byrequests</code></td>
+<td>轮询 (Round Robin)，默认</td>
+</tr>
+<tr>
+<td><code>bytraffic</code></td>
+<td>按流量比例分配</td>
+</tr>
+<tr>
+<td><code>bybusyness</code></td>
+<td>分配给最空闲的后端</td>
+</tr>
+<tr>
+<td><code>heartbeat</code></td>
+<td>基于后端心跳（需要 mod_slotmem_shm）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>粘滞会话（Sticky Session）：</strong></p>
+<pre class="codehilite"><code>ProxySet stickysession=ROUTEID
+</code></pre>
+
+<p>当 <code>ROUTEID</code> cookie 存在时，同一个 session 的所有请求路由到同一台后端服务器。这对于有本地状态的 Java/PHP 应用很重要。</p>
+<p><strong>健康检查：</strong> 可选方案：</p>
+<pre class="codehilite"><code># 被动检查（默认）— 后端返回 50x 错误才标记为 down
+# 主动检查：
+&lt;Proxy &quot;balancer://mycluster&quot;&gt;
+    BalancerMember http://192.168.1.10:8080
+    ProxySet lbmethod=bytraffic
+&lt;/Proxy&gt;
+# 需要配合 mod_proxy_hcheck 做主动健康检查
+</code></pre>
+
+<h3 id="proxyftpmod_proxy_ftp">proxy:ftp://（mod_proxy_ftp）<a class="headerlink" href="#proxyftpmod_proxy_ftp" title="Permanent link">&para;</a></h3>
+<p>FTP 代理——通过 Apache 代理 FTP 协议访问。</p>
+<pre class="codehilite"><code>ProxyPass /ftp/ ftp://ftp.example.com/
+</code></pre>
+
+<p><strong>限制：</strong>
+- 只支持读取（文件下载），不支持和 FTP 服务器的交互式控制
+- 不支持 FTP over TLS（FTPS）
+- 现代架构中很少使用</p>
+<hr />
+<h2 id="_7">十一、嵌入式脚本语言模块<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h3 id="php_modulemod_php">php*_module（mod_php）<a class="headerlink" href="#php_modulemod_php" title="Permanent link">&para;</a></h3>
+<p>PHP 解释器编译为 Apache 模块，嵌入到 Apache 进程空间中运行。</p>
+<pre class="codehilite"><code># 方式一：通过 AddType + SetHandler
+AddType application/x-httpd-php .php
+SetHandler application/x-httpd-php
+
+# 方式二：通过 FilesMatch（推荐）
+&lt;FilesMatch \.php$&gt;
+    SetHandler application/x-httpd-php
+&lt;/FilesMatch&gt;
+</code></pre>
+
+<p><strong>SAPI 名称：</strong> <code>apache2handler</code>（不是 <code>fpm-fcgi</code>，也不是 <code>cli</code>）</p>
+<p><strong>生命周期（与 Apache 进程绑定）：</strong></p>
+<pre class="codehilite"><code>Apache 子进程启动 → PHP 解释器初始化一次
+  → 加载 php.ini
+  → 加载所有扩展（mysql, openssl, gd, curl...）
+  → 初始化内存池
+
+每个请求：
+  → SAPI 激活
+  → 编译/OPcache 命中
+  → 执行
+  → 清理（但不释放内存池，保持分配以备重用）
+
+子进程退出（MaxRequestsPerChild 或 crash）→ PHP 释放所有资源
+</code></pre>
+
+<p><strong>内存泄漏问题：</strong></p>
+<pre class="codehilite"><code>PHP 脚本中的内存泄漏模式：
+  - 静态变量自增：function count() { static $c = 0; $c++; ... }
+  - 全局变量：$GLOBALS['data'][] = $largeValue
+  - 循环引用但没有垃圾回收
+
+后果：Apache 子进程 RSS 持续增长
+解决：MaxRequestsPerChild 定期重启子进程
+  MaxRequestsPerChild 10000
+  → 每处理 10000 个请求后，子进程自动退出，父进程 fork 新的
+</code></pre>
+
+<p><strong>局限：</strong>
+- 只能用 prefork MPM（PHP 非线程安全）
+- 一个进程 crash 拉垮整个子进程，影响该进程上的所有连接
+- 内存占用高（每个子进程都有一份 PHP 解释器）
+- 已不是推荐配置方案</p>
+<h3 id="perl-scriptmod_perl">perl-script（mod_perl）<a class="headerlink" href="#perl-scriptmod_perl" title="Permanent link">&para;</a></h3>
+<p>Perl 解释器嵌入 Apache，支持完整的 Perl 环境下开发 Web 应用。</p>
+<pre class="codehilite"><code>PerlModule Apache::Registry
+&lt;FilesMatch \.pl$&gt;
+    SetHandler perl-script
+    PerlResponseHandler ModPerl::Registry
+    Options +ExecCGI
+&lt;/FilesMatch&gt;
+</code></pre>
+
+<p><strong>能力：</strong></p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>mod_cgi (perl)</th>
+<th>mod_perl</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>解释器</td>
+<td>每个请求 fork+exec</td>
+<td>嵌入 Apache，常驻</td>
+</tr>
+<tr>
+<td>性能</td>
+<td>慢（进程创建 + 解释器启动）</td>
+<td>快（预编译 + 缓存）</td>
+</tr>
+<tr>
+<td>Perl 模块</td>
+<td>每次重新加载</td>
+<td>启动时一次加载</td>
+</tr>
+<tr>
+<td>数据库连接</td>
+<td>每次重连</td>
+<td>连接池复用</td>
+</tr>
+<tr>
+<td>Apache API 访问</td>
+<td>不能</td>
+<td>可以直接操作 Apache 请求对象</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Apache API 直接访问（mod_perl 独有）：</strong></p>
+<pre class="codehilite"><code class="language-perl"># 可以直接读写 Apache 内部数据结构
+my $r = Apache-&gt;request;
+$r-&gt;content_type('text/html');
+$r-&gt;headers_out-&gt;set('X-Custom', 'value');
+$r-&gt;print(&quot;&lt;html&gt;Hello World&lt;/html&gt;&quot;);
+</code></pre>
+
+<p><strong>现状：</strong> 在 Perl 社区仍然活跃（特别是 Catalyst / Dancer 框架用户），但整体使用量持续下降。Perl 在 Web 领域的份额被 PHP / Python / Ruby / Go 替代。</p>
+<h3 id="wsgi-scriptmod_wsgi">wsgi-script（mod_wsgi）<a class="headerlink" href="#wsgi-scriptmod_wsgi" title="Permanent link">&para;</a></h3>
+<p>Python WSGI（Web Server Gateway Interface）应用嵌入 Apache。</p>
+<pre class="codehilite"><code># 守护进程模式（推荐）
+WSGIDaemonProcess myapp python-path=/var/www/myapp
+WSGIProcessGroup myapp
+
+&lt;VirtualHost *:443&gt;
+    WSGIScriptAlias / /var/www/myapp/myapp.wsgi
+&lt;/VirtualHost&gt;
+</code></pre>
+
+<p><strong>两种模式：</strong></p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>说明</th>
+<th>内存</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>嵌入式（Embedded）</strong></td>
+<td>Python 解释器嵌入 Apache 子进程</td>
+<td>和 Apache 共享进程，内存占用高</td>
+</tr>
+<tr>
+<td><strong>守护进程（Daemon）</strong></td>
+<td>独立的 Python 进程池，通过 socket 通信</td>
+<td>隔离性好，Apache crash 不影响 Python</td>
+</tr>
+</tbody>
+</table>
+<p><strong>WSGI 应用协议：</strong></p>
+<pre class="codehilite"><code class="language-python"># 最小的 WSGI 应用
+def application(environ, start_response):
+    start_response('200 OK', [('Content-Type', 'text/html')])
+    return [b'Hello World']
+</code></pre>
+
+<p><code>environ</code> 包含所有 CGI 环境变量，<code>start_response</code> 是回调函数。Apache 通过 mod_wsgi 把 HTTP 请求翻译成 WSGI 调用。</p>
+<p><strong>现状：</strong> Django / Flask / FastAPI 在部署时，现代做法是通过 Gunicorn / uWSGI 与 Nginx 配合，mod_wsgi 的使用量在下降，但仍然是大规模 Python 部署的可靠选择。</p>
+<h3 id="python-scriptmod_python">python-script（mod_python，已废弃）<a class="headerlink" href="#python-scriptmod_python" title="Permanent link">&para;</a></h3>
+<p>Python 的早期 Apache 模块（1997-2010），直接让 Python 代码作为 Apache handler 运行。</p>
+<pre class="codehilite"><code>AddHandler python-script .py
+PythonHandler my_handler
+</code></pre>
+
+<p><strong>缺点：</strong>
+- 与 Apache 内部版本号绑定（升级 Apache 就要重新编译）
+- 解释器初始化代价高
+- 安全设计不完善
+- <strong>Apache 2.4 起不维护，完全不可用</strong></p>
+<p><strong>不要在新项目中使用。</strong> 所有 python-script 的需求应该用 mod_wsgi 替代。</p>
+<hr />
+<h2 id="_8">十二、动作触发<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<h3 id="actionmod_actions">action（mod_actions）<a class="headerlink" href="#actionmod_actions" title="Permanent link">&para;</a></h3>
+<p>根据 MIME 类型或文件扩展名，自动触发一个 CGI 脚本处理请求。</p>
+<pre class="codehilite"><code>Action image-processor /cgi-bin/process-image.cgi
+AddHandler image-processor .jpg .png .gif
+</code></pre>
+
+<p><strong>工作原理：</strong></p>
+<pre class="codehilite"><code>1. 请求 GET /photos/photo.jpg
+2. Apache 检测到 .jpg → 匹配 image-processor handler
+3. Action 指令映射到 /cgi-bin/process-image.cgi
+4. Apache 执行 CGI 脚本，把请求信息传给它
+5. CGI 脚本的响应作为最终响应返回
+</code></pre>
+
+<p><strong>用途：</strong>
+- 上传文件后自动处理
+- 图片按需缩放
+- URL 级别的重定向逻辑
+- 自定义日志分析</p>
+<p><strong>注意：</strong> Action handler 和普通 CGI 的区别是——Action 不直接暴露到 URL 路径，而是通过文件类型间接触发。</p>
+<hr />
+<h2 id="handler">十三、过滤链作为 Handler<a class="headerlink" href="#handler" title="Permanent link">&para;</a></h2>
+<p>Apache 的 Handler 和 Filter 是两套独立的系统，但有交叉。某些 Handler 本质上依赖 Filter 链。</p>
+<h3 id="addoutputfilter">通过 AddOutputFilter 设置<a class="headerlink" href="#addoutputfilter" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code>AddOutputFilter INCLUDES .shtml    # 输出前经过 SSI 过滤器
+AddOutputFilter DEFLATE .html       # 输出前 gzip 压缩
+AddOutputFilter SUBSTITUTE .html    # 输出前文本替换
+</code></pre>
+
+<p><strong>注意事项：</strong></p>
+<pre class="codehilite"><code># Filter 不改变 MIME 类型——文件仍然是 text/html
+# Handler 可以改变响应——CGI handler 把 .cgi 变成动态内容
+
+两者可以叠加：
+  AddHandler cgi-script .cgi        # CGI Handler
+  AddOutputFilter DEFLATE .cgi      # 输出再经过压缩
+
+处理顺序：Handler → Output Filter Chain
+</code></pre>
+
+<h3 id="mod_filterfilter">mod_filter（Filter 链配置）<a class="headerlink" href="#mod_filterfilter" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code>FilterDeclare CUSTOM_FILTER
+FilterProvider CUSTOM_FILTER SUBSTITUTE &quot;%{req:Accept-Language} =~ /zh/&quot;
+FilterChain CUSTOM_FILTER
+</code></pre>
+
+<p>更高级的 Filter 用法，根据条件决定哪些 Filter 应用到响应上。</p>
+<hr />
+<h2 id="http2">十四、HTTP/2 协议支持<a class="headerlink" href="#http2" title="Permanent link">&para;</a></h2>
+<h3 id="mod_http2-handler">mod_http2（协议升级，非传统 Handler）<a class="headerlink" href="#mod_http2-handler" title="Permanent link">&para;</a></h3>
+<p>mod_http2 不是传统意义上的 Handler——它不处理某个文件类型，而是在连接层面把 HTTP/1.1 升级到 HTTP/2。</p>
+<pre class="codehilite"><code>Protocols h2 http/1.1    # 优先使用 HTTP/2
+</code></pre>
+
+<p><strong>工作机制：</strong></p>
+<pre class="codehilite"><code>客户端的第一个请求是 HTTP/1.1 → 带 Upgrade: h2c 头
+Apache 回复 101 Switching Protocols → 切换到 HTTP/2
+
+或者通过 TLS ALPN 协商：
+  Client Hello → 支持 h2
+  Server Hello → 选择 h2
+  → 直接走 HTTP/2
+</code></pre>
+
+<p><strong>对 Handler 的影响：</strong> 同一物理连接上，HTTP/2 可以同时发送多个请求。Apache 内部把每个 stream 映射成一个独立的请求对象，走和 HTTP/1.1 完全相同的 Handler 选择逻辑。</p>
+<hr />
+<h2 id="tlsssl">十五、TLS/SSL<a class="headerlink" href="#tlsssl" title="Permanent link">&para;</a></h2>
+<h3 id="mod_ssl-handler">mod_ssl（连接级安全，非 Handler）<a class="headerlink" href="#mod_ssl-handler" title="Permanent link">&para;</a></h3>
+<p>mod_ssl 处理 TLS 握手、证书验证、加密解密。它在 Handler 之前工作——先建立安全连接，然后才把解密后的请求交给 Handler。</p>
+<pre class="codehilite"><code>SSLEngine on
+SSLCertificateFile /etc/ssl/certs/example.com.crt
+SSLCertificateKeyFile /etc/ssl/private/example.com.key
+</code></pre>
+
+<p><strong>TLS 握手步骤（简化）：</strong></p>
+<pre class="codehilite"><code>Client Hello → Server Hello + Certificate → Key Exchange → Finished
+                        ↓
+             加密通道建立后
+              → HTTP 请求在此通道上传输
+              → Apache Handler 层完全不知道 TLS 的存在
+              → mod_ssl 在底层透明完成加解密
+</code></pre>
+
+<hr />
+<h2 id="handler_1">十六、完整的 Handler 注册与匹配顺序<a class="headerlink" href="#handler_1" title="Permanent link">&para;</a></h2>
+<p>当一个请求到达 Apache 时，Handler 的选择遵循以下优先级：</p>
+<pre class="codehilite"><code>优先级从高到低：
+
+1. SetHandler 显式指定（配置文件或 &lt;Location&gt; &lt;Files&gt;）
+2. AddHandler 扩展名匹配
+3. Action MIME 类型匹配
+4. default-handler（兜底）
+</code></pre>
+
+<p><strong>SetHandler 和 AddHandler 的区别：</strong></p>
+<pre class="codehilite"><code># SetHandler — 目录/位置下所有文件都走同一个 Handler
+&lt;Location &quot;/api&quot;&gt;
+    SetHandler &quot;proxy:http://127.0.0.1:3000&quot;
+&lt;/Location&gt;
+
+# AddHandler — 按扩展名指定 Handler（可以和 SetHandler 混合使用）
+AddHandler cgi-script .cgi
+AddHandler server-parsed .shtml
+</code></pre>
+
+<p><strong>同一个文件匹配多个 Handler 时的处理：</strong></p>
+<p>如果一个文件同时匹配了多个 AddHandler 规则（很少见），Apache 使用<strong>最后一个匹配的</strong>。</p>
+<p><strong>Handler 不存在的处理：</strong></p>
+<p>如果一个请求匹配到的 Handler 名称没有对应的模块加载，Apache 返回 500 Internal Server Error，日志记录 <code>unknown handler name</code>。</p>
+<hr />
+<h2 id="handler_2">十七、Handler 选择流程图<a class="headerlink" href="#handler_2" title="Permanent link">&para;</a></h2>
+<pre class="codehilite"><code>请求到达 Apache
+  ↓
+URL → 文件路径映射 (translate_name)
+  ↓
+路径映射完成
+  |
+  ├─ SetHandler 显式指定？ ──→ 用指定 Handler
+  |
+  ├─ AddHandler 扩展名匹配？ ──→ 用匹配的 Handler
+  |
+  ├─ Action MIME 类型匹配？ ──→ 执行对应的 CGI
+  |
+  ├─ ProxyPass 匹配？ ──→ 用对应 proxy handler
+  |
+  ├─ ServerAlias/Redirect 匹配？ ──→ 用 redirect handler
+  |
+  └─ 都没有？ → 检查是否是目录
+       ├─ 是目录，有 Indexes → autoindex handler
+       ├─ 是目录，有 index.html → default-handler 服务 index.html
+       └─ 是文件 → default-handler 服务文件内容
+  ↓
+Handler 执行 → 经过 Output Filter 链 → 输出给客户端
+</code></pre>
+
+<hr />
+<h2 id="handler_3">十八、各 Handler 的现代适用场景汇总<a class="headerlink" href="#handler_3" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Handler</th>
+<th>适用场景</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>default-handler</code></td>
+<td>所有静态文件</td>
+<td>✅ 核心</td>
+</tr>
+<tr>
+<td><code>type-map</code></td>
+<td>多语言/多格式内容协商</td>
+<td>⚠️ 少用</td>
+</tr>
+<tr>
+<td><code>autoindex</code></td>
+<td>文件下载目录</td>
+<td>✅ 常用</td>
+</tr>
+<tr>
+<td><code>server-parsed</code></td>
+<td>遗留系统</td>
+<td>❌ 不推荐</td>
+</tr>
+<tr>
+<td><code>send-as-is</code></td>
+<td>自定义状态码页面</td>
+<td>⚠️ 少数场景</td>
+</tr>
+<tr>
+<td><code>imap-file</code></td>
+<td>—</td>
+<td>❌ 已废弃</td>
+</tr>
+<tr>
+<td><code>server-status</code></td>
+<td>运维监控</td>
+<td>✅ 必开</td>
+</tr>
+<tr>
+<td><code>server-info</code></td>
+<td>配置调试</td>
+<td>⚠️ 仅内网</td>
+</tr>
+<tr>
+<td><code>cgi-script</code></td>
+<td>极简轻量脚本</td>
+<td>⚠️ 少数场景</td>
+</tr>
+<tr>
+<td><code>proxy:fcgi://</code></td>
+<td>PHP 动态内容</td>
+<td>✅ 推荐</td>
+</tr>
+<tr>
+<td><code>proxy:http://</code></td>
+<td>Node/Python/Go/etc 反向代理</td>
+<td>✅ 推荐</td>
+</tr>
+<tr>
+<td><code>proxy:ajp://</code></td>
+<td>Java Tomcat 后端</td>
+<td>✅ 遗留系统</td>
+</tr>
+<tr>
+<td><code>proxy:ws://</code></td>
+<td>WebSocket 代理</td>
+<td>✅ 推荐</td>
+</tr>
+<tr>
+<td><code>proxy:h2://</code></td>
+<td>HTTP/2 内部通信</td>
+<td>⚠️ 新兴</td>
+</tr>
+<tr>
+<td><code>proxy:balancer://</code></td>
+<td>多后端负载均衡</td>
+<td>✅ 推荐</td>
+</tr>
+<tr>
+<td><code>proxy:ftp://</code></td>
+<td>FTP 代理</td>
+<td>❌ 几乎不用</td>
+</tr>
+<tr>
+<td><code>php*_module</code></td>
+<td>遗留 PHP 项目</td>
+<td>❌ 不推荐</td>
+</tr>
+<tr>
+<td><code>perl-script</code></td>
+<td>Perl 遗留应用</td>
+<td>⚠️ 少数场景</td>
+</tr>
+<tr>
+<td><code>wsgi-script</code></td>
+<td>Python 遗留部署</td>
+<td>⚠️ 少数场景</td>
+</tr>
+<tr>
+<td><code>action</code></td>
+<td>按 MIME 触发 CGI</td>
+<td>⚠️ 少数场景</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../" class="btn btn-neutral float-left" title="总览"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>CC0 1.0 Universal</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/sylar-qiu/grow-path" class="fa fa-code-fork" style="color: #fcfcfc"> sylar-qiu/grow-path</a>
+        </span>
+    
+    
+      <span><a href="../" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
