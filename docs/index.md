@@ -1,17 +1,8 @@
 # 成长笔记
 
-双轨学习记录。
+学习与知识积累记录。
 
-## 正在推进
+## 目录
 
-[**浏览器扩展**](browser-extension/index.md) — 知识体系整理中。
-
-## 双轨
-
-[**架构师之路** →](architecture/index.md)
-
-[**机器人之路** →](robotics/index.md)
-
----
-
-*内容逐步积累中。*
+- [**芯片设计**](chip-design/index.md) — 从设计到量产全流程知识体系
+- [**浏览器扩展**](browser-extension/index.md) — Chrome 扩展开发知识体系

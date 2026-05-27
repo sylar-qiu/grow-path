@@ -1,5 +1,5 @@
 site_name: 成长笔记
-site_description: 架构师之路 · 机器人之路 · 芯片设计
+site_description: 芯片设计 · 浏览器扩展
 site_url: https://sylar-qiu.github.io/grow-path/
 repo_url: https://github.com/sylar-qiu/grow-path
 repo_name: sylar-qiu/grow-path
@@ -36,10 +36,6 @@ nav:
       - 04 - 存储层实战: browser-extension/case-04-storage.md
       - 05 - UI 层实战: browser-extension/case-05-ui-layer.md
       - 06 - 工程化与数据流: browser-extension/case-06-engineering.md
-  - 架构师之路:
-    - architecture/index.md
-  - 机器人之路:
-    - robotics/index.md
   - 芯片设计:
     - 总览: chip-design/index.md
     - 01 - 行业生态与角色定位: chip-design/01-ecosystem.md
