@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://sylar-qiu.github.io/grow-path/log/git-ssh-setup-mac-windows/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Git+SSH 配置备忘 - 成长笔记</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Git+SSH \u914d\u7f6e\u5907\u5fd8";
+        var mkdocs_page_input_path = "log/git-ssh-setup-mac-windows.md";
+        var mkdocs_page_url = "/grow-path/log/git-ssh-setup-mac-windows/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 成长笔记
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">浏览器扩展</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../browser-extension/">总览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >知识体系</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/01-manifest-reference/">01 - Manifest 字段详解</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/02-core-architecture/">02 - 核心架构层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/03-content-scripts/">03 - 内容脚本层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/04-service-worker/">04 - Service Worker 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/05-storage/">05 - 存储层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/06-ui-layer/">06 - UI 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/07-network/">07 - 网络层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/08-api-panorama/">08 - 浏览器 API 全景</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/09-devtools/">09 - DevTools 扩展</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/10-native-messaging/">10 - 原生通信</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/11-build-tooling/">11 - 构建与工程化</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/12-debugging-testing/">12 - 调试与测试</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/13-publishing/">13 - 发布与运维</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/14-cross-browser/">14 - 多浏览器兼容</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >实战案例（淘宝插件）</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-01-architecture/">01 - 架构与 Manifest</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-02-content-scripts/">02 - 内容脚本实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-03-service-worker/">03 - Service Worker 实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-04-storage/">04 - 存储层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-05-ui-layer/">05 - UI 层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-06-engineering/">06 - 工程化与数据流</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">芯片设计</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/">总览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/01-ecosystem/">01 - 行业生态与角色定位</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/02-lifecycle/">02 - 全生命周期流程与惯例</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/03-business-decisions/">03 - 商务决策框架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/04-terminology/">04 - 关键术语深度辨析</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/05-client-communication/">05 - 客户沟通实战框架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/06-ip-knowledge/">06 - 半导体 IP 深度解析</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Web 服务器</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../web-server/">总览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../web-server/apache-handlers/">Apache Handler 全景</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">日志</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Git+SSH 配置备忘</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_1">一、通用概念</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#macos">二、macOS</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#1">1. 生成密钥（已存在则不要覆盖）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2-github">2. 查看公钥并加到 GitHub</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#3-ssh-sshconfig">3. SSH 配置 ~/.ssh/config</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#4-agentmacos">4. 加入 agent（macOS）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5">5. 测试</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#6-ssh">6. 仓库改用 SSH 并推送</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#macos_1">macOS 常见问题</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#windowspowershell">三、Windows（PowerShell）</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#1_1">1. 生成密钥</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2-github-mac">2. 公钥加到 GitHub（与 Mac 并存）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#3-ssh-userprofilesshconfig">3. SSH 配置 %USERPROFILE%\.ssh\config</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#4-ssh-agent-windows">4. 启动 ssh-agent 并加载私钥（Windows 常漏）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5_1">5. 测试</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#6-git-openssh">6. 关键：让 Git 使用系统 OpenSSH</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#7">7. 拉取 / 推送</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#windows">Windows 常见问题</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">四、两台电脑协作流程</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#https-token">五、HTTPS + Token（备用，不推荐长期）</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">六、检查清单</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">七、与本项目的关系</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">成长笔记</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">日志</li>
+      <li class="breadcrumb-item active">Git+SSH 配置备忘</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/sylar-qiu/grow-path/edit/master/docs/log/git-ssh-setup-mac-windows.md">Edit on sylar-qiu/grow-path</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="git-github-ssh-macos-windows">Git + GitHub SSH 配置备忘（macOS / Windows）<a class="headerlink" href="#git-github-ssh-macos-windows" title="Permanent link">&para;</a></h1>
+<p>长期方案：<strong>同一 GitHub 账号 + 每台电脑各一把 SSH 公钥 + remote 使用 SSH 地址</strong>。<br />
+避免 HTTPS 凭据过期、钥匙串里旧 Token 导致 <code>403</code> / <code>Permission denied (publickey)</code>。</p>
+<p>仓库示例：<code>git@github.com:sylar-qiu/qianniu-plugin.git</code></p>
+<hr />
+<h2 id="_1">一、通用概念<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>远程地址</td>
+<td><code>git@github.com:用户名/仓库名.git</code>（SSH），不是 <code>https://github.com/...</code></td>
+</tr>
+<tr>
+<td>每台电脑</td>
+<td><strong>各自</strong> <code>ssh-keygen</code> 生成一对 key，在 GitHub <strong>各 Add 一把</strong>（可并存，不要删另一台）</td>
+</tr>
+<tr>
+<td>私钥</td>
+<td>仅在本机 <code>~/.ssh/</code>，<strong>永不</strong>提交 Git、不发聊天</td>
+</tr>
+<tr>
+<td>公钥</td>
+<td><code>.pub</code> 文件内容贴到 GitHub → Settings → SSH and GPG keys</td>
+</tr>
+<tr>
+<td>验证</td>
+<td><code>ssh -T git@github.com</code> → <code>Hi 用户名! You've successfully authenticated...</code></td>
+</tr>
+</tbody>
+</table>
+<p>GitHub 官方 ED25519 主机指纹（首次连接提示时核对）：</p>
+<pre class="codehilite"><code class="language-text">SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU
+</code></pre>
+
+<p>首次连接输入：<code>yes</code></p>
+<hr />
+<h2 id="macos">二、macOS<a class="headerlink" href="#macos" title="Permanent link">&para;</a></h2>
+<h3 id="1">1. 生成密钥（已存在则不要覆盖）<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-bash">ssh-keygen -t ed25519 -C &quot;你的邮箱&quot; -f ~/.ssh/id_ed25519_github
+</code></pre>
+
+<p>提示 <code>already exists</code> → 输入 <strong><code>n</code></strong>，不要 overwrite。</p>
+<h3 id="2-github">2. 查看公钥并加到 GitHub<a class="headerlink" href="#2-github" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-bash">cat ~/.ssh/id_ed25519_github.pub
+</code></pre>
+
+<p>复制整行 → https://github.com/settings/keys → <strong>New SSH key</strong></p>
+<h3 id="3-ssh-sshconfig">3. SSH 配置 <code>~/.ssh/config</code><a class="headerlink" href="#3-ssh-sshconfig" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-sshconfig">Host github.com
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/id_ed25519_github
+  AddKeysToAgent yes
+  UseKeychain yes
+</code></pre>
+
+<h3 id="4-agentmacos">4. 加入 agent（macOS）<a class="headerlink" href="#4-agentmacos" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-bash">eval &quot;$(ssh-agent -s)&quot;
+ssh-add --apple-use-keychain ~/.ssh/id_ed25519_github
+</code></pre>
+
+<h3 id="5">5. 测试<a class="headerlink" href="#5" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-bash">ssh -T git@github.com
+</code></pre>
+
+<h3 id="6-ssh">6. 仓库改用 SSH 并推送<a class="headerlink" href="#6-ssh" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-bash">cd /path/to/qianniu-plugin
+git remote set-url origin git@github.com:sylar-qiu/qianniu-plugin.git
+git remote -v
+git push
+</code></pre>
+
+<h3 id="macos_1">macOS 常见问题<a class="headerlink" href="#macos_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Permission denied (publickey)</code></td>
+<td>公钥未加到 GitHub，或 <code>config</code> 里 <code>IdentityFile</code> 路径错</td>
+</tr>
+<tr>
+<td><code>403</code> 且用 HTTPS</td>
+<td>改用 SSH remote，或更新 PAT；长期推荐 SSH</td>
+</tr>
+<tr>
+<td>误执行 overwrite key</td>
+<td>若旧公钥已在 GitHub，需把<strong>新</strong> <code>.pub</code> 再 Add 一次</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="windowspowershell">三、Windows（PowerShell）<a class="headerlink" href="#windowspowershell" title="Permanent link">&para;</a></h2>
+<h3 id="1_1">1. 生成密钥<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-powershell">ssh-keygen -t ed25519 -C &quot;你的邮箱&quot; -f $env:USERPROFILE\.ssh\id_ed25519_github
+</code></pre>
+
+<p>已存在则 <strong><code>n</code></strong> 不覆盖。</p>
+<h3 id="2-github-mac">2. 公钥加到 GitHub（与 Mac <strong>并存</strong>）<a class="headerlink" href="#2-github-mac" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-powershell">Get-Content $env:USERPROFILE\.ssh\id_ed25519_github.pub
+</code></pre>
+
+<p>→ https://github.com/settings/keys → <strong>New SSH key</strong>（Title 如 <code>Windows-PC</code>）</p>
+<h3 id="3-ssh-userprofilesshconfig">3. SSH 配置 <code>%USERPROFILE%\.ssh\config</code><a class="headerlink" href="#3-ssh-userprofilesshconfig" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-sshconfig">Host github.com
+  HostName github.com
+  User git
+  IdentityFile C:/Users/你的用户名/.ssh/id_ed25519_github
+  IdentitiesOnly yes
+</code></pre>
+
+<p>路径用 <strong>正斜杠</strong>，<code>你的用户名</code> 换成实际目录（如 <code>EDY</code>）。</p>
+<h3 id="4-ssh-agent-windows">4. 启动 ssh-agent 并加载私钥（Windows 常漏）<a class="headerlink" href="#4-ssh-agent-windows" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-powershell">Get-Service ssh-agent | Select-Object Status, StartType
+Set-Service ssh-agent -StartupType Manual
+Start-Service ssh-agent
+ssh-add $env:USERPROFILE\.ssh\id_ed25519_github
+ssh-add -l
+</code></pre>
+
+<p><code>ssh-add -l</code> 应能看到 ED25519，而不是 <code>The agent has no identities</code>。</p>
+<h3 id="5_1">5. 测试<a class="headerlink" href="#5_1" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-powershell">ssh -T git@github.com
+</code></pre>
+
+<h3 id="6-git-openssh">6. 关键：让 Git 使用系统 OpenSSH<a class="headerlink" href="#6-git-openssh" title="Permanent link">&para;</a></h3>
+<p>现象：<code>ssh -T</code> 成功，但 <code>git pull</code> 仍 <code>Permission denied (publickey)</code>。<br />
+原因：PowerShell 的 <code>ssh</code> 与 <strong>Git 自带的 ssh</strong> 不是同一个，agent 里的 key Git 用不上。</p>
+<p><strong>长久修复（推荐，执行一次）：</strong></p>
+<pre class="codehilite"><code class="language-powershell">git config --global core.sshCommand &quot;C:/Windows/System32/OpenSSH/ssh.exe -i C:/Users/你的用户名/.ssh/id_ed25519_github -o IdentitiesOnly=yes&quot;
+</code></pre>
+
+<p>仅当前仓库（可选）：</p>
+<pre class="codehilite"><code class="language-powershell">cd C:\path\to\qianniu-plugin
+git config core.sshCommand &quot;C:/Windows/System32/OpenSSH/ssh.exe -i C:/Users/你的用户名/.ssh/id_ed25519_github -o IdentitiesOnly=yes&quot;
+</code></pre>
+
+<h3 id="7">7. 拉取 / 推送<a class="headerlink" href="#7" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-powershell">cd C:\path\to\qianniu-plugin
+git remote set-url origin git@github.com:sylar-qiu/qianniu-plugin.git
+git remote -v
+git pull
+git push
+</code></pre>
+
+<h3 id="windows">Windows 常见问题<a class="headerlink" href="#windows" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ssh -T</code> 失败</td>
+<td>先做 ssh-agent + <code>ssh-add</code>，确认 GitHub 已 Add 公钥</td>
+</tr>
+<tr>
+<td><code>ssh -T</code> 成功，<code>git pull</code> 失败</td>
+<td>配置 <code>core.sshCommand</code>（见上）</td>
+</tr>
+<tr>
+<td><code>git pull</code> 很慢</td>
+<td>正常，首次拉含大文件；勿中断；以后增量会快</td>
+</tr>
+<tr>
+<td>PowerShell <code>curl</code> 报错</td>
+<td><code>curl</code> 是别名，用 <code>Invoke-RestMethod</code> 或 <code>curl.exe</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_2">四、两台电脑协作流程<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<pre class="codehilite"><code class="language-text">Mac 开发 → git add / commit → git push  →  GitHub  →  git pull  →  Windows（跑 PG / qn-server）
+</code></pre>
+
+<ol>
+<li>两台机 <strong>同一 GitHub 账号</strong>、仓库 <strong>Write</strong> 权限。  </li>
+<li><strong>各一把 SSH key</strong>，GitHub 上两把都保留。  </li>
+<li><code>origin</code> 统一为 <code>git@github.com:sylar-qiu/qianniu-plugin.git</code>。  </li>
+<li>勿提交 <code>.env</code>、API Key、数据库密码。</li>
+</ol>
+<hr />
+<h2 id="https-token">五、HTTPS + Token（备用，不推荐长期）<a class="headerlink" href="#https-token" title="Permanent link">&para;</a></h2>
+<p>仅当 SSH 暂时修不好时：</p>
+<pre class="codehilite"><code class="language-powershell">git remote set-url origin https://github.com/sylar-qiu/qianniu-plugin.git
+git pull
+</code></pre>
+
+<ul>
+<li>用户名：GitHub 用户名  </li>
+<li>密码：<strong>Personal Access Token</strong>（Classic 勾选 <code>repo</code>），不是登录密码  </li>
+</ul>
+<p>Token 会过期，易与钥匙串冲突；修好 SSH 后改回 SSH remote。</p>
+<hr />
+<h2 id="_3">六、检查清单<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p><strong>Mac</strong></p>
+<ul>
+<li>[ ] <code>~/.ssh/id_ed25519_github</code> 存在  </li>
+<li>[ ] 公钥已在 GitHub  </li>
+<li>[ ] <code>~/.ssh/config</code> 指向该私钥  </li>
+<li>[ ] <code>ssh -T git@github.com</code> 成功  </li>
+<li>[ ] <code>git remote -v</code> 为 <code>git@github.com:...</code>  </li>
+<li>[ ] <code>git push</code> 成功  </li>
+</ul>
+<p><strong>Windows</strong></p>
+<ul>
+<li>[ ] 同上 + <code>ssh-agent</code> 已启动、<code>ssh-add -l</code> 有 key  </li>
+<li>[ ] <code>git config --global core.sshCommand</code> 已指向系统 OpenSSH  </li>
+<li>[ ] <code>git pull</code> 成功  </li>
+</ul>
+<hr />
+<h2 id="_4">七、与本项目的关系<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<ul>
+<li>插件与后端在同一仓库：<code>extension/</code> + <code>qn-server/</code>。  </li>
+<li>Mac push 后，Windows 在同一目录 <code>git pull</code> 即可同步 <code>qn-server</code>。  </li>
+<li>后端密钥在 <code>qn-server/.env</code>，与 Git SSH <strong>无关</strong>，也不要提交 Git。</li>
+</ul>
+<hr />
+<p><em>文档版本：2026-05 · 适用于 qianniu-plugin 仓库协作</em></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../../web-server/apache-handlers/" class="btn btn-neutral float-left" title="Apache Handler 全景"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>CC0 1.0 Universal</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/sylar-qiu/grow-path" class="fa fa-code-fork" style="color: #fcfcfc"> sylar-qiu/grow-path</a>
+        </span>
+    
+    
+      <span><a href="../../web-server/apache-handlers/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
