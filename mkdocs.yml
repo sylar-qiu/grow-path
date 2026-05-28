@@ -47,6 +47,8 @@ nav:
   - Web 服务器:
     - 总览: web-server/index.md
     - Apache Handler 全景: web-server/apache-handlers.md
+  - 日志:
+    - Git+SSH 配置备忘: log/git-ssh-setup-mac-windows.md
 
 markdown_extensions:
   - codehilite
