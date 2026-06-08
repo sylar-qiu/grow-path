@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://sylar-qiu.github.io/grow-path/2026Q2/network/02-dns/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>02 - DNS：域名系统 - 成长笔记</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/version-select.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "02 - DNS\uff1a\u57df\u540d\u7cfb\u7edf";
+        var mkdocs_page_input_path = "network/02-dns.md";
+        var mkdocs_page_url = "/grow-path/2026Q2/network/02-dns/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 成长笔记
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">浏览器扩展</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../browser-extension/">总览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >知识体系</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/01-manifest-reference/">01 - Manifest 字段详解</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/02-core-architecture/">02 - 核心架构层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/03-content-scripts/">03 - 内容脚本层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/04-service-worker/">04 - Service Worker 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/05-storage/">05 - 存储层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/06-ui-layer/">06 - UI 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/07-network/">07 - 网络层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/08-api-panorama/">08 - 浏览器 API 全景</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/09-devtools/">09 - DevTools 扩展</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/10-native-messaging/">10 - 原生通信</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/11-build-tooling/">11 - 构建与工程化</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/12-debugging-testing/">12 - 调试与测试</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/13-publishing/">13 - 发布与运维</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/14-cross-browser/">14 - 多浏览器兼容</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >实战案例（淘宝插件）</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-01-architecture/">01 - 架构与 Manifest</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-02-content-scripts/">02 - 内容脚本实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-03-service-worker/">03 - Service Worker 实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-04-storage/">04 - 存储层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-05-ui-layer/">05 - UI 层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-06-engineering/">06 - 工程化与数据流</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">芯片设计</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/">总览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/01-ecosystem/">01 - 行业生态与角色定位</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/02-lifecycle/">02 - 全生命周期流程与惯例</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/03-business-decisions/">03 - 商务决策框架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/04-terminology/">04 - 关键术语深度辨析</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/05-client-communication/">05 - 客户沟通实战框架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/06-ip-knowledge/">06 - 半导体 IP 深度解析</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Web 服务器</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../web-server/">总览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../web-server/apache-handlers/">Apache Handler 全景</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">后端集成</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../backend-integration/">总览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../backend-integration/feishu-bitable-integration/">飞书多维表 × qn-server 连调配置</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">网络知识</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../">总览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../01-icmp/">01 - ICMP：互联网控制消息</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">02 - DNS：域名系统</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_1">协议定位</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">域名的层级结构</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#dns_1">DNS 的树状委托结构</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">解析流程：递归查询</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#non-authoritative-answer">Non-authoritative answer</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#dns_2">DNS 记录类型</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#a-address-record">A 记录（Address Record）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#aaaa">AAAA 记录</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#cname-canonical-name-record">CNAME 记录（Canonical Name Record）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mx-mail-exchange-record">MX 记录（Mail Exchange Record）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#txt-text-record">TXT 记录（Text Record）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ns-nameserver-record">NS 记录（Nameserver Record）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ptr-pointer-record">PTR 记录（Pointer Record）</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ttl">TTL（记录的有效期）</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">操作速查</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">思考题</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../03-ip/">03 - IP：寻址与路由</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../04-tcp-udp/">04 - TCP/UDP：传输层</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">日志</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../log/git-ssh-setup-mac-windows/">Git+SSH 配置备忘</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">成长笔记</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">网络知识</li>
+      <li class="breadcrumb-item active">02 - DNS：域名系统</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/sylar-qiu/grow-path/edit/master/docs/network/02-dns.md">Edit on sylar-qiu/grow-path</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="dns">DNS 协议：域名系统<a class="headerlink" href="#dns" title="Permanent link">&para;</a></h1>
+<h2 id="_1">协议定位<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>DNS 将人们易记的域名（baidu.com）映射为机器可用的 IP 地址（39.156.66.10）。没有 DNS，你要访问一个网站就只能记住并输入 IP 地址——这在只有几个站点时可行，在今天的互联网规模下不现实。</p>
+<p>DNS 不在 OSI 七层模型的某个固定层级上，通常归类于<strong>应用层</strong>（使用 UDP 53 端口作为默认传输，必要时用 TCP 53 端口处理大数据量的响应如区域传输）。</p>
+<h2 id="_2">域名的层级结构<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>一个完整的域名长这样：</p>
+<pre class="codehilite"><code>www.baidu.com.
+</code></pre>
+
+<p>末尾的 <code>.</code> 是<strong>根域</strong>（root zone），通常省略不写。层级从右往左读：</p>
+<pre class="codehilite"><code>.         根域（root）                   → 由 ICANN 管理
+.com      顶级域（TLD）                   → 由 Verisign 等注册局运营
+baidu     注册域名（second-level domain）→ 由域名注册人持有
+www       主机名（subdomain）             → 属于 baidu.com 的管理者自行配置
+</code></pre>
+
+<p>每一级都有自己的权威 DNS，负责回答其下一级的查询。</p>
+<h3 id="dns_1">DNS 的树状委托结构<a class="headerlink" href="#dns_1" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code>根服务器（13 组 Anycast 集群）
+  └── .com 的权威服务器
+        └── baidu.com 的权威服务器（你自己或 Cloudflare/NS1 等 DNS 服务商）
+              └── www.baidu.com（一个 A 记录或 CNAME 记录）
+</code></pre>
+
+<p>每一级的安全机制是：上一级给你签发数字签名，保证下级数据没有被篡改（DNSSEC，还没广泛部署）。</p>
+<h2 id="_3">解析流程：递归查询<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>当你访问 baidu.com 时，完整的解析流程如下：</p>
+<pre class="codehilite"><code>你的浏览器
+  │ 查询 &quot;baidu.com&quot;
+  ▼
+本地递归 DNS（通常是 192.168.1.1 或 8.8.8.8）
+  │ 1. 找根服务器：&quot;.com 在哪？&quot;
+  ▼
+根服务器（13 组集群）
+  │ 回复：&quot;.com 的权威服务器是 a.gtld-servers.net&quot;
+  ▼
+本地递归 DNS
+  │ 2. 找 .com 服务器：&quot;baidu.com 在哪？&quot;
+  ▼
+.com 顶级域服务器
+  │ 回复：&quot;baidu.com 的权威服务器是 ns1.baidu.com&quot;
+  ▼
+本地递归 DNS
+  │ 3. 找 baidu.com 的权威 DNS：&quot;www.baidu.com 的 A 记录是什么？&quot;
+  ▼
+baidu.com 权威 DNS（由百度自管或使用 DNS 服务商）
+  │ 回复：&quot;39.156.66.10&quot;（A 记录）
+  ▼
+本地递归 DNS
+  │ 4. 将结果返回给浏览器，并缓存该结果（TTL 决定缓存时长）
+  ▼
+浏览器用 39.156.66.10 发起 TCP 连接
+</code></pre>
+
+<p>这里的每一步都是<strong>真实的全路径</strong>。第一次解析一个域名为啥会感觉慢，就是因为这一路问下来要跑好几个来回。</p>
+<h3 id="non-authoritative-answer">Non-authoritative answer<a class="headerlink" href="#non-authoritative-answer" title="Permanent link">&para;</a></h3>
+<p>当你用 nslookup 得到"Non-authoritative answer"时，说明你问的 DNS 服务器不是该域名的权威 DNS，而是它从其他服务器缓存过来的答案。这并不表示答案错误——缓存的答案和权威答案在 TTL 内是一致的。</p>
+<p>权威回复则来自该域名注册的 Nameserver 自己，是"一手消息"。</p>
+<h2 id="dns_2">DNS 记录类型<a class="headerlink" href="#dns_2" title="Permanent link">&para;</a></h2>
+<h3 id="a-address-record">A 记录（Address Record）<a class="headerlink" href="#a-address-record" title="Permanent link">&para;</a></h3>
+<p>域名 → IPv4 地址，DNS 最核心的记录类型。每个域名可以有多条 A 记录（多 IP）实现负载均衡或故障切换。</p>
+<h3 id="aaaa">AAAA 记录<a class="headerlink" href="#aaaa" title="Permanent link">&para;</a></h3>
+<p>域名 → IPv6 地址。功能与 A 记录相同，只是记录的是 128 位的 IPv6 地址而非 32 位的 IPv4。</p>
+<h3 id="cname-canonical-name-record">CNAME 记录（Canonical Name Record）<a class="headerlink" href="#cname-canonical-name-record" title="Permanent link">&para;</a></h3>
+<p>域名别名，将一个域名指向另一个域名而非直接指向 IP。</p>
+<pre class="codehilite"><code>cdn.example.com  CNAME  cdn.cloudflare.com
+</code></pre>
+
+<p>浏览器访问 cdn.example.com 时，先查到 CNAME 记录，然后去查 cdn.cloudflare.com 的 A 记录，拿到真正的 IP。</p>
+<p><strong>优势：</strong> 如果更换 CDN 供应商，只需修改一条 CNAME 记录指向新服务商，不需要一个个更新所有使用该域名的资源。</p>
+<p><strong>限制：</strong> 域名的根（如 example.com 本身）不能是 CNAME，必须是 A/AAAA 记录（这是 DNS 规范的要求，部分 DNS 服务商通过 ANAME/ALIAS 模拟实现）。</p>
+<h3 id="mx-mail-exchange-record">MX 记录（Mail Exchange Record）<a class="headerlink" href="#mx-mail-exchange-record" title="Permanent link">&para;</a></h3>
+<p>指定处理该域名邮件的服务器地址。每条 MX 记录有优先级数字，数字越小越优先。</p>
+<pre class="codehilite"><code>example.com  MX  10  mail.primary.example.com
+example.com  MX  20  mail.backup.example.com
+</code></pre>
+
+<p>发件服务器会先尝试优先级 10 的服务器，不可用时才用 20（备选）。实际发送过程：发送方先通过 MX 记录找到目标域的邮件服务器 IP，再通过 SMTP 协议投递邮件。</p>
+<h3 id="txt-text-record">TXT 记录（Text Record）<a class="headerlink" href="#txt-text-record" title="Permanent link">&para;</a></h3>
+<p>存储任意文本信息，最初设计用于存放人类可读的注释，但现代 DNS 中广泛应用于：</p>
+<ul>
+<li><strong>SPF（Sender Policy Framework）</strong>：声明哪些 IP 地址被授权为你的域名发送邮件</li>
+<li><strong>DKIM（DomainKeys Identified Mail）</strong>：发布邮件签名公钥，接收方验证邮件是否被篡改</li>
+<li><strong>域名所有权验证</strong>：第三方平台要求你在域名下添加一条特定内容的 TXT 记录，证明你拥有该域名</li>
+<li><strong>DMARC 策略</strong>：告诉接收方如何处理未通过 SPF/DKIM 验证的邮件</li>
+</ul>
+<h3 id="ns-nameserver-record">NS 记录（Nameserver Record）<a class="headerlink" href="#ns-nameserver-record" title="Permanent link">&para;</a></h3>
+<p>指定谁是这个域名的权威 DNS 服务器。当你在注册商（如 Namesilo、GoDaddy）买了一个域名，注册商会将 NS 记录指向它们自己的 DNS 服务器。如果你要使用 Cloudflare 管理 DNS，你需要将 NS 记录改为指向 Cloudflare 的 Nameserver。</p>
+<p><strong>关键点：</strong> 如果不改 NS 记录，无论你在 Cloudflare 上配了什么 A 记录都不会生效——因为域名解析时根本不会去 Cloudflare 问。</p>
+<h3 id="ptr-pointer-record">PTR 记录（Pointer Record）<a class="headerlink" href="#ptr-pointer-record" title="Permanent link">&para;</a></h3>
+<p>A 记录的反向操作：IP → 域名。由网络管理员（通常是云服务商或自有机房）配置。</p>
+<p><strong>邮件服务器的硬性要求：</strong> 接收方 SMTP 服务器收到邮件后，会反向查询发件服务器 IP 的 PTR 记录。如果 PTR 指向的域名与声明发件域名不一致，该邮件会被判定为垃圾邮件并拒绝。配置邮件服务器时，必须同时向服务商申请 PTR 记录。</p>
+<h2 id="ttl">TTL（记录的有效期）<a class="headerlink" href="#ttl" title="Permanent link">&para;</a></h2>
+<p>每条 DNS 记录有一个 TTL（Time To Live），单位秒。它告诉递归 DNS 服务器和浏览器可以缓存这条记录多久，不要频繁回源查询。</p>
+<table>
+<thead>
+<tr>
+<th>TTL 值</th>
+<th>典型场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>30-60s</td>
+<td>高频变更的场景（CDN 切流、故障切换），但会增加 DNS 查询负担</td>
+</tr>
+<tr>
+<td>300-600s（5-10min）</td>
+<td>日常推荐的折中值</td>
+</tr>
+<tr>
+<td>3600-86400s（1h-1d）</td>
+<td>稳定的生产服务，降低 DNS 查询压力</td>
+</tr>
+<tr>
+<td>无（0）</td>
+<td>开发测试时用的 no-cache 值，关闭缓存（大多数 DNS 服务器不严格遵循）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>变更前降低 TTL：</strong> 如果你要在 DNS 服务商后台改动记录，先提前一天把 TTL 降为 60s，等全网缓存刷新后再改配置，这样切换过程几秒内生效。改完后再把 TTL 调回去。</p>
+<h2 id="_4">操作速查<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<pre class="codehilite"><code>nslookup baidu.com                      # 查询 A 记录
+nslookup -type=A baidu.com              # 显式指定查 A 记录
+nslookup -type=MX gmail.com             # 查邮件服务器
+nslookup -type=NS baidu.com             # 查权威 DNS 服务器
+nslookup -type=TXT _dmarc.baidu.com     # 查 DMARC 策略
+nslookup 8.8.8.8                        # 反向查询（IP→域名）
+nslookup -type=ANY baidu.com            # 查询所有可用记录（逐步弃用）
+
+dig baidu.com                    # 更详细的 DNS 查询，显示完整回复报文
+dig www.baidu.com +short         # 只返回 IP（简洁模式）
+dig baidu.com MX                 # 查 MX 记录
+dig baidu.com NS                 # 查 NS 记录
+dig @8.8.8.8 baidu.com           # 指定用 8.8.8.8 查询
+dig +trace baidu.com             # 显示完整递归过程（从根到域名）
+
+scutil --dns                     # macOS 系统 DNS 配置
+</code></pre>
+
+<h2 id="_5">思考题<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<ol>
+<li>"Non-authoritative answer" 意味着 DNS 结果不可信吗？</li>
+<li>为什么域名根记录（如 example.com 本身）不能直接使用 CNAME 记录？</li>
+<li>如果一台服务器更换了公网 IP 但 DNS 的 TTL 还没有过期，客户端会有什么表现？</li>
+<li>MX 记录中的优先级数字如何决定了邮件投递的容错能力？</li>
+</ol>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../01-icmp/" class="btn btn-neutral float-left" title="01 - ICMP：互联网控制消息"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../03-ip/" class="btn btn-neutral float-right" title="03 - IP：寻址与路由">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>CC0 1.0 Universal</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/sylar-qiu/grow-path" class="fa fa-code-fork" style="color: #fcfcfc"> sylar-qiu/grow-path</a>
+        </span>
+    
+    
+      <span><a href="../01-icmp/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../03-ip/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+      <script src="../../js/version-select.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
