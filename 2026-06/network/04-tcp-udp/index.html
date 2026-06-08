@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://sylar-qiu.github.io/grow-path/2026-06/network/04-tcp-udp/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>04 - TCP/UDP：传输层 - 成长笔记</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/version-select.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "04 - TCP/UDP\uff1a\u4f20\u8f93\u5c42";
+        var mkdocs_page_input_path = "network/04-tcp-udp.md";
+        var mkdocs_page_url = "/grow-path/2026-06/network/04-tcp-udp/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 成长笔记
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">浏览器扩展</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../browser-extension/">总览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >知识体系</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/01-manifest-reference/">01 - Manifest 字段详解</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/02-core-architecture/">02 - 核心架构层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/03-content-scripts/">03 - 内容脚本层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/04-service-worker/">04 - Service Worker 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/05-storage/">05 - 存储层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/06-ui-layer/">06 - UI 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/07-network/">07 - 网络层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/08-api-panorama/">08 - 浏览器 API 全景</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/09-devtools/">09 - DevTools 扩展</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/10-native-messaging/">10 - 原生通信</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/11-build-tooling/">11 - 构建与工程化</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/12-debugging-testing/">12 - 调试与测试</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/13-publishing/">13 - 发布与运维</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/14-cross-browser/">14 - 多浏览器兼容</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >实战案例（淘宝插件）</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-01-architecture/">01 - 架构与 Manifest</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-02-content-scripts/">02 - 内容脚本实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-03-service-worker/">03 - Service Worker 实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-04-storage/">04 - 存储层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-05-ui-layer/">05 - UI 层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-06-engineering/">06 - 工程化与数据流</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">芯片设计</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/">总览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/01-ecosystem/">01 - 行业生态与角色定位</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/02-lifecycle/">02 - 全生命周期流程与惯例</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/03-business-decisions/">03 - 商务决策框架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/04-terminology/">04 - 关键术语深度辨析</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/05-client-communication/">05 - 客户沟通实战框架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/06-ip-knowledge/">06 - 半导体 IP 深度解析</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Web 服务器</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../web-server/">总览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../web-server/apache-handlers/">Apache Handler 全景</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">后端集成</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../backend-integration/">总览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../backend-integration/feishu-bitable-integration/">飞书多维表 × qn-server 连调配置</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">网络知识</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../">总览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../01-icmp/">01 - ICMP：互联网控制消息</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../02-dns/">02 - DNS：域名系统</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../03-ip/">03 - IP：寻址与路由</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">04 - TCP/UDP：传输层</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_1">协议定位</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">端口号</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#udp">UDP：用户数据报协议</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#udp_1">UDP 头部</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">适用场景</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">核心特性：无连接</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tcp">TCP：传输控制协议</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#tcp_1">TCP 头部</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">三次握手：建立连接</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_6">四次挥手：关闭连接</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_7">可靠性的保障机制</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_8">滑动窗口与流控机制的本质</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tcp-udp">TCP 与 UDP 对比</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_9">操作速查</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_10">思考题</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">日志</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../log/git-ssh-setup-mac-windows/">Git+SSH 配置备忘</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">成长笔记</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">网络知识</li>
+      <li class="breadcrumb-item active">04 - TCP/UDP：传输层</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/sylar-qiu/grow-path/edit/master/docs/network/04-tcp-udp.md">Edit on sylar-qiu/grow-path</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="tcpudp">TCP/UDP：传输层协议<a class="headerlink" href="#tcpudp" title="Permanent link">&para;</a></h1>
+<h2 id="_1">协议定位<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>传输层是网络体系中的承上启下层。IP 层负责把数据包送到目标主机，但一台主机上同时运行着大量应用——HTTP 服务器、SSH 守护进程、邮件客户端、浏览器——数据包应该交给哪个应用处理？传输层通过<strong>端口号</strong>解决这个多路复用/解复用的问题。</p>
+<p>两个核心协议：TCP（提供可靠连接）和 UDP（提供尽力而为的传输）。</p>
+<h2 id="_2">端口号<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>端口号是 16 位的整数（0-65535），分为：</p>
+<table>
+<thead>
+<tr>
+<th>范围</th>
+<th>类别</th>
+<th>典型分配</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0-1023</td>
+<td>系统端口（well-known）</td>
+<td>需要 root 权限才能绑定。HTTP=80, HTTPS=443, SSH=22, DNS=53</td>
+</tr>
+<tr>
+<td>1024-49151</td>
+<td>注册端口（user ports）</td>
+<td>供应用注册使用，普通用户可绑定</td>
+</tr>
+<tr>
+<td>49152-65535</td>
+<td>动态/私有端口（ephemeral）</td>
+<td>客户端发起连接时随机分配（如你的浏览器打开 10 个标签，每个标签拿到不同的临时端口）</td>
+</tr>
+</tbody>
+</table>
+<p>当一个数据包到达目标主机时，操作系统根据 IP 头部中的 Protocol 字段知道是 TCP 还是 UDP，再根据传输层头部的目标端口号，找到对应应用来交付数据。</p>
+<h2 id="udp">UDP：用户数据报协议<a class="headerlink" href="#udp" title="Permanent link">&para;</a></h2>
+<p>最简单直接的传输协议。发送方把数据包扔到网络上，不保证到达，不保证顺序，没有重传机制。</p>
+<h3 id="udp_1">UDP 头部<a class="headerlink" href="#udp_1" title="Permanent link">&para;</a></h3>
+<p>只有四个字段，8 字节固定长度：</p>
+<pre class="codehilite"><code>源端口(16bit) | 目标端口(16bit) | 长度(16bit) | 校验和(16bit)
+</code></pre>
+
+<h3 id="_3">适用场景<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>DNS 查询</strong>：单个请求+单个回复，自己处理超时重试，不需要建立连接</li>
+<li><strong>视频/音频流</strong>：少量的丢包可容忍，但延迟必须低（TCP 重传会增加延迟）</li>
+<li><strong>DHCP</strong>：客户端没有 IP 时（甚至没有 IP 地址时）需要先发广播，UDP 适合这个引导阶段</li>
+<li><strong>在线游戏</strong>：玩家位置信息实时同步，错过一帧更新不要紧，但不希望等待重传</li>
+<li><strong>VPN（IPsec/OpenVPN）</strong>：UDP 比 TCP over TCP 避免重传叠加问题</li>
+</ul>
+<h3 id="_4">核心特性：无连接<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>UDP 发送数据前不需要握手。应用层想发就发，不管目标是否活着、是否准备好了。这是它低延迟的根源，也是它不可靠的根源。</p>
+<h2 id="tcp">TCP：传输控制协议<a class="headerlink" href="#tcp" title="Permanent link">&para;</a></h2>
+<p>复杂但可靠。它在上层提供<strong>面向连接</strong>、<strong>可靠</strong>、<strong>有序</strong>的字节流传输。</p>
+<h3 id="tcp_1">TCP 头部<a class="headerlink" href="#tcp_1" title="Permanent link">&para;</a></h3>
+<p>标准 TCP 头部 20 字节（不含选项）：</p>
+<pre class="codehilite"><code>源端口(16bit) | 目标端口(16bit)
+序列号(32bit)——累计字节的序号
+确认号(32bit)——期待接收的下一个字节的序号
+数据偏移(4bit) | 保留(6bit) | 标志位(6bit) | 窗口大小(16bit)
+校验和(16bit) | 紧急指针(16bit)
+</code></pre>
+
+<p>关键标志位：</p>
+<table>
+<thead>
+<tr>
+<th>标志</th>
+<th>全称</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SYN</td>
+<td>Synchronize</td>
+<td>开始一个连接（三次握手中的"请求连接"）</td>
+</tr>
+<tr>
+<td>ACK</td>
+<td>Acknowledgment</td>
+<td>确认收到数据</td>
+</tr>
+<tr>
+<td>FIN</td>
+<td>Finish</td>
+<td>关闭连接</td>
+</tr>
+<tr>
+<td>RST</td>
+<td>Reset</td>
+<td>重置连接（发生异常时强制断开）</td>
+</tr>
+<tr>
+<td>PSH</td>
+<td>Push</td>
+<td>立即推送数据给应用层（不要等待缓冲区满）</td>
+</tr>
+<tr>
+<td>URG</td>
+<td>Urgent</td>
+<td>带外紧急数据（几乎不用）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_5">三次握手：建立连接<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code>客户端                        服务端
+  │                              │
+  │ ─── SYN (seq=x) ───────────→ │  1: 客户端请求连接
+  │                              │
+  │ ←── SYN+ACK (seq=y, ack=x+1)─│  2: 服务端同意并确认
+  │                              │
+  │ ─── ACK (seq=x+1, ack=y+1)─→ │  3: 客户端确认收到回复
+  │                              │
+  │ &lt;======== 连接已建立 ========&gt;│
+</code></pre>
+
+<p>为什么需要三次握手而不是两次？</p>
+<p>因为客户端发的 SYN 可能因为网络延迟而"重放"，如果只有两次握手，服务端收到延迟的旧 SYN 后会分配资源建立一个无人使用的连接（半开连接）。三次握手要求客户端在收到服务端的 SYN+ACK 后再回复一次 ACK，服务端才正式分配资源——这保证了连接建立是客户端确实发起了请求，而不是旧包重放导致的误判。</p>
+<h3 id="_6">四次挥手：关闭连接<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>TCP 是全双工的——数据可以双向同时传输。关闭连接时，每一端都要独立关闭自己的写入通道。</p>
+<pre class="codehilite"><code>客户端                        服务端
+  │                              │
+  │ ─── FIN ───────────────────→ │  1: 客户端关闭写入通道
+  │                              │
+  │ ←── ACK ──────────────────── │  2: 服务端确认收到 FIN
+  │                              │    此时服务端可能还有数据要发
+  │                              │
+  │ ←── FIN ──────────────────── │  3: 服务端也关闭写入通道（数据发完）
+  │                              │
+  │ ─── ACK ───────────────────→ │  4: 客户端确认 FIN
+  │                              │
+  │ &lt;====== 连接彻底关闭 ========= │
+</code></pre>
+
+<p>收到 FIN 的端回复 ACK 后进入 TIME_WAIT 状态，持续 2MSL（Maximum Segment Lifetime，通常 1-2 分钟），确保所有旧的包都消失在网络中，避免后一个连接接收到前一个连接的残留包。</p>
+<h3 id="_7">可靠性的保障机制<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>机制</th>
+<th>工作方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>序列号</strong></td>
+<td>每个字节一个序列号，接收方按序列号重组成完整的数据流</td>
+</tr>
+<tr>
+<td><strong>ACK 确认</strong></td>
+<td>接收方回复 ACK 声明"我收到了直到 N 为止的所有字节"</td>
+</tr>
+<tr>
+<td><strong>超时重传</strong>（RTO）</td>
+<td>发送方启动定时器，如果在 RTO 内没有收到 ACK，重传该段</td>
+</tr>
+<tr>
+<td><strong>快速重传</strong></td>
+<td>接收方收到乱序包时，发送重复 ACK 指示丢失的段。发送方收到 3 个重复 ACK 时触发重传（不等超时）</td>
+</tr>
+<tr>
+<td><strong>流量控制</strong></td>
+<td>接收方在 ACK 中声明自己的接收窗口（window size），告诉对方"我还剩多少缓冲区"，发送方不超出该窗口发送</td>
+</tr>
+<tr>
+<td><strong>拥塞控制</strong></td>
+<td>发送方维护拥塞窗口，检测到丢包时缩减速率，未丢包时缓慢增窗（AIMD 算法）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_8">滑动窗口与流控机制的本质<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>TCP 让发送方保留一个"未确认"的部分（已发送但未收到 ACK 的数据）。这个窗口的大小由接收方的接收能力和网络拥塞状况共同决定。滑动窗口保证发送方不淹没接收方，同时保持网络满负荷运转（充分利用带宽）。</p>
+<h2 id="tcp-udp">TCP 与 UDP 对比<a class="headerlink" href="#tcp-udp" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>TCP</th>
+<th>UDP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>连接性</td>
+<td>面向连接</td>
+<td>无连接</td>
+</tr>
+<tr>
+<td>可靠性</td>
+<td>可靠（重传+ACK）</td>
+<td>不可靠（不保证送达）</td>
+</tr>
+<tr>
+<td>数据顺序</td>
+<td>有序（序列号重组）</td>
+<td>无序（每个包独立）</td>
+</tr>
+<tr>
+<td>延迟</td>
+<td>较高（握手+重传机制）</td>
+<td>低（无开销）</td>
+</tr>
+<tr>
+<td>头部开销</td>
+<td>20-60 字节（有选项时）</td>
+<td>8 字节</td>
+</tr>
+<tr>
+<td>流控</td>
+<td>支持（窗口通告）</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>Web、文件传输、邮件、SSH</td>
+<td>DNS、音视频流、游戏、DHCP</td>
+</tr>
+<tr>
+<td>典型协议</td>
+<td>HTTP、FTP、SMTP、SSH</td>
+<td>DNS、DHCP、NTP、RTP</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_9">操作速查<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<pre class="codehilite"><code># 查看本机监听端口
+lsof -i -P | grep LISTEN          # 显示所有在监听的端口和进程
+lsof -i :5432                     # 查看 5432 端口被谁占用
+
+netstat -an | grep LISTEN         # 另一种方式查看监听端口
+netstat -an | grep ESTABLISHED    # 查看当前活跃连接
+netstat -s                        # TCP/UDP 协议统计（重传数等）
+
+# 端口可达性测试
+nc -vz baidu.com 80               # 测试端口是否开放（verbose + zero-I/O）
+nc -vz -G 3 8.163.126.172 22      # 带连接超时（3s）测试 SSH 端口
+nc -vzu 8.8.8.8 53               # 测试 UDP 端口（-u 参数）
+</code></pre>
+
+<h2 id="_10">思考题<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<ol>
+<li>为什么 UDP 适用于实时音视频，而 TCP 不适合？如果视频流用 TCP 传输，丢包时会发生什么？</li>
+<li>服务器收到一个目标端口为 12345 的 TCP SYN 包，但 12345 上没有应用在监听，服务器会回复什么？</li>
+<li>"三次握手"的第三次 ACK 丢失了会发生什么？服务端会因为没收到第三次 ACK 而断开连接吗？</li>
+<li>动态端口（ephemeral ports）的范围决定了什么？如果一个客户端短时间内发起大量并发连接，端口号用完了会怎样？</li>
+</ol>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../03-ip/" class="btn btn-neutral float-left" title="03 - IP：寻址与路由"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../log/git-ssh-setup-mac-windows/" class="btn btn-neutral float-right" title="Git+SSH 配置备忘">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>CC0 1.0 Universal</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/sylar-qiu/grow-path" class="fa fa-code-fork" style="color: #fcfcfc"> sylar-qiu/grow-path</a>
+        </span>
+    
+    
+      <span><a href="../03-ip/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../log/git-ssh-setup-mac-windows/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+      <script src="../../js/version-select.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

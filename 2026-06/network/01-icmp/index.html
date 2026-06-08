@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://sylar-qiu.github.io/grow-path/2026-06/network/01-icmp/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>01 - ICMP：互联网控制消息 - 成长笔记</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/version-select.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "01 - ICMP\uff1a\u4e92\u8054\u7f51\u63a7\u5236\u6d88\u606f";
+        var mkdocs_page_input_path = "network/01-icmp.md";
+        var mkdocs_page_url = "/grow-path/2026-06/network/01-icmp/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 成长笔记
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">浏览器扩展</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../browser-extension/">总览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >知识体系</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/01-manifest-reference/">01 - Manifest 字段详解</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/02-core-architecture/">02 - 核心架构层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/03-content-scripts/">03 - 内容脚本层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/04-service-worker/">04 - Service Worker 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/05-storage/">05 - 存储层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/06-ui-layer/">06 - UI 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/07-network/">07 - 网络层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/08-api-panorama/">08 - 浏览器 API 全景</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/09-devtools/">09 - DevTools 扩展</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/10-native-messaging/">10 - 原生通信</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/11-build-tooling/">11 - 构建与工程化</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/12-debugging-testing/">12 - 调试与测试</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/13-publishing/">13 - 发布与运维</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/14-cross-browser/">14 - 多浏览器兼容</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >实战案例（淘宝插件）</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-01-architecture/">01 - 架构与 Manifest</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-02-content-scripts/">02 - 内容脚本实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-03-service-worker/">03 - Service Worker 实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-04-storage/">04 - 存储层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-05-ui-layer/">05 - UI 层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-06-engineering/">06 - 工程化与数据流</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">芯片设计</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/">总览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/01-ecosystem/">01 - 行业生态与角色定位</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/02-lifecycle/">02 - 全生命周期流程与惯例</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/03-business-decisions/">03 - 商务决策框架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/04-terminology/">04 - 关键术语深度辨析</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/05-client-communication/">05 - 客户沟通实战框架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/06-ip-knowledge/">06 - 半导体 IP 深度解析</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Web 服务器</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../web-server/">总览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../web-server/apache-handlers/">Apache Handler 全景</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">后端集成</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../backend-integration/">总览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../backend-integration/feishu-bitable-integration/">飞书多维表 × qn-server 连调配置</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">网络知识</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../">总览</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">01 - ICMP：互联网控制消息</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_1">协议定位</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">消息类型（核心）</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#icmp-destination-unreachable">ICMP Destination Unreachable 子类</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ttl">TTL：控制包的生命周期</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ping">Ping：通用的可达性诊断</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">工作流程</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ping_1">ping 能告诉你什么</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ping_2">注意：ping 通 ≠ 服务正常</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#traceroute">Traceroute：路径探测工具</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">工作原理</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">每跳如何与序列号对应</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_6">静默跳（ * ）</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_7">什么消耗了时间</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#icmp-redirect">补充：ICMP 的重定向（Redirect）</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_8">安全注意事项</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_9">操作速查</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_10">思考题</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../02-dns/">02 - DNS：域名系统</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../03-ip/">03 - IP：寻址与路由</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../04-tcp-udp/">04 - TCP/UDP：传输层</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">日志</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../log/git-ssh-setup-mac-windows/">Git+SSH 配置备忘</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">成长笔记</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">网络知识</li>
+      <li class="breadcrumb-item active">01 - ICMP：互联网控制消息</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/sylar-qiu/grow-path/edit/master/docs/network/01-icmp.md">Edit on sylar-qiu/grow-path</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="icmp">ICMP 协议：互联网控制消息<a class="headerlink" href="#icmp" title="Permanent link">&para;</a></h1>
+<h2 id="_1">协议定位<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>ICMP（Internet Control Message Protocol）不是用来传输数据的，而是 IP 层的<strong>控制面协议</strong>。</p>
+<p>当你发送一个数据包时，中间路由器或目标主机如果遇到状况（无法到达、TTL 过期、需要分片但 DF 标志位被设置等），它们没有标准的 IP 层机制来通知你——ICMP 就是填补这个空白的。它让网络设备能够向源端发送<strong>差错报告</strong>和<strong>诊断消息</strong>。</p>
+<p>ICMP 直接封装在 IP 包内（IP 协议号 1），不算传输层，算网络层的附属控制协议。</p>
+<h2 id="_2">消息类型（核心）<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>ICMP 定义了几十种消息类型，日常接触最多的是以下三种：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>代码</th>
+<th>名称</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8</td>
+<td>0</td>
+<td>Echo Request</td>
+<td>主动询问"你在吗？"</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>Echo Reply</td>
+<td>回复"我在，且我收到了你的请求"</td>
+</tr>
+<tr>
+<td>11</td>
+<td>0</td>
+<td>Time Exceeded (TTL=0)</td>
+<td>"你的包 TTL 过期了，我替你丢弃了"</td>
+</tr>
+<tr>
+<td>3</td>
+<td>0~15</td>
+<td>Destination Unreachable</td>
+<td>"到不了目标"（分多种子类）</td>
+</tr>
+<tr>
+<td>5</td>
+<td>0~3</td>
+<td>Redirect</td>
+<td>"走错了，下次走这条路由更短"</td>
+</tr>
+</tbody>
+</table>
+<p>还有其他类型：Parameter Problem（参数错误）、Timestamp Request/Reply（时间戳）、Address Mask Request/Reply（掩码请求）等，但常规网络诊断中不常用。</p>
+<h3 id="icmp-destination-unreachable">ICMP Destination Unreachable 子类<a class="headerlink" href="#icmp-destination-unreachable" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>代码</th>
+<th>含义</th>
+<th>常见场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Network Unreachable</td>
+<td>目标网络不可达（路由表没有匹配项）</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Host Unreachable</td>
+<td>目标主机不可达（但网络可达）</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Port Unreachable</td>
+<td>目标端口没有应用在监听</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Fragmentation Needed (DF set)</td>
+<td>需要分片但设置了不分片标志，PMTUD 会用到</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ttl">TTL：控制包的生命周期<a class="headerlink" href="#ttl" title="Permanent link">&para;</a></h2>
+<p>TTL（Time To Live）是 IP 包头的一个 8 位字段（IPv4，IPv6 改名为 Hop Limit）。</p>
+<p>其设计动机：如果路由配置错误导致环路，数据包会在路由器间无限循环，最终耗尽网络资源。TTL 保证了一个包最多经过 255 跳。</p>
+<p>TTL 的行为模型：</p>
+<ol>
+<li>源主机发出包时设置初始 TTL（常见值：64、128、255）</li>
+<li>每经过一个路由器，TTL 减 1</li>
+<li>如果路由器发现 TTL=0，丢弃该包，并向源地址发送 ICMP Time Exceeded</li>
+</ol>
+<p><strong>关键认知：TTL 不是时间，而是跳数计数器。</strong> 每个路由器处理包的时间可能相差很大（受处理负载、排队拥塞影响），但无论用了几毫秒还是几微秒，每一跳都只减 1。</p>
+<h2 id="ping">Ping：通用的可达性诊断<a class="headerlink" href="#ping" title="Permanent link">&para;</a></h2>
+<p>ping 使用 ICMP Echo Request (Type 8) 和 Echo Reply (Type 0)。它是最基础的可达性验证工具。</p>
+<h3 id="_3">工作流程<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<ol>
+<li>源端发送 ICMP Echo Request（携带序列号和发送时间戳）</li>
+<li>目标收到后，将请求数据包的内容原样封装进 ICMP Echo Reply 并返回</li>
+<li>源端收到回复，计算时间差（RTT），确认可达性</li>
+</ol>
+<h3 id="ping_1">ping 能告诉你什么<a class="headerlink" href="#ping_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>可达性</td>
+<td>目标是否在线且网络可通</td>
+</tr>
+<tr>
+<td>RTT</td>
+<td>Round-Trip Time，往返延迟</td>
+</tr>
+<tr>
+<td>丢包率</td>
+<td>发出的请求有多少没有得到回复</td>
+</tr>
+<tr>
+<td>延迟抖动</td>
+<td>连续 ping 的 RTT 波动幅度</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ping_2">注意：ping 通 ≠ 服务正常<a class="headerlink" href="#ping_2" title="Permanent link">&para;</a></h3>
+<p>ping 只告诉你目标主机的 IP 层功能正常。如果目标主机响应 ping 但 Web 服务器挂了，你仍然能得到 Echo Reply。反过来，很多服务器配置了不响应 ping（防火墙丢弃 ICMP Echo Request），但正常的 TCP 服务（HTTP/SSH）完全可用。</p>
+<h2 id="traceroute">Traceroute：路径探测工具<a class="headerlink" href="#traceroute" title="Permanent link">&para;</a></h2>
+<p>traceroute 同样依赖 ICMP，但利用了另一类消息：Time Exceeded (Type 11)。</p>
+<h3 id="_4">工作原理<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>traceroute 的关键技巧不是知道目标在哪里，而是让每一跳路由器自己报上名来。</p>
+<ol>
+<li>源端向目标发送一个 UDP 探测包（使用高位端口号，如 33434+），<strong>TTL=1</strong></li>
+<li>第一跳路由器收到包，TTL 过期，丢弃包，向源端回复 <strong>ICMP Time Exceeded</strong>，回复中包含了该路由器的 IP 地址和原始数据包的 IP 头（含 TTL 值）</li>
+<li>源端记录第一跳 IP，然后发送 TTL=2 的包</li>
+<li>第一跳正常转发，第二跳 TTL 过期，回复 ICMP Time Exceeded</li>
+<li>逐跳递增 TTL，直到到达目标</li>
+<li>目标收到的探测包端口（高位 UDP 端口）上没有应用在监听，因此回复 <strong>ICMP Port Unreachable</strong>（Type 3 Code 3）</li>
+<li>traceroute 收到 Port Unreachable，确认到达终点</li>
+</ol>
+<h3 id="_5">每跳如何与序列号对应<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>ICMP Time Exceeded 回复中会封装原始查询包的 IP 头（包括 TTL 字段）。traceroute 从封装内容中读出原始 TTL 值，就知道这条回复对应的是第几跳——<strong>完全不依赖回复到达的时序。</strong></p>
+<p>这意味着即使第 5 跳的回复因网络拥塞比第 10 跳的回复晚到，traceroute 也能正确归属。</p>
+<h3 id="_6">静默跳（<em> * </em>）<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>如果某一跳的路由器配置了不发送 ICMP Time Exceeded（安全策略、性能考虑、或某些三层设备默认行为），traceroute 就永远不会收到该跳的回复。</p>
+<p><strong>关键认知：静默跳≠路径不通。</strong> 数据包真正经过时，路由器仍然正常转发，只是不回复 traceroute 的探测。静默跳后的后续跳能正常出现，就说明路径是通的。</p>
+<p><strong>为什么 traceroute 不知道静默跳的 IP：</strong> 路由器转发包时，不会把自己的 IP 写进转发的包体里。ICMP 中继的回复信息中也没有上一跳的 IP——IP 是无连接逐跳转发的协议，每个节点只知道自己转发给谁，不知道上一跳是谁，更不会把这个信息随包带走。所以如果路由器不回 ICMP，traceroute 就对该跳完全盲目。</p>
+<h2 id="_7">什么消耗了时间<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>一个数据包从源到目标所花的时间由三部分构成：</p>
+<table>
+<thead>
+<tr>
+<th>因素</th>
+<th>量级</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>传播时延</strong></td>
+<td>~0.5-2ms</td>
+<td>光纤中的光速（约 20 万 km/s）× 物理路径长度。实际路径可能为直线距离的 2-3 倍（沿公路/管道布线，经过局端机房的跳纤盘旋）。占比其实不大</td>
+</tr>
+<tr>
+<td><strong>串行化时延</strong></td>
+<td>~0.6ms→~0.0001ms</td>
+<td>将数据包从数字信号转成线路信号的时间。与<strong>链路带宽成反比</strong>——上行 20Mbps 时一个 1500B 包约 0.6ms，万兆链路仅约 0.0012ms。这是为什么 traceroute 中前几跳（家庭上行瓶颈）的时间开销远大于骨干网之后各跳的原因</td>
+</tr>
+<tr>
+<td><strong>处理+排队时延</strong></td>
+<td>~0.05ms—10ms</td>
+<td>路由器查路由表、ACL 检验、排队转发。现代硬件单跳处理仅微秒级，但拥塞或 bufferbloat 时排队延迟可飙升至几十毫秒</td>
+</tr>
+</tbody>
+</table>
+<p><strong>结论：跳数确实增加了串行化次数，但串行化时延集中在家中出口带宽最低的链路上。</strong> 骨干网和云内网的高带宽链路串行化开销极低，可忽略。所以从宏观上看，RTT 并不线性正比于跳数。</p>
+<h2 id="icmp-redirect">补充：ICMP 的重定向（Redirect）<a class="headerlink" href="#icmp-redirect" title="Permanent link">&para;</a></h2>
+<p>当一个路由器收到一个包，发现下一跳和源端在同一个子网时，它会向源端发送 ICMP Redirect 消息，说"你直接把这个包发给 192.168.1.50 就行，不用经过我"。</p>
+<p>这在某些网络场景下用于优化路由路径，但也是一种经典的攻击面——恶意节点可以冒充路由器发送 Redirect 消息诱导流量改道（ICMP Redirect 攻击）。现代系统通常限制或禁用对 Redirect 的自动处理。</p>
+<h2 id="_8">安全注意事项<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<p>很多生产环境的服务器和中间设备会限制 ICMP：</p>
+<ul>
+<li>防火墙丢弃入站 ICMP Echo Request — 保护服务器不被 ping 扫描发现</li>
+<li>防火墙丢弃出站 ICMP — 阻隔目标网络的拓扑信息泄露</li>
+<li>运营商设备限制 ICMP Time Exceeded 回复 — 不暴露内部路由拓扑</li>
+<li>云 VPC 默认安全组通常允许 ICMP，但入站规则可能限制</li>
+</ul>
+<p><strong>区分"ICMP 被屏蔽"和"网络不通"很重要。</strong></p>
+<h2 id="_9">操作速查<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<pre class="codehilite"><code>ping 8.8.8.8              # 缺省连续 ping，Ctrl+C 停止
+ping -c 10 baidu.com      # 发送 10 次后自动停止
+ping -i 1 8.8.8.8         # 每 1 秒发一次（默认 1 秒）
+
+traceroute -n 8.8.8.8     # 不解析域名，只显示 IP（更快）
+traceroute -I baidu.com   # 用 ICMP Echo 代替 UDP 探测（过墙率更高）
+traceroute -q 1 -w 1      # 每跳 1 个探针，超时 1 秒（最快模式）
+traceroute -N 16          # 并发探测数，默认 16，可提高速度
+
+traceroute -I -q 1 -w 1 -n 8.163.126.172   # 实战最快组合
+
+sudo mtr -n 8.8.8.8       # 实时持续显示每跳丢包率和延迟
+sudo mtr -n -r -c 10      # 报告模式，一次性跑 10 次后输出汇总
+</code></pre>
+
+<h2 id="_10">思考题<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<ol>
+<li>为什么说 ping 通不代表目标 Web 服务可用？</li>
+<li>如果 traceroute 中第 8 跳和第 12 跳都有回复，但第 9-11 跳是 * * *，这能说明路径断了吗？</li>
+<li>在 traceroute 的回复中，ICMP Time Exceeded 和 ICMP Port Unreachable 分别起了什么作用？</li>
+<li>为什么出口带宽（家庭上行）对 traceroute 测量到的延迟影响如此之大？</li>
+</ol>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../" class="btn btn-neutral float-left" title="总览"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../02-dns/" class="btn btn-neutral float-right" title="02 - DNS：域名系统">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>CC0 1.0 Universal</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/sylar-qiu/grow-path" class="fa fa-code-fork" style="color: #fcfcfc"> sylar-qiu/grow-path</a>
+        </span>
+    
+    
+      <span><a href="../" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../02-dns/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+      <script src="../../js/version-select.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

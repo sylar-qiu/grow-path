@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://sylar-qiu.github.io/grow-path/2026-06/backend-integration/feishu-bitable-integration/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>飞书多维表 × qn-server 连调配置 - 成长笔记</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/version-select.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u98de\u4e66\u591a\u7ef4\u8868 \u00d7 qn-server \u8fde\u8c03\u914d\u7f6e";
+        var mkdocs_page_input_path = "backend-integration/feishu-bitable-integration.md";
+        var mkdocs_page_url = "/grow-path/2026-06/backend-integration/feishu-bitable-integration/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> 成长笔记
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">首页</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">浏览器扩展</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../browser-extension/">总览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >知识体系</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/01-manifest-reference/">01 - Manifest 字段详解</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/02-core-architecture/">02 - 核心架构层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/03-content-scripts/">03 - 内容脚本层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/04-service-worker/">04 - Service Worker 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/05-storage/">05 - 存储层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/06-ui-layer/">06 - UI 层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/07-network/">07 - 网络层</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/08-api-panorama/">08 - 浏览器 API 全景</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/09-devtools/">09 - DevTools 扩展</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/10-native-messaging/">10 - 原生通信</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/11-build-tooling/">11 - 构建与工程化</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/12-debugging-testing/">12 - 调试与测试</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/13-publishing/">13 - 发布与运维</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/14-cross-browser/">14 - 多浏览器兼容</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >实战案例（淘宝插件）</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-01-architecture/">01 - 架构与 Manifest</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-02-content-scripts/">02 - 内容脚本实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-03-service-worker/">03 - Service Worker 实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-04-storage/">04 - 存储层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-05-ui-layer/">05 - UI 层实战</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../browser-extension/case-06-engineering/">06 - 工程化与数据流</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">芯片设计</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/">总览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/01-ecosystem/">01 - 行业生态与角色定位</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/02-lifecycle/">02 - 全生命周期流程与惯例</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/03-business-decisions/">03 - 商务决策框架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/04-terminology/">04 - 关键术语深度辨析</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/05-client-communication/">05 - 客户沟通实战框架</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../chip-design/06-ip-knowledge/">06 - 半导体 IP 深度解析</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Web 服务器</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../web-server/">总览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../web-server/apache-handlers/">Apache Handler 全景</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">后端集成</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../">总览</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">飞书多维表 × qn-server 连调配置</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_1">一、整体架构</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">二、飞书侧配置</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#21-base">2.1 创建独立 Base 多维表</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#22">2.2 建列（字段名必须与映射一致）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#23">2.3 飞书开放平台 · 同一自建应用</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#24-base">2.4 Base 授权给应用（关键，易踩坑）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#25-pg-b">2.5 多维表自动化 · 飞书 → PG 回写（方案 B）</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ecs">三、ECS 服务器配置</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#31">3.1 目录与更新</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#32-env">3.2 编辑 .env</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#33">3.3 数据库迁移</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#34">3.4 启动服务</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#35">3.5 健康检查</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#36">3.6 安全组</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pg">四、PG → 飞书 同步</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#41-pg">4.1 前置：PG 有数据</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#42">4.2 触发同步到飞书</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#43-worker">4.3 查看 Worker 日志</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#44">4.4 查看同步审计</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#45-sync_map">4.5 验证 sync_map（可选）</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pg_1">五、飞书 → PG 回写验证</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#51-curl">5.1 手动 curl 测试</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#52-ui">5.2 飞书 UI 测试</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">六、故障排查</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#api">字段调试 API</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">七、配置检查清单</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_7">飞书</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ecs_1">ECS</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_8">八、附录</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#a-field_map">A. 默认 field_map（可不改）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#b-api">B. 相关 API</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#c-a-https">C. 方案 A（可选，需 HTTPS 域名）</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">网络知识</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../network/">总览</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../network/01-icmp/">01 - ICMP：互联网控制消息</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../network/02-dns/">02 - DNS：域名系统</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../network/03-ip/">03 - IP：寻址与路由</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../network/04-tcp-udp/">04 - TCP/UDP：传输层</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">日志</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../log/git-ssh-setup-mac-windows/">Git+SSH 配置备忘</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">成长笔记</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">后端集成</li>
+      <li class="breadcrumb-item active">飞书多维表 × qn-server 连调配置</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/sylar-qiu/grow-path/edit/master/docs/backend-integration/feishu-bitable-integration.md">Edit on sylar-qiu/grow-path</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="qn-server">飞书多维表 × qn-server 连调配置手册<a class="headerlink" href="#qn-server" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>适用场景</strong>：高转化关键词监控（<code>qn_metric_sycm_high_conv</code>）
+<strong>数据流</strong>：PG → 飞书多维表（指标同步）+ 飞书 → PG（处理状态回写）
+<strong>ECS 示例</strong>：<code>http://8.163.126.172:8080</code>
+<strong>代码版本</strong>：需 <code>7ca9ec1</code> 及以上（支持无 <code>record_id</code> 的自然键回写）</p>
+</blockquote>
+<hr />
+<h2 id="_1">一、整体架构<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<pre class="codehilite"><code>插件 ingest 排行明细
+        ↓
+aggregate.sycm.high_conv  →  qn_metric_sycm_high_conv (PostgreSQL)
+        ↓
+sync.bitable (Worker)     →  飞书多维表 (Upsert)
+        ↓
+运营在飞书改「处理状态」
+        ↓
+多维表自动化 · HTTP POST  →  /webhook/feishu/bitable
+        ↓
+更新 PG.status            →  Refine 后台刷新可见
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>方向</th>
+<th>触发方式</th>
+<th>依赖</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PG → 飞书</td>
+<td>Worker <code>sync.bitable</code></td>
+<td><code>.env</code> 多维表配置 + Base 授权</td>
+</tr>
+<tr>
+<td>飞书 → PG</td>
+<td>多维表自动化 HTTP</td>
+<td><code>FEISHU_WEBHOOK_TOKEN</code> + 自动化 Body</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_2">二、飞书侧配置<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="21-base">2.1 创建独立 Base 多维表<a class="headerlink" href="#21-base" title="Permanent link">&para;</a></h3>
+<ol>
+<li>飞书 → <strong>多维表格</strong> → <strong>新建多维表格</strong></li>
+<li>打开后 URL 形如：</li>
+</ol>
+<pre class="codehilite"><code>https://u1gkjqbgljc.feishu.cn/base/ADWJbOBPjaVPpEsB2ILcTNpvnbe?table=tblCqtaWNsvgeEs2&amp;view=vewBtYe1pP
+</code></pre>
+
+<p>从 URL 解析：</p>
+<table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>示例值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>app_token</strong></td>
+<td><code>ADWJbOBPjaVPpEsB2ILcTNpvnbe</code></td>
+<td><code>base/</code> 后面那段</td>
+</tr>
+<tr>
+<td><strong>table_id</strong></td>
+<td><code>tblCqtaWNsvgeEs2</code></td>
+<td><code>table=</code> 后面那段</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>知识库 Wiki 嵌入的表 URL 是 <code>wiki/...</code>，API 需额外换 token；<strong>推荐用独立 Base</strong>。</p>
+</blockquote>
+<h3 id="22">2.2 建列（字段名必须与映射一致）<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
+<p>在数据表 <code>tblCqtaWNsvgeEs2</code> 中创建以下列：</p>
+<table>
+<thead>
+<tr>
+<th>列名</th>
+<th>推荐类型</th>
+<th>PG 列 / 用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>搜索词</td>
+<td>文本</td>
+<td><code>keyword</code></td>
+</tr>
+<tr>
+<td>类目名称</td>
+<td>文本</td>
+<td><code>cate_label</code></td>
+</tr>
+<tr>
+<td>统计时间段</td>
+<td>文本</td>
+<td><code>stat_period_text</code></td>
+</tr>
+<tr>
+<td>转化指数</td>
+<td>文本</td>
+<td><code>conv_index</code></td>
+</tr>
+<tr>
+<td>增速</td>
+<td>文本</td>
+<td><code>search_growth</code></td>
+</tr>
+<tr>
+<td>人气中值</td>
+<td>文本</td>
+<td><code>pop_median</code></td>
+</tr>
+<tr>
+<td>组内排名</td>
+<td>文本</td>
+<td><code>conv_rank</code></td>
+</tr>
+<tr>
+<td><strong>处理状态</strong></td>
+<td><strong>单选</strong> 或 <strong>文本</strong></td>
+<td><code>status</code>（回写 PG）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>处理状态</strong> 单选建议选项：</p>
+<ul>
+<li>待处理</li>
+<li>跟进中</li>
+<li>已处理</li>
+<li>忽略</li>
+</ul>
+<blockquote>
+<p>列名必须与 <code>field_map</code> 一致（默认中文见上表）。类型推荐全部 <strong>文本</strong>，避免数字/单选格式转换问题。</p>
+</blockquote>
+<h3 id="23">2.3 飞书开放平台 · 同一自建应用<a class="headerlink" href="#23" title="Permanent link">&para;</a></h3>
+<p><strong>与 Refine 飞书登录共用同一个应用</strong>，不要新建第二个。</p>
+<h4 id="1">① 打开开放平台<a class="headerlink" href="#1" title="Permanent link">&para;</a></h4>
+<p>https://open.feishu.cn/app → 选择 <code>FEISHU_APP_ID</code> 对应的应用</p>
+<h4 id="2">② 权限管理<a class="headerlink" href="#2" title="Permanent link">&para;</a></h4>
+<p>搜索并开通：</p>
+<ul>
+<li><strong>查看、编辑和管理多维表格</strong>（权限码 <code>bitable:app</code>）</li>
+</ul>
+<p>保存后，若企业要求审批，等管理员通过。</p>
+<h4 id="3">③ 版本发布<a class="headerlink" href="#3" title="Permanent link">&para;</a></h4>
+<p><strong>版本管理与发布</strong> → <strong>创建版本</strong> → <strong>申请发布</strong>（或企业内可用）</p>
+<p>未发布 / 权限未生效时，API 会 403。</p>
+<h4 id="4-oauth">④ 网页应用（OAuth，若已配可跳过）<a class="headerlink" href="#4-oauth" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>主页</td>
+<td><code>http://8.163.126.172:8080/</code></td>
+</tr>
+<tr>
+<td>重定向 URL</td>
+<td><code>http://8.163.126.172:8080/auth/feishu/callback</code></td>
+</tr>
+<tr>
+<td>H5 可信域名</td>
+<td><code>8.163.126.172:8080</code></td>
+</tr>
+<tr>
+<td>IP 白名单</td>
+<td><code>8.163.126.172</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="5">⑤ 机器人能力（建议开启）<a class="headerlink" href="#5" title="Permanent link">&para;</a></h4>
+<p>应用详情 → <strong>机器人</strong> → 启用（便于部分场景识别应用）</p>
+<h3 id="24-base">2.4 Base 授权给应用（关键，易踩坑）<a class="headerlink" href="#24-base" title="Permanent link">&para;</a></h3>
+<p><strong>不是</strong> 普通「分享 → 添加协作者」，而是：</p>
+<ol>
+<li>打开 Base 页面</li>
+<li>右上角 <strong><code>···</code>（三个点）</strong> → <strong>更多</strong></li>
+<li><strong>添加文档应用</strong></li>
+<li>搜索 <strong>开放平台应用名称</strong></li>
+<li>权限选 <strong>可编辑</strong>（高级权限场景选 <strong>可管理</strong>）</li>
+</ol>
+<p>搜不到应用时检查：</p>
+<ul>
+<li>[ ] 已开 <code>bitable:app</code> 权限</li>
+<li>[ ] 已发布新版本</li>
+<li>[ ] 应用可用范围包含当前用户</li>
+</ul>
+<h3 id="25-pg-b">2.5 多维表自动化 · 飞书 → PG 回写（方案 B）<a class="headerlink" href="#25-pg-b" title="Permanent link">&para;</a></h3>
+<p>当前 ECS 为 <strong>HTTP + IP</strong>，无法用事件订阅（需 HTTPS 域名），用 <strong>多维表自动化</strong>。</p>
+<h4 id="_3">触发器<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>项</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>触发</td>
+<td><strong>修改记录时</strong></td>
+</tr>
+<tr>
+<td>数据表</td>
+<td>高转化监控表</td>
+</tr>
+<tr>
+<td>监听字段</td>
+<td><strong>仅勾选「处理状态」</strong></td>
+</tr>
+</tbody>
+</table>
+<h4 id="http">动作：发送 HTTP 请求<a class="headerlink" href="#http" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>项</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>方法</td>
+<td><code>POST</code></td>
+</tr>
+<tr>
+<td>URL</td>
+<td><code>http://8.163.126.172:8080/webhook/feishu/bitable</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>请求头（Header）</strong></p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Content-Type</code></td>
+<td><code>application/json</code></td>
+</tr>
+<tr>
+<td><code>X-Feishu-Webhook-Token</code></td>
+<td>见 ECS <code>.env</code> 中 <code>FEISHU_WEBHOOK_TOKEN</code>（自行生成，非飞书 Dev 后台）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>请求体（Body）· Raw 格式 JSON</strong></p>
+<p>先写固定键名，冒号后面用 <strong>「+」插入变量</strong>（来自「第 1 步 · 修改的记录」）：</p>
+<pre class="codehilite"><code class="language-json">{
+  &quot;pg_table&quot;: &quot;qn_metric_sycm_high_conv&quot;,
+  &quot;fields&quot;: {
+    &quot;keyword&quot;: &quot;← 插入变量：搜索词&quot;,
+    &quot;stat_period_text&quot;: &quot;← 插入变量：统计时间段&quot;,
+    &quot;cate_label&quot;: &quot;← 插入变量：类目名称&quot;,
+    &quot;status&quot;: &quot;← 插入变量：处理状态&quot;
+  }
+}
+</code></pre>
+
+<p><strong>变量对照</strong></p>
+<table>
+<thead>
+<tr>
+<th>JSON 键</th>
+<th>插入的飞书变量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pg_table</code></td>
+<td>固定手打 <code>qn_metric_sycm_high_conv</code>（不用变量）</td>
+</tr>
+<tr>
+<td><code>fields.keyword</code></td>
+<td>第1步 → 搜索词</td>
+</tr>
+<tr>
+<td><code>fields.stat_period_text</code></td>
+<td>第1步 → 统计时间段</td>
+</tr>
+<tr>
+<td><code>fields.cate_label</code></td>
+<td>第1步 → 类目名称</td>
+</tr>
+<tr>
+<td><code>fields.status</code></td>
+<td>第1步 → 处理状态（即改完后的新值）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>不需要 <code>record_id</code></strong>。服务端用三列定位 PG 行（需代码 ≥ <code>7ca9ec1</code>）。</p>
+</blockquote>
+<p><strong>响应配置（出参）</strong></p>
+<p>留空 <code>{}</code> 即可，<strong>无需处理</strong>。本场景为单向通知，不解析 HTTP 响应。</p>
+<h4 id="_4">保存并启用<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<p>改一行「处理状态」→ 自动化 <strong>运行历史</strong> 应看到 <code>status_code: 200</code>，body 含 <code>"ok":true</code>。</p>
+<hr />
+<h2 id="ecs">三、ECS 服务器配置<a class="headerlink" href="#ecs" title="Permanent link">&para;</a></h2>
+<h3 id="31">3.1 目录与更新<a class="headerlink" href="#31" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-bash"># 仓库路径
+/projects/server
+
+# 日常更新（含 API + Worker 重启）
+qn-update
+</code></pre>
+
+<p>首次安装 <code>qn-update</code>：</p>
+<pre class="codehilite"><code class="language-bash">sudo install -m 755 /projects/server/deploy/qn-update /usr/local/bin/qn-update
+</code></pre>
+
+<h3 id="32-env">3.2 编辑 <code>.env</code><a class="headerlink" href="#32-env" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-bash">vi /projects/server/.env
+</code></pre>
+
+<p>在现有配置基础上，补充或确认以下项：</p>
+<pre class="codehilite"><code class="language-bash"># --- 基础 ---
+HOST=0.0.0.0
+PORT=8080
+API_BASE=http://8.163.126.172:8080
+DATABASE_URL=postgres://qn:***@127.0.0.1:5432/qn
+INGEST_API_KEY=你的随机密钥
+
+# --- 飞书 OAuth（Refine 登录，与多维表 API 同一应用）---
+FEISHU_APP_ID=cli_xxxxxxxx
+FEISHU_APP_SECRET=xxxxxxxxxxxxxxxx
+FEISHU_REDIRECT_URI=http://8.163.126.172:8080/auth/feishu/callback
+
+SESSION_SECRET=随机长字符串
+COOKIE_SECURE=false
+
+# --- Worker ---
+SYNC_AFTER_INGEST=true
+WORKER_SCHEDULE_ENABLED=true
+AGGREGATE_RANK_CRON=0 */6 * * *
+
+# --- 飞书多维表 · 高转化监控 ---
+FEISHU_BITABLE_APP_TOKEN=ADWJbOBPjaVPpEsB2ILcTNpvnbe
+FEISHU_BITABLE_TABLE_METRIC_SYCM_HIGH_CONV=tblCqtaWNsvgeEs2
+
+# PG 列 → 飞书列名（JSON 一行；列名与 Base 一致时可照抄）
+FEISHU_BITABLE_FIELD_MAP_METRIC_SYCM_HIGH_CONV={&quot;keyword&quot;:&quot;搜索词&quot;,&quot;cate_label&quot;:&quot;类目名称&quot;,&quot;stat_period_text&quot;:&quot;统计时间段&quot;,&quot;conv_index&quot;:&quot;转化指数&quot;,&quot;search_growth&quot;:&quot;增速&quot;,&quot;pop_median&quot;:&quot;人气中值&quot;,&quot;conv_rank&quot;:&quot;组内排名&quot;,&quot;status&quot;:&quot;处理状态&quot;}
+
+# Webhook 回写鉴权（自己生成，勿提交 Git）
+# 生成示例：openssl rand -hex 32
+FEISHU_WEBHOOK_TOKEN=在这里填你生成的随机字符串
+</code></pre>
+
+<blockquote>
+<p><code>FEISHU_WEBHOOK_TOKEN</code> <strong>不是</strong>飞书开放平台里的 Verification Token，是 qn-server 自定义的共享密钥。</p>
+</blockquote>
+<h3 id="33">3.3 数据库迁移<a class="headerlink" href="#33" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-bash">cd /projects/server
+npm run db:migrate
+</code></pre>
+
+<p>需包含：</p>
+<ul>
+<li><code>007_bitable_sync.sql</code> — sync_map、sync_log</li>
+<li><code>009_sycm_high_conv_metric.sql</code> — 高转化指标表</li>
+<li><code>010_sycm_high_conv_status.sql</code> — <code>status</code> 列</li>
+</ul>
+<h3 id="34">3.4 启动服务<a class="headerlink" href="#34" title="Permanent link">&para;</a></h3>
+<p><code>qn-update</code> 会自动：</p>
+<ol>
+<li><code>git pull</code></li>
+<li><code>npm install</code> + <code>build:web</code></li>
+<li><code>db:migrate</code></li>
+<li>重启 API（<code>npm start</code>）和 Worker（<code>npm run dev:worker</code>）</li>
+</ol>
+<p>手动确认进程：</p>
+<pre class="codehilite"><code class="language-bash">pgrep -af &quot;node apps/api/src/server.js&quot;
+pgrep -af &quot;node apps/worker/src/worker.js&quot;
+</code></pre>
+
+<h3 id="35">3.5 健康检查<a class="headerlink" href="#35" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-bash">curl -s http://127.0.0.1:8080/health | python3 -m json.tool
+</code></pre>
+
+<p>期望：</p>
+<pre class="codehilite"><code class="language-json">{
+  &quot;status&quot;: &quot;ok&quot;,
+  &quot;bitable&quot;: {
+    &quot;sycm_high_conv&quot;: &quot;configured&quot;
+  }
+}
+</code></pre>
+
+<h3 id="36">3.6 安全组<a class="headerlink" href="#36" title="Permanent link">&para;</a></h3>
+<p>阿里云 ECS 安全组需放行 <strong>8080</strong>（飞书 HTTP 自动化从公网访问）。</p>
+<hr />
+<h2 id="pg">四、PG → 飞书 同步<a class="headerlink" href="#pg" title="Permanent link">&para;</a></h2>
+<h3 id="41-pg">4.1 前置：PG 有数据<a class="headerlink" href="#41-pg" title="Permanent link">&para;</a></h3>
+<p>插件 ingest 后，需聚合高转化 Top10：</p>
+<pre class="codehilite"><code class="language-bash">curl -X POST 'http://127.0.0.1:8080/api/sync/enqueue' \
+  -H 'Content-Type: application/json' \
+  -H 'X-API-Key: 你的INGEST_API_KEY' \
+  -d '{&quot;job&quot;:&quot;aggregate.sycm.high_conv&quot;}'
+</code></pre>
+
+<h3 id="42">4.2 触发同步到飞书<a class="headerlink" href="#42" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-bash">curl -X POST 'http://127.0.0.1:8080/api/sync/enqueue' \
+  -H 'Content-Type: application/json' \
+  -H 'X-API-Key: 你的INGEST_API_KEY' \
+  -d '{&quot;job&quot;:&quot;sync.bitable&quot;,&quot;data&quot;:{&quot;metric&quot;:&quot;sycm_high_conv&quot;}}'
+</code></pre>
+
+<h3 id="43-worker">4.3 查看 Worker 日志<a class="headerlink" href="#43-worker" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-bash">tail -f /projects/server/qn-worker.log
+</code></pre>
+
+<p>期望：</p>
+<pre class="codehilite"><code>[sync.bitable] start { metric: 'sycm_high_conv', ... }
+[sync.bitable] done { synced: 10, failed: 0, ... }
+</code></pre>
+
+<h3 id="44">4.4 查看同步审计<a class="headerlink" href="#44" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-bash">curl -s 'http://127.0.0.1:8080/api/sync/log?limit=10' \
+  -H 'X-API-Key: 你的INGEST_API_KEY' | python3 -m json.tool
+</code></pre>
+
+<p>或 Refine 后台查看同步日志。</p>
+<h3 id="45-sync_map">4.5 验证 sync_map（可选）<a class="headerlink" href="#45-sync_map" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-bash">psql &quot;$DATABASE_URL&quot; -c &quot;
+SELECT h.keyword, m.bitable_record_id, h.status
+FROM qn_metric_sycm_high_conv h
+JOIN qn_feishu_sync_map m ON m.pg_id = h.id
+WHERE m.pg_table = 'qn_metric_sycm_high_conv'
+LIMIT 5;
+&quot;
+</code></pre>
+
+<hr />
+<h2 id="pg_1">五、飞书 → PG 回写验证<a class="headerlink" href="#pg_1" title="Permanent link">&para;</a></h2>
+<h3 id="51-curl">5.1 手动 curl 测试<a class="headerlink" href="#51-curl" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-bash">curl -X POST 'http://8.163.126.172:8080/webhook/feishu/bitable' \
+  -H 'Content-Type: application/json' \
+  -H 'X-Feishu-Webhook-Token: 你的FEISHU_WEBHOOK_TOKEN' \
+  -d '{
+    &quot;pg_table&quot;: &quot;qn_metric_sycm_high_conv&quot;,
+    &quot;fields&quot;: {
+      &quot;keyword&quot;: &quot;飞书里某行的搜索词&quot;,
+      &quot;stat_period_text&quot;: &quot;飞书里该行的统计时间段&quot;,
+      &quot;cate_label&quot;: &quot;飞书里该行的类目名称&quot;,
+      &quot;status&quot;: &quot;已处理&quot;
+    }
+  }'
+</code></pre>
+
+<p>成功响应：</p>
+<pre class="codehilite"><code class="language-json">{&quot;ok&quot;:true,&quot;updated&quot;:1,&quot;pgId&quot;:&quot;uuid...&quot;,&quot;pgTable&quot;:&quot;qn_metric_sycm_high_conv&quot;}
+</code></pre>
+
+<h3 id="52-ui">5.2 飞书 UI 测试<a class="headerlink" href="#52-ui" title="Permanent link">&para;</a></h3>
+<ol>
+<li>在多维表改一行「处理状态」</li>
+<li>自动化 → <strong>运行历史</strong> → 查看 HTTP 状态码与响应</li>
+<li>Refine 刷新高转化列表，对应词 <code>status</code> 应已更新</li>
+</ol>
+<hr />
+<h2 id="_5">六、故障排查<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>原因</th>
+<th>处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bitable_not_configured</code></td>
+<td><code>.env</code> 缺 token/table_id</td>
+<td>补 <code>.env</code> 后 <code>qn-update</code></td>
+</tr>
+<tr>
+<td><code>FieldNameNotFound</code></td>
+<td>飞书列名与 field_map 不一致</td>
+<td>对齐列名或改 field_map JSON</td>
+</tr>
+<tr>
+<td><code>NumberFieldConvFail</code> / <code>TextFieldConvFail</code></td>
+<td>列类型与写入值不匹配</td>
+<td>列改文本，或对齐格式</td>
+</tr>
+<tr>
+<td>sync 总是 <code>rank_daily</code> skip</td>
+<td>Worker 未更新到 pg-boss v10 修复版</td>
+<td><code>qn-update</code> 到最新 main</td>
+</tr>
+<tr>
+<td>Webhook <code>invalid_payload</code>（无 reason）</td>
+<td>ECS 代码过旧，仍要求 record_id</td>
+<td><code>qn-update</code> 到 ≥ <code>7ca9ec1</code></td>
+</tr>
+<tr>
+<td><code>missing_ops_fields</code></td>
+<td>Body 缺 <code>fields.status</code></td>
+<td>检查自动化 JSON</td>
+</tr>
+<tr>
+<td><code>record_not_found</code></td>
+<td>三列与 PG 不完全一致</td>
+<td>对照 PG 与飞书单元格文本</td>
+</tr>
+<tr>
+<td><code>unauthorized</code></td>
+<td>Token 不一致</td>
+<td>Header 与 <code>.env</code> 对齐</td>
+</tr>
+<tr>
+<td>自动化不触发</td>
+<td>规则未启用 / 未监听处理状态</td>
+<td>检查触发条件</td>
+</tr>
+<tr>
+<td>HTTP 连接失败</td>
+<td>8080 未对公网开放</td>
+<td>阿里云安全组放行</td>
+</tr>
+<tr>
+<td>timeout / 504</td>
+<td>飞书自动化 HTTP 超时（≤5s）</td>
+<td>检查 PG 查询性能或 ECS 负载</td>
+</tr>
+</tbody>
+</table>
+<h3 id="api">字段调试 API<a class="headerlink" href="#api" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-bash">curl -s 'http://127.0.0.1:8080/api/sync/bitable-fields?metric=sycm_high_conv' \
+  -H 'X-API-Key: 你的INGEST_API_KEY' | python3 -m json.tool
+</code></pre>
+
+<p>返回飞书实际字段名与期望 field_map，用于对齐列名。</p>
+<hr />
+<h2 id="_6">七、配置检查清单<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="_7">飞书<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] 独立 Base 已创建，URL 可解析 app_token / table_id</li>
+<li>[ ] 8 列已建好，列名与 field_map 一致</li>
+<li>[ ] 开放平台同一应用已开 <code>bitable:app</code> 并已发布</li>
+<li>[ ] Base 已通过「添加文档应用」授权（可编辑）</li>
+<li>[ ] 自动化：修改记录时 · 仅处理状态 · HTTP POST 已启用</li>
+<li>[ ] Body 含 <code>pg_table</code> + <code>fields</code> 四变量</li>
+<li>[ ] Header 含 <code>X-Feishu-Webhook-Token</code></li>
+</ul>
+<h3 id="ecs_1">ECS<a class="headerlink" href="#ecs_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] <code>.env</code> 飞书 OAuth + Bitable + WEBHOOK_TOKEN 已填</li>
+<li>[ ] <code>npm run db:migrate</code> 已执行</li>
+<li>[ ] API + Worker 进程在跑</li>
+<li>[ ] <code>/health</code> 显示 <code>sycm_high_conv: configured</code></li>
+<li>[ ] 安全组 8080 已放行</li>
+<li>[ ] 代码 ≥ <code>7ca9ec1</code></li>
+<li>[ ] <code>sync.bitable</code> 已成功（飞书表有数据）</li>
+<li>[ ] Webhook curl 测试返回 <code>ok: true</code></li>
+</ul>
+<hr />
+<h2 id="_8">八、附录<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<h3 id="a-field_map">A. 默认 field_map（可不改）<a class="headerlink" href="#a-field_map" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-json">{
+  &quot;keyword&quot;: &quot;搜索词&quot;,
+  &quot;cate_label&quot;: &quot;类目名称&quot;,
+  &quot;stat_period_text&quot;: &quot;统计时间段&quot;,
+  &quot;conv_index&quot;: &quot;转化指数&quot;,
+  &quot;search_growth&quot;: &quot;增速&quot;,
+  &quot;pop_median&quot;: &quot;人气中值&quot;,
+  &quot;conv_rank&quot;: &quot;组内排名&quot;,
+  &quot;status&quot;: &quot;处理状态&quot;
+}
+</code></pre>
+
+<h3 id="b-api">B. 相关 API<a class="headerlink" href="#b-api" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>路径</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>POST</td>
+<td><code>/webhook/feishu/bitable</code></td>
+<td>飞书自动化回写</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/webhook/feishu/event</code></td>
+<td>事件订阅（需 HTTPS）</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/api/sync/enqueue</code></td>
+<td>手动触发 aggregate / sync</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/sync/log</code></td>
+<td>同步日志</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/sync/bitable-fields</code></td>
+<td>飞书字段调试</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/health</code></td>
+<td>健康与 bitable 配置状态</td>
+</tr>
+</tbody>
+</table>
+<h3 id="c-a-https">C. 方案 A（可选，需 HTTPS 域名）<a class="headerlink" href="#c-a-https" title="Permanent link">&para;</a></h3>
+<p>若将来有 HTTPS 域名，可在开放平台配置事件订阅：</p>
+<ul>
+<li>URL：<code>https://你的域名/webhook/feishu/event</code></li>
+<li>事件：<code>drive.file.bitable_record_changed_v1</code></li>
+</ul>
+<p>则不必配多维表自动化，服务端会自动拉取「处理状态」回写 PG。</p>
+<hr />
+<blockquote>
+<p><strong>来源</strong>：qn-server 项目文档 <code>docs/feishu-bitable-integration.md</code>
+<strong>文档版本</strong>：2026-06-05 · qn-server main ≥ 7ca9ec1</p>
+</blockquote>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../" class="btn btn-neutral float-left" title="总览"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../network/" class="btn btn-neutral float-right" title="总览">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>CC0 1.0 Universal</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/sylar-qiu/grow-path" class="fa fa-code-fork" style="color: #fcfcfc"> sylar-qiu/grow-path</a>
+        </span>
+    
+    
+      <span><a href="../" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../network/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+      <script src="../../js/version-select.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
