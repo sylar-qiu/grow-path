@@ -52,9 +52,10 @@ nav:
     - 飞书多维表 × qn-server 连调配置: backend-integration/feishu-bitable-integration.md
   - 网络知识:
     - 总览: network/index.md
-    - 01 - macOS 诊断工具: network/01-diagnostic-tools.md
-    - 02 - Traceroute 原理: network/02-traceroute.md
-    - 03 - DNS 记录类型: network/03-dns-records.md
+    - 01 - ICMP：互联网控制消息: network/01-icmp.md
+    - 02 - DNS：域名系统: network/02-dns.md
+    - 03 - IP：寻址与路由: network/03-ip.md
+    - 04 - TCP/UDP：传输层: network/04-tcp-udp.md
   - 日志:
     - Git+SSH 配置备忘: log/git-ssh-setup-mac-windows.md
 
