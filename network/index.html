@@ -135,11 +135,13 @@
     </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="01-diagnostic-tools/">01 - macOS 诊断工具</a>
+                  <li class="toctree-l1"><a class="reference internal" href="01-icmp/">01 - ICMP：互联网控制消息</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="02-traceroute/">02 - Traceroute 原理</a>
+                  <li class="toctree-l1"><a class="reference internal" href="02-dns/">02 - DNS：域名系统</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="03-dns-records/">03 - DNS 记录类型</a>
+                  <li class="toctree-l1"><a class="reference internal" href="03-ip/">03 - IP：寻址与路由</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="04-tcp-udp/">04 - TCP/UDP：传输层</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">日志</span></p>
@@ -173,45 +175,61 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="_1">网络知识<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>日常网络诊断与原理认知的笔记汇总。不是教科书，是实践导向的速查和理解记录。</p>
+<p>面向原理的网络知识体系。所有知识<strong>从协议出发</strong>，先讲清楚协议本身的定位和设计，再延伸到对应的工具实践和诊断思路。</p>
+<p>不是工具速查手册，是理解网络运转原理的成长笔记。</p>
 <hr />
 <table>
 <thead>
 <tr>
 <th>章节</th>
-<th>内容</th>
+<th>文章</th>
+<th>协议层</th>
+<th>对应工具实践</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><a href="01-diagnostic-tools/">01 — macOS 网络诊断工具</a></td>
-<td>从连通性到路由追踪的分层命令速查</td>
+<td>01</td>
+<td><a href="01-icmp/">ICMP：互联网控制消息</a></td>
+<td>网络层·控制面</td>
+<td>ping / traceroute / 差错报告</td>
 </tr>
 <tr>
-<td><a href="02-traceroute/">02 — Traceroute 原理</a></td>
-<td>TTL、ICMP Time Exceeded、静默跳的机制</td>
+<td>02</td>
+<td><a href="02-dns/">DNS：域名系统</a></td>
+<td>应用层</td>
+<td>nslookup / dig / 记录类型</td>
 </tr>
 <tr>
-<td><a href="03-dns-records/">03 — DNS 记录类型</a></td>
-<td>A/AAAA/CNAME/MX/TXT/NS/PTR 详解</td>
+<td>03</td>
+<td><a href="03-ip/">IP：寻址与路由</a></td>
+<td>网络层</td>
+<td>ifconfig / route / netstat / TTL / 分片</td>
+</tr>
+<tr>
+<td>04</td>
+<td><a href="04-tcp-udp/">TCP/UDP：传输层</a></td>
+<td>传输层</td>
+<td>nc / lsof / netstat / 端口状态</td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h2 id="_2">核心认知<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>IP 是无连接、逐跳转发的协议</strong> — 每个路由器只知道下一跳，不知道整条路径</li>
-<li><strong>TTL</strong> 是数据包的生存跳数计数器，每经过一跳减 1，减到 0 触发 ICMP Time Exceeded</li>
-<li><strong>跳数反映网络层次复杂度</strong>，不是物理距离；时耗大头在出口带宽的串行化延迟，不在每跳的路由处理</li>
-<li><strong>静默跳</strong> — 路由器配置为不回复 ICMP Time Exceeded，traceroute 无法获知该跳 IP</li>
-<li><strong>DNS 与路由是分离的两层</strong> — DNS 解决域名→IP 的映射，IP 路由解决数据包怎么走</li>
+<li><strong>IP 是无连接、逐跳转发的协议</strong> — 每个路由器只知道下一跳，不知道整条路径，更不会把上一跳的信息随包带走</li>
+<li><strong>TTL</strong> 是数据包的生存跳数计数器，每经一跳减 1，减到 0 触发 ICMP Time Exceeded</li>
+<li><strong>静默跳</strong> — 路由器配置为不回复 ICMP Time Exceeded，traceroute 无法获知该跳的 IP。这<strong>不代表路径不通</strong></li>
+<li><strong>DNS 与路由是分离的两层</strong> — DNS 解决域名→IP 的映射，IP 路由解决数据包怎么走。ifconfig.me 不是操作系统工具，是外部 HTTP 服务</li>
+<li><strong>串行化时延集中在出口带宽最低的链路上</strong>（通常是家庭上行），骨干网的高带宽链路段串行化时延可忽略</li>
+<li><strong>TCP 三次握手</strong>保证连接建立在真实的请求上（防止旧 SYN 重放）；<strong>四次挥手</strong>的 TIME_WAIT 确保旧包消失后才关闭</li>
 </ul>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
         <a href="../backend-integration/feishu-bitable-integration/" class="btn btn-neutral float-left" title="飞书多维表 × qn-server 连调配置"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="01-diagnostic-tools/" class="btn btn-neutral float-right" title="01 - macOS 诊断工具">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="01-icmp/" class="btn btn-neutral float-right" title="01 - ICMP：互联网控制消息">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -242,7 +260,7 @@
       <span><a href="../backend-integration/feishu-bitable-integration/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="01-diagnostic-tools/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="01-icmp/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

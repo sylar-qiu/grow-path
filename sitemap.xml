@@ -133,15 +133,19 @@
          <lastmod>2026-06-08</lastmod>
     </url>
     <url>
-         <loc>https://sylar-qiu.github.io/grow-path/network/01-diagnostic-tools/</loc>
+         <loc>https://sylar-qiu.github.io/grow-path/network/01-icmp/</loc>
          <lastmod>2026-06-08</lastmod>
     </url>
     <url>
-         <loc>https://sylar-qiu.github.io/grow-path/network/02-traceroute/</loc>
+         <loc>https://sylar-qiu.github.io/grow-path/network/02-dns/</loc>
          <lastmod>2026-06-08</lastmod>
     </url>
     <url>
-         <loc>https://sylar-qiu.github.io/grow-path/network/03-dns-records/</loc>
+         <loc>https://sylar-qiu.github.io/grow-path/network/03-ip/</loc>
+         <lastmod>2026-06-08</lastmod>
+    </url>
+    <url>
+         <loc>https://sylar-qiu.github.io/grow-path/network/04-tcp-udp/</loc>
          <lastmod>2026-06-08</lastmod>
     </url>
     <url>
