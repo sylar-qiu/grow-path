@@ -119,114 +119,34 @@
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">Apache Handler 全景</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#_1">一、静态文件服务</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#default-handler">default-handler（核心，内置）</a>
-    </li>
-        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_2">二、内容协商与类型映射</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#type-mapmod_negotiation">type-map（mod_negotiation）</a>
-    </li>
-        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_3">三、目录索引</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#autoindexmod_autoindex">autoindex（mod_autoindex）</a>
-    </li>
-        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#ssi">四、服务端包含（SSI）</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#server-parsed-server-parsed-htmlmod_include">server-parsed / server-parsed-html（mod_include）</a>
-    </li>
-        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#http">五、原始 HTTP 输出</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#send-as-ismod_asis">send-as-is（mod_asis）</a>
-    </li>
-        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_4">六、图像地图</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#imap-filemod_imagemap">imap-file（mod_imagemap）</a>
-    </li>
-        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_5">七、服务器状态 / 信息</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#server-statusmod_status">server-status（mod_status）</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#server-infomod_info">server-info（mod_info）</a>
-    </li>
-        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#cgicommon-gateway-interface">八、CGI（Common Gateway Interface）</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#cgi-scriptmod_cgi-mod_cgid">cgi-script（mod_cgi / mod_cgid）</a>
-    </li>
-        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#fastcgiproxy">九、FastCGI（Proxy 模式）</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#proxyfcgimod_proxy_fcgi">proxy:fcgi://（mod_proxy_fcgi）</a>
-    </li>
-        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_6">十、通用反向代理</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#proxyhttp-proxyhttpsmod_proxy_http">proxy:http:// / proxy:https://（mod_proxy_http）</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#proxyajpmod_proxy_ajp">proxy:ajp://（mod_proxy_ajp）</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#proxyws-proxywssmod_proxy_wstunnel">proxy:ws:// / proxy:wss://（mod_proxy_wstunnel）</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#proxyh2-proxyh2cmod_proxy_http2">proxy:h2:// / proxy:h2c://（mod_proxy_http2）</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#proxybalancermod_proxy_balancer">proxy:balancer://（mod_proxy_balancer）</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#proxyftpmod_proxy_ftp">proxy:ftp://（mod_proxy_ftp）</a>
-    </li>
-        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_7">十一、嵌入式脚本语言模块</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#php_modulemod_php">php*_module（mod_php）</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#perl-scriptmod_perl">perl-script（mod_perl）</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#wsgi-scriptmod_wsgi">wsgi-script（mod_wsgi）</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#python-scriptmod_python">python-script（mod_python，已废弃）</a>
-    </li>
-        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_8">十二、动作触发</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#actionmod_actions">action（mod_actions）</a>
-    </li>
-        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#handler">十三、过滤链作为 Handler</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#addoutputfilter">通过 AddOutputFilter 设置</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#mod_filterfilter">mod_filter（Filter 链配置）</a>
-    </li>
-        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#http2">十四、HTTP/2 协议支持</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#mod_http2-handler">mod_http2（协议升级，非传统 Handler）</a>
-    </li>
-        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#tlsssl">十五、TLS/SSL</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#mod_ssl-handler">mod_ssl（连接级安全，非 Handler）</a>
-    </li>
-        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#handler_1">十六、完整的 Handler 注册与匹配顺序</a>
     </li>
